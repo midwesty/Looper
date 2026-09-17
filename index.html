@@ -147,10 +147,98 @@ body.prepping #prompt{bottom:calc(56vh + 8px)}
 /* ---------- TOUCH CONTROLS ---------- */
 #touch{position:fixed;inset:0;z-index:15;pointer-events:none;display:none}
 #touch.on{display:block}
+body.locked{cursor:none}
+/* ---------- DRESSED DASH ---------- */
+.gauge .art{display:none}
+#dash.dressed .gauge .art{display:block;margin:0 auto 3px;overflow:visible}
+#dash.dressed{padding-top:7px}
+#dash.dressed .gauge .lab{order:3;font-size:8px;letter-spacing:.2em;
+  color:var(--c-brass-dim);margin-top:2px}
+#dash.dressed .gauge{display:flex;flex-direction:column;align-items:center}
+#dash.dressed .gauge .val{order:2;font-size:15px;line-height:1.05;
+  color:#7ee0a4;text-shadow:0 0 10px rgba(79,180,119,.55)}
+#dash.dressed .gauge.caution .val{color:var(--c-warn);
+  text-shadow:0 0 10px rgba(224,163,62,.6)}
+#dash.dressed .gauge.alarm .val{color:#ff7b74;
+  text-shadow:0 0 11px rgba(217,83,79,.7)}
+#dash.dressed .gauge .sub{order:4;font-size:8.5px}
+#dash.dressed .gauge .bar{display:none}
+/* ---------- MINIMAP ---------- */
+#mini{position:fixed;z-index:9;pointer-events:none;display:none;
+  border:1px solid var(--c-line);border-radius:50%;overflow:hidden;background:#0c1319;
+  box-shadow:0 3px 14px rgba(0,0,0,.55), inset 0 0 22px rgba(0,0,0,.6)}
+#mini.on{display:block}
+#mini canvas{display:block}
+#mini .rng{position:absolute;left:50%;bottom:9px;transform:translateX(-50%);
+  font-family:var(--f-data);font-size:8.5px;color:var(--c-ink-dim);
+  background:rgba(6,10,13,.6);padding:1px 5px;border-radius:2px}
+#mini .ck{position:absolute;font-family:var(--f-display);font-size:9px;
+  letter-spacing:.1em;color:var(--c-brass);opacity:.8}
+#mini .ck.n{top:3px;left:50%;transform:translateX(-50%)}
+#mini .ck.s{bottom:3px;left:50%;transform:translateX(-50%)}
+#mini .ck.e{right:4px;top:50%;transform:translateY(-50%)}
+#mini .ck.w{left:4px;top:50%;transform:translateY(-50%)}
 /* on desktop the stick isn't needed, but the buttons are just as welcome */
 #touch.desk #stick{display:none}
 #touch.desk #rail{gap:7px}
 #touch.desk .iconbtn{width:42px;height:42px;font-size:19px}
+/* ---------- BROKERAGE ---------- */
+#broker{position:fixed;inset:0;z-index:40;display:none;
+  background:rgba(4,7,9,.72);backdrop-filter:blur(3px);
+  align-items:center;justify-content:center;padding:18px}
+#broker.on{display:flex}
+#broker .sheet{width:min(520px,100%);background:var(--c-panel);
+  border:1px solid var(--c-line);border-radius:6px;overflow:hidden;
+  box-shadow:0 18px 50px rgba(0,0,0,.6);max-height:88vh;overflow-y:auto}
+#broker h2{margin:0;font-family:var(--f-display);font-weight:400;font-size:15px;
+  letter-spacing:.14em;text-transform:uppercase;padding:13px 16px;
+  border-bottom:1px solid var(--c-line);color:var(--c-brass)}
+#brokerNow{padding:12px 16px;border-bottom:1px solid var(--c-line);
+  font-size:12px;color:var(--c-ink-dim);line-height:1.6}
+#brokerNow b{color:var(--c-ink)}
+.boat{padding:12px 16px;border-bottom:1px solid rgba(43,58,70,.55);cursor:pointer}
+.boat:hover{background:var(--c-panel-2)}
+.boat.own{opacity:.5;cursor:default}
+.boat .bt{display:flex;align-items:baseline;gap:8px}
+.boat .bn{font-size:13.5px;flex:1}
+.boat .bp{font-family:var(--f-data);font-size:12px;color:var(--c-brass)}
+.boat .bs{font-family:var(--f-data);font-size:10px;color:var(--c-ink-dim);margin-top:5px}
+.boat .bw{font-size:11px;color:var(--c-ink-dim);margin-top:5px;line-height:1.5}
+.boat .due{font-family:var(--f-data);font-size:10.5px;margin-top:5px}
+.boat .due.can{color:var(--c-good)} .boat .due.cant{color:var(--c-bad)}
+#broker .srow{display:flex;gap:8px;padding:13px 16px}
+#broker .srow button{flex:1;font-family:var(--f-display);font-size:10.5px;
+  letter-spacing:.12em;text-transform:uppercase;padding:10px;border-radius:3px;
+  cursor:pointer;background:var(--c-panel-2);border:1px solid var(--c-line);color:var(--c-ink)}
+/* ---------- SAVE SHEET ---------- */
+#saveui{position:fixed;inset:0;z-index:40;display:none;
+  background:rgba(4,7,9,.72);backdrop-filter:blur(3px);
+  align-items:center;justify-content:center;padding:18px}
+#saveui.on{display:flex}
+#saveui .sheet{width:min(430px,100%);background:var(--c-panel);
+  border:1px solid var(--c-line);border-radius:6px;overflow:hidden;
+  box-shadow:0 18px 50px rgba(0,0,0,.6);max-height:88vh;overflow-y:auto}
+#saveui h2{margin:0;font-family:var(--f-display);font-weight:400;font-size:15px;
+  letter-spacing:.14em;text-transform:uppercase;padding:13px 16px;
+  border-bottom:1px solid var(--c-line);color:var(--c-brass)}
+.slot{display:flex;align-items:center;gap:12px;padding:12px 16px;
+  border-bottom:1px solid rgba(43,58,70,.55);cursor:pointer}
+.slot:hover,.slot.sel{background:var(--c-panel-2)}
+.slot.sel{box-shadow:inset 3px 0 0 var(--c-brass)}
+.slot .no{font-family:var(--f-display);font-size:12px;color:var(--c-brass-dim);
+  width:16px;flex:none}
+.slot .meta{flex:1;min-width:0}
+.slot .nm{font-size:13px}
+.slot .sub{font-family:var(--f-data);font-size:10px;color:var(--c-ink-dim);margin-top:3px}
+.slot.empty .nm{color:var(--c-ink-dim);font-style:italic}
+.slot .del{font-size:15px;opacity:.45;padding:2px 6px;flex:none}
+.slot .del:hover{opacity:1}
+#saveui .srow{display:flex;flex-wrap:wrap;gap:8px;padding:13px 16px}
+#saveui .srow button{flex:1 1 44%;font-family:var(--f-display);font-size:10.5px;
+  letter-spacing:.12em;text-transform:uppercase;padding:10px;border-radius:3px;
+  cursor:pointer;background:var(--c-panel-2);border:1px solid var(--c-line);color:var(--c-ink)}
+#saveui .srow button.pri{background:var(--c-brass);border-color:var(--c-brass);color:#151007}
+#saveui .note{padding:0 16px 14px;font-size:11px;color:var(--c-ink-dim);line-height:1.5}
 #keysBox{margin:8px 0 10px}
 #keysBox>summary{font-family:var(--f-display);font-size:9px;letter-spacing:.18em;
   color:var(--c-brass);cursor:pointer;margin-bottom:6px;text-transform:uppercase}
@@ -515,6 +603,8 @@ button.bk.sel{color:var(--c-brass);border-color:var(--c-brass-dim);background:va
   <button class="iconbtn" id="btnView" title="Toggle view (V)">👁</button>
   <button class="iconbtn" id="btnTablet" title="Tablet (Tab)">📋</button>
   <button class="iconbtn" id="btnSet" title="Settings">⚙</button>
+  <button class="iconbtn" id="btnBroker" title="Brokerage — buy a boat" style="display:none">🛥️</button>
+  <button class="iconbtn" id="btnSave" title="Save &amp; load (K)">💾</button>
   <button class="iconbtn" id="btnAdmin" title="Admin (~)">🔑</button>
 </div>
 
@@ -532,12 +622,18 @@ button.bk.sel{color:var(--c-brass);border-color:var(--c-brass-dim);background:va
 <div id="reticle"><i></i><i></i><i></i><i></i><b></b></div>
 <div id="prompt"></div>
 
+<div id="mini">
+  <canvas id="mcv"></canvas>
+  <span class="ck n">N</span><span class="ck s">S</span>
+  <span class="ck e">E</span><span class="ck w">W</span>
+  <div class="rng">600 m</div>
+</div>
 <div id="dash">
-  <div class="gauge" id="gDepth"><div class="lab">Depth</div><div class="val">—</div><div class="sub">ft under keel</div></div>
-  <div class="gauge" id="gSpeed"><div class="lab">Speed</div><div class="val">0.0</div><div class="sub">knots</div></div>
-  <div class="gauge" id="gHead"><div class="lab">Heading</div><div class="val">000</div><div class="sub">magnetic</div></div>
-  <div class="gauge" id="gFuel"><div class="lab">Fuel</div><div class="val">100</div><div class="bar"><i style="width:100%"></i></div></div>
-  <div class="gauge" id="gWx"><div class="lab">Wind</div><div class="val">0</div><div class="sub">kt</div></div>
+  <div class="gauge" id="gDepth"><svg class="art" data-art="ladder"></svg><div class="lab">Depth</div><div class="val">—</div><div class="sub">ft under keel</div></div>
+  <div class="gauge" id="gSpeed"><svg class="art" data-art="sweep"></svg><div class="lab">Speed</div><div class="val">0.0</div><div class="sub">knots</div></div>
+  <div class="gauge" id="gHead"><svg class="art" data-art="rose"></svg><div class="lab">Heading</div><div class="val">000</div><div class="sub">magnetic</div></div>
+  <div class="gauge" id="gFuel"><svg class="art" data-art="dial"></svg><div class="lab">Fuel</div><div class="val">100</div><div class="bar"><i style="width:100%"></i></div></div>
+  <div class="gauge" id="gWx"><svg class="art" data-art="dial"></svg><div class="lab">Wind</div><div class="val">0</div><div class="sub">kt</div></div>
   <div class="gauge" id="gTime"><div class="lab">Clock</div><div class="val">06:00</div><div class="sub">Day 1</div></div>
 </div>
 
@@ -665,11 +761,37 @@ button.bk.sel{color:var(--c-brass);border-color:var(--c-brass-dim);background:va
   <div class="tabbody" id="tabbody"></div>
 </div>
 
+<div id="broker">
+  <div class="sheet">
+    <h2>The brokerage</h2>
+    <div id="brokerNow"></div>
+    <div id="brokerList"></div>
+    <div class="srow"><button id="bkClose">Close</button></div>
+  </div>
+</div>
+<div id="saveui">
+  <div class="sheet">
+    <h2>Save &amp; load</h2>
+    <div id="slots"></div>
+    <div class="srow">
+      <button class="pri" id="svSave">Save here</button>
+      <button id="svExport">Export file</button>
+      <button id="svImport">Import file</button>
+      <button id="svClose">Close</button>
+    </div>
+    <div class="note">Saves live in this browser and can be cleared by it.
+      Export writes a file you can keep, move to another device, or send on if
+      something goes wrong.</div>
+    <input type="file" id="svFile" accept="application/json,.json" style="display:none">
+  </div>
+</div>
 <div id="settings">
   <h2 style="font-family:var(--f-display);letter-spacing:.2em;text-transform:uppercase;font-size:14px">Settings &amp; Accessibility</h2>
   <details id="keysBox" open><summary>Keyboard &amp; mouse controls</summary>
     <div id="keymap"></div>
   </details>
+  <div class="row"><span>Dressed dashboard</span><input type="checkbox" id="sDash" checked></div>
+  <div class="row"><span>Minimap</span><input type="checkbox" id="sMini" checked></div>
   <div class="row"><span>Food can burn</span><input type="checkbox" id="sBurn" checked></div>
   <div class="row"><span>Cooking forgiveness</span><input type="range" id="sHold" min="50" max="400" value="150"></div>
   <div class="row"><span>Movement speed</span><input type="range" id="sSpeed" min="60" max="200" value="100"></div>
@@ -854,13 +976,14 @@ button.bk.sel{color:var(--c-brass);border-color:var(--c-brass-dim);background:va
 
 /* ============================ DATA ============================ */
 const DATA = {
-  meta:{ title:"Crossing Your Wake", build:5, tickHz:20,
+  meta:{ title:"Crossing Your Wake", build:58, tickHz:20,
          /* 1 world metre represents ~11 chart metres. Derived so that at the
             default 1 real min : 1 game hour clock, a hull's true knots and the
             distance it covers on the chart agree. Builder-tunable. */
          worldSpeedScale:5.5, chartScale:10.9, maxTravelCompression:4 },
 
-  ui:{ depthAlarmFt:2.0, depthCautionFt:4.0, promptMs:4200, noticeMs:5200 },
+  ui:{ depthAlarmFt:2.0, depthCautionFt:4.0, promptMs:4200, noticeMs:5200,
+       depthLadderFt:20, speedMaxKn:12, dressedDash:true, miniMap:true, miniRangeM:600 },
 
   /* ---- BUILD SYSTEM ----------------------------------------------------
      Three tiers, per Mat's call:
@@ -1564,12 +1687,27 @@ const DATA = {
   time:{ realSecPerGameHour:60, daysPerSeason:30, seasons:["Spring","Summer","Fall","Winter"] },
 
   hulls:[
-    {id:"shanty",  name:"Shantyboat",        loa:24, beam:9,  baseDraftFt:1.0, massKg:2600,  maxKt:5,  fuelCap:40,  gph:1.8,  seaworthy:1, airDraftFt:9  },
-    {id:"pontoon", name:"Pontoon Houseboat", loa:30, beam:12, baseDraftFt:1.5, massKg:3400,  maxKt:7,  fuelCap:60,  gph:4.0,  seaworthy:1, airDraftFt:11 },
-    {id:"cruiser", name:"'80s Cabin Cruiser",loa:28, beam:10, baseDraftFt:2.5, massKg:4200,  maxKt:18, fuelCap:120, gph:19.0, seaworthy:2, airDraftFt:10 },
-    {id:"trawler", name:"36' Trawler",       loa:36, beam:13, baseDraftFt:4.0, massKg:9000,  maxKt:8,  fuelCap:400, gph:3.8,  seaworthy:4, airDraftFt:16 },
-    {id:"cat",     name:"40' Motor Cat",     loa:40, beam:19, baseDraftFt:3.0, massKg:8000,  maxKt:12, fuelCap:300, gph:9.5,  seaworthy:4, airDraftFt:15 },
-    {id:"yacht",   name:"55' Motor Yacht",   loa:55, beam:16, baseDraftFt:5.0, massKg:20000, maxKt:16, fuelCap:900, gph:38.0, seaworthy:5, airDraftFt:21 }
+    {id:"barge",   name:"Deck Barge",        loa:26, beam:12, baseDraftFt:1.2, massKg:3100,  maxKt:4,  fuelCap:30,  gph:2.2,  seaworthy:1, airDraftFt:3,
+     price:3200, look:{form:"barge", hullCol:0x4e5a5e, deckCol:0x8f846e, houseCol:0x8f846e, roofCol:0x4e5a5e,
+       bowRake:0.06, sheer:0.0, houseW:0, houseZ:null, houseH:0, flybridge:false, rails:"none", bare:true}},
+    {id:"shanty",  name:"Shantyboat",        loa:24, beam:9,  baseDraftFt:1.0, massKg:2600,  maxKt:5,  fuelCap:40,  gph:1.8,  seaworthy:1, airDraftFt:9,
+     price:6500, look:{form:"barge", hullCol:0x6d757a, deckCol:0x9a8763, houseCol:0xb9b0a0, roofCol:0x4c5a4a,
+       bowRake:0.42, sheer:0.06, houseW:0.70, houseZ:[-2.95,1.45], houseH:2.10, flybridge:false, rails:"post"}},
+    {id:"pontoon", name:"Pontoon Houseboat", loa:30, beam:12, baseDraftFt:1.5, massKg:3400,  maxKt:7,  fuelCap:60,  gph:4.0,  seaworthy:1, airDraftFt:11,
+     price:21000, look:{form:"pontoon", hullCol:0x8e979c, deckCol:0xa8926c, houseCol:0xd8d2c4, roofCol:0x6a7b86,
+       bowRake:0.10, sheer:0.0, houseW:0.78, houseZ:[-3.4,2.2], houseH:2.15, flybridge:false, rails:"tube"}},
+    {id:"cruiser", name:"'80s Cabin Cruiser",loa:28, beam:10, baseDraftFt:2.5, massKg:4200,  maxKt:18, fuelCap:120, gph:19.0, seaworthy:2, airDraftFt:10,
+     price:34000, look:{form:"planing", hullCol:0xe6e3dc, deckCol:0xbfb6a4, houseCol:0xdfdbd2, roofCol:0x35424b,
+       bowRake:0.96, sheer:0.30, houseW:0.62, houseZ:[-1.6,2.6], houseH:1.55, flybridge:false, rails:"tube"}},
+    {id:"trawler", name:"36' Trawler",       loa:36, beam:13, baseDraftFt:4.0, massKg:9000,  maxKt:8,  fuelCap:400, gph:3.8,  seaworthy:4, airDraftFt:16,
+     price:96000, look:{form:"displacement", hullCol:0x1f3d52, deckCol:0xa4906b, houseCol:0xeceae2, roofCol:0x3a4a52,
+       bowRake:0.78, sheer:0.34, houseW:0.66, houseZ:[-2.2,3.0], houseH:2.20, flybridge:true, rails:"tube"}},
+    {id:"cat",     name:"40' Motor Cat",     loa:40, beam:19, baseDraftFt:3.0, massKg:8000,  maxKt:12, fuelCap:300, gph:9.5,  seaworthy:4, airDraftFt:15,
+     price:148000, look:{form:"cat", hullCol:0xf1efe8, deckCol:0xc4b9a4, houseCol:0xe8e5dd, roofCol:0x46545c,
+       bowRake:0.70, sheer:0.16, houseW:0.58, houseZ:[-2.6,3.2], houseH:2.05, flybridge:true, rails:"tube"}},
+    {id:"yacht",   name:"55' Motor Yacht",   loa:55, beam:16, baseDraftFt:5.0, massKg:20000, maxKt:16, fuelCap:900, gph:38.0, seaworthy:5, airDraftFt:21,
+     price:420000, look:{form:"planing", hullCol:0xfbfaf6, deckCol:0xb59b6d, houseCol:0xf3f1eb, roofCol:0x2b3740,
+       bowRake:1.15, sheer:0.44, houseW:0.64, houseZ:[-3.2,4.6], houseH:2.30, flybridge:true, rails:"glass"}}
   ],
 
   /* One segment of the Tenn-Tom. Phase 5 authors ~150-200 of these from real charts. */
@@ -1884,6 +2022,24 @@ const DATA = {
      stations are the interaction points. One block per hull — the Builder edits
      this to lay out any vessel without touching code. */
   decks:{
+    /* Nothing but a flat steel deck and a tiller. Every square foot is
+       walkable and every square foot is buildable — which is the point. */
+    barge:{
+      eyeH:1.62, walkSpeed:3.2, helmCam:[0,2.05,-3.4],
+      walk:[
+        {id:"deck", x0:-2.20,x1: 2.20,z0:-4.20,z1: 4.20,y:1.0}
+      ],
+      roofY:2.45,
+      roof:[],
+      ladders:[],
+      stations:[
+        {id:"helm",    name:"the tiller",   act:"HELM",   lx:0,   lz:-3.60,r:1.15},
+        {id:"windlass",name:"the bow cleat",act:"ANCHOR", lx:0,   lz: 3.80,r:1.10},
+        {id:"platform",name:"the stern edge",act:"NOTE",  lx:0,   lz:-4.05,r:1.00,
+         note:"Nothing here yet. That's what the build grid is for."}
+      ]
+    },
+
     shanty:{
       eyeH:1.62, walkSpeed:3.15, helmCam:[0,2.30,2.05],
       walk:[
@@ -1909,6 +2065,124 @@ const DATA = {
         {id:"berth",   name:"the berth",    act:"SLEEP",  lx:0.75,lz:-2.10,r:0.95},
         {id:"platform",name:"the swim platform",act:"NOTE",lx:0,  lz:-4.10,r:1.00,
          note:"Dinghy and going ashore — Phase 2C"}
+      ]
+    },
+
+    /* Wide and flat. Almost all of it is walkable, which is the point of a
+       pontoon: no sheer, no bulwark, a fence instead of a hull side. */
+    pontoon:{
+      eyeH:1.62, walkSpeed:3.2, helmCam:[0,2.30,2.6],
+      walk:[
+        {id:"bow",      x0:-2.30,x1: 2.30,z0: 2.20,z1: 5.90,y:1.0},
+        {id:"portside", x0:-2.30,x1:-1.72,z0:-3.40,z1: 2.20,y:1.0},
+        {id:"stbdside", x0: 1.72,x1: 2.30,z0:-3.40,z1: 2.20,y:1.0},
+        {id:"cabin",    x0:-1.72,x1: 1.72,z0:-3.40,z1: 2.20,y:1.0},
+        {id:"stern",    x0:-2.30,x1: 2.30,z0:-5.90,z1:-3.40,y:1.0}
+      ],
+      roofY:2.52,
+      roof:[ {id:"sundeck", x0:-2.05,x1: 2.05,z0:-3.60,z1: 2.40,y:2.52} ],
+      ladders:[ {lx:1.95, lz:-3.10, r:1.10} ],
+      stations:[
+        {id:"helm",    name:"the helm",     act:"HELM",   lx:0,    lz:2.85, r:1.20},
+        {id:"windlass",name:"the windlass", act:"ANCHOR", lx:0,    lz:5.30, r:1.10},
+        {id:"galley",  name:"the galley",   act:"NOTE",   lx:-1.15,lz:0.10, r:1.00, act2:"COOK"},
+        {id:"berth",   name:"the berth",    act:"SLEEP",  lx:1.15, lz:-2.30,r:1.00},
+        {id:"platform",name:"the swim platform",act:"NOTE",lx:0,   lz:-5.30,r:1.10}
+      ]
+    },
+
+    /* Narrow side decks and a sunken cockpit. You go FORWARD along the gunwale
+       or not at all — the first hull where the walk is genuinely tight. */
+    cruiser:{
+      eyeH:1.62, walkSpeed:3.0, helmCam:[0,2.05,1.5],
+      walk:[
+        {id:"foredeck", x0:-1.05,x1: 1.05,z0: 2.60,z1: 5.20,y:1.22},
+        {id:"portside", x0:-1.62,x1:-1.14,z0:-1.60,z1: 2.60,y:1.22},
+        {id:"stbdside", x0: 1.14,x1: 1.62,z0:-1.60,z1: 2.60,y:1.22},
+        {id:"saloon",   x0:-1.14,x1: 1.14,z0:-1.60,z1: 2.60,y:0.95},
+        {id:"cockpit",  x0:-1.62,x1: 1.62,z0:-4.30,z1:-1.60,y:0.95}
+      ],
+      roofY:2.62,
+      roof:[ {id:"hardtop", x0:-1.05,x1: 1.05,z0:-1.40,z1: 2.40,y:2.62} ],
+      ladders:[ {lx:-1.38, lz:-1.35, r:1.00} ],
+      stations:[
+        {id:"helm",    name:"the helm",     act:"HELM",   lx:0.62, lz:1.90, r:1.05},
+        {id:"windlass",name:"the windlass", act:"ANCHOR", lx:0,    lz:4.70, r:1.00},
+        {id:"galley",  name:"the galley",   act:"NOTE",   lx:-0.66,lz:0.30, r:0.90, act2:"COOK"},
+        {id:"berth",   name:"the berth",    act:"SLEEP",  lx:0,    lz:3.30, r:0.95},
+        {id:"platform",name:"the swim platform",act:"NOTE",lx:0,   lz:-4.60,r:1.00}
+      ]
+    },
+
+    /* Proper side decks you can carry a fuel can along, and a flybridge that
+       is a real second helm rather than a sundeck. */
+    trawler:{
+      eyeH:1.62, walkSpeed:3.05, helmCam:[0,2.40,2.9],
+      walk:[
+        {id:"foredeck", x0:-1.85,x1: 1.85,z0: 3.00,z1: 6.60,y:1.30},
+        {id:"portside", x0:-1.98,x1:-1.34,z0:-2.20,z1: 3.00,y:1.30},
+        {id:"stbdside", x0: 1.34,x1: 1.98,z0:-2.20,z1: 3.00,y:1.30},
+        {id:"saloon",   x0:-1.34,x1: 1.34,z0:-2.20,z1: 3.00,y:1.05},
+        {id:"cockpit",  x0:-1.98,x1: 1.98,z0:-5.40,z1:-2.20,y:1.05}
+      ],
+      roofY:3.05,
+      roof:[ {id:"flybridge", x0:-1.60,x1: 1.60,z0:-2.00,z1: 2.90,y:3.05} ],
+      ladders:[ {lx:1.66, lz:-2.05, r:1.05} ],
+      stations:[
+        {id:"helm",     name:"the lower helm", act:"HELM",  lx:0.70, lz:2.30, r:1.10},
+        {id:"flyhelm",  name:"the flybridge helm", act:"HELM", lx:0, lz:1.90, r:1.15, lvl:1},
+        {id:"windlass", name:"the windlass", act:"ANCHOR",  lx:0,    lz:6.05, r:1.05},
+        {id:"galley",   name:"the galley",   act:"NOTE",    lx:-0.80,lz:0.40, r:0.95, act2:"COOK"},
+        {id:"berth",    name:"the berth",    act:"SLEEP",   lx:0,    lz:4.20, r:1.00},
+        {id:"platform", name:"the swim platform",act:"NOTE",lx:0,    lz:-5.80,r:1.05}
+      ]
+    },
+
+    /* Two hulls and a bridgedeck between them. Enormously wide, and the
+       walkable area reflects it — this is the one that won't fit some locks. */
+    cat:{
+      eyeH:1.62, walkSpeed:3.2, helmCam:[0,2.55,3.1],
+      walk:[
+        {id:"foredeck", x0:-2.85,x1: 2.85,z0: 3.40,z1: 7.20,y:1.26},
+        {id:"portside", x0:-2.85,x1:-2.05,z0:-2.60,z1: 3.40,y:1.26},
+        {id:"stbdside", x0: 2.05,x1: 2.85,z0:-2.60,z1: 3.40,y:1.26},
+        {id:"saloon",   x0:-2.05,x1: 2.05,z0:-2.60,z1: 3.40,y:1.10},
+        {id:"cockpit",  x0:-2.85,x1: 2.85,z0:-6.00,z1:-2.60,y:1.10}
+      ],
+      roofY:3.00,
+      roof:[ {id:"flybridge", x0:-2.30,x1: 2.30,z0:-2.40,z1: 3.20,y:3.00} ],
+      ladders:[ {lx:2.42, lz:-2.40, r:1.10} ],
+      stations:[
+        {id:"helm",     name:"the helm",     act:"HELM",   lx:-0.90,lz:2.70, r:1.15},
+        {id:"flyhelm",  name:"the flybridge helm", act:"HELM", lx:0, lz:2.10, r:1.20, lvl:1},
+        {id:"windlass", name:"the windlass", act:"ANCHOR", lx:0,    lz:6.60, r:1.10},
+        {id:"galley",   name:"the galley",   act:"NOTE",   lx:-1.20,lz:0.50, r:1.00, act2:"COOK"},
+        {id:"berth",    name:"the berth",    act:"SLEEP",  lx:1.20, lz:-1.20,r:1.00},
+        {id:"platform", name:"the swim platform",act:"NOTE",lx:0,   lz:-6.40,r:1.10}
+      ]
+    },
+
+    /* Long, high and glassy. The most deck of any hull and the least of it
+       useful — most of the length is accommodation you don't stand on. */
+    yacht:{
+      eyeH:1.62, walkSpeed:3.1, helmCam:[0,2.85,4.4],
+      walk:[
+        {id:"foredeck", x0:-2.35,x1: 2.35,z0: 4.80,z1: 9.60,y:1.60},
+        {id:"portside", x0:-2.45,x1:-1.72,z0:-3.40,z1: 4.80,y:1.60},
+        {id:"stbdside", x0: 1.72,x1: 2.45,z0:-3.40,z1: 4.80,y:1.60},
+        {id:"saloon",   x0:-1.72,x1: 1.72,z0:-3.40,z1: 4.80,y:1.35},
+        {id:"cockpit",  x0:-2.45,x1: 2.45,z0:-7.60,z1:-3.40,y:1.35}
+      ],
+      roofY:3.55,
+      roof:[ {id:"flybridge", x0:-2.00,x1: 2.00,z0:-3.10,z1: 4.40,y:3.55} ],
+      ladders:[ {lx:2.08, lz:-3.20, r:1.10} ],
+      stations:[
+        {id:"helm",     name:"the pilothouse helm", act:"HELM", lx:0.85,lz:3.90, r:1.15},
+        {id:"flyhelm",  name:"the flybridge helm",  act:"HELM", lx:0,   lz:3.20, r:1.20, lvl:1},
+        {id:"windlass", name:"the windlass", act:"ANCHOR", lx:0,    lz:8.90, r:1.10},
+        {id:"galley",   name:"the galley",   act:"NOTE",   lx:-1.05,lz:1.10, r:1.00, act2:"COOK"},
+        {id:"berth",    name:"the owner's cabin", act:"SLEEP", lx:0, lz:6.60, r:1.10},
+        {id:"platform", name:"the swim platform",act:"NOTE",lx:0,   lz:-8.10,r:1.10}
       ]
     }
   },
@@ -2146,7 +2420,7 @@ const Sim = {
       lock:null, lockLevel:0, lockedThrough:0, danger:0, obstructMin:0,
       spans:{}, spanCalled:null, people:[], nextPerson:1,
       stores:{}, spoil:{}, invUI:null,
-      character:null, docked:false, createUI:false,
+      character:null, docked:false, createUI:false, brokerUI:false,
       wx:[], radio:{on:false, station:"", track:0, t:0}, radioUI:false,
       comms:false, forecastSeen:0,
       jobs:[], nextJob:1, jobsDay:-99, rep:0, busk:null, dockedNights:0, lastDockDay:-99,
@@ -2681,6 +2955,20 @@ const Sim = {
                                                c.payload.id,c.payload.n||1); break;
       case "NEW_GAME": this.applyCharacter(c.payload||{}); S.createUI=false; break;
       case "CREATE_UI": S.createUI = c.payload.on!==undefined ? !!c.payload.on : !S.createUI; break;
+      case "BROKER_UI": {
+        if(c.payload.on && !this.atYard(b)){
+          S.notice="Boats change hands at a yard, not out here"; break; }
+        S.brokerUI = c.payload.on!==undefined ? !!c.payload.on : !S.brokerUI;
+        break; }
+      case "BUY_HULL": {
+        if(!this.atYard(b)){ S.notice="You'd have to be at a yard"; break; }
+        const r=this.buyHull(c.payload.id);
+        if(!r.ok){ S.notice=r.why; break; }
+        S.brokerUI=false;
+        S.notice="She's yours — "+r.hull.name
+               + (r.plan.drop.length ? ". "+r.plan.drop.length+" fitting"
+                   +(r.plan.drop.length===1?"":"s")+" wouldn't fit and went with the old boat" : "");
+        break; }
       case "CAST_OFF":
         if(!S.docked){ S.notice="You're already away"; break; }
         S.docked=false;
@@ -2999,6 +3287,57 @@ const Sim = {
 
   /* ---- derived values (pure) ---- */
   hull(b){ return DATA.hulls.find(h=>h.id===b.hullId) || DATA.hulls[0]; },
+  hullDef(id){ return DATA.hulls.find(h=>h.id===id); },
+  /* What a yard will give you for yours. A boat is worth less than it cost and
+     more when it's been looked after — and the gear you fitted counts. */
+  tradeValue(b){
+    const H=this.hull(b);
+    const base=(H.price||10000)*0.62;
+    const cond=0.55 + 0.45*clamp((b.hp!==undefined?b.hp:100)/100,0,1);
+    let gear=0;
+    (b.modules||[]).forEach(m=>{ const d=this.modDef(m.defId); if(d) gear+=(d.cost||0)*0.35; });
+    return Math.round(base*cond + gear);
+  },
+  /* Modules that fit the new deck come with you; the rest are sold off with
+     the old boat, which the yard tells you BEFORE you agree. */
+  hullSwapPlan(b, newId){
+    const D=DATA.decks[newId]; if(!D) return null;
+    const keep=[], drop=[];
+    (b.modules||[]).forEach(m=>{
+      const def=this.modDef(m.defId); if(!def) return;
+      const cells=this.cells(def,m.cx,m.cz,m.rot);
+      const fits=cells.every(([cx,cz])=>{
+        const [x,z]=this.cellCentre(cx,cz);
+        const rects = (m.lvl||0)>0 ? (D.roof||[]) : D.walk;
+        return rects.some(r=>x>=r.x0&&x<=r.x1&&z>=r.z0&&z<=r.z1);
+      });
+      (fits?keep:drop).push(m);
+    });
+    let refund=0;
+    drop.forEach(m=>{ const d=this.modDef(m.defId); if(d) refund+=Math.round((d.cost||0)*0.30); });
+    return {keep, drop, refund};
+  },
+  buyHull(newId){
+    const S=this.state, b=S.entities[S.playerBoatId];
+    const H=this.hullDef(newId);
+    if(!H) return {ok:false, why:"No such boat"};
+    if(newId===b.hullId) return {ok:false, why:"That's the boat you're standing on"};
+    const plan=this.hullSwapPlan(b,newId);
+    const trade=this.tradeValue(b);
+    // trading DOWN pays you the balance — a yard doesn't keep the difference
+    const due=(H.price||0) - trade - plan.refund;
+    if(due>0 && (S.money||0) < due)
+      return {ok:false, why:"Short by $"+Math.round(due-(S.money||0)).toLocaleString(), due, trade, plan};
+    S.money = (S.money||0) - due;
+    b.hullId = newId;
+    b.modules = plan.keep;
+    // tanks resize with the boat; you don't get free fuel out of a trade
+    const pct = b.fuelPct!==undefined ? b.fuelPct : 100;
+    b.fuelPct = Math.min(pct, 100);
+    S.player.lvl = 0; S.player.lx = 0; S.player.lz = 0;
+    this.resolveSites && this.resolveSites();
+    return {ok:true, due, trade, plan, hull:H};
+  },
   deck(b){ return DATA.decks[b.hullId] || DATA.decks.shanty; },
   modDef(id){ return DATA.modules.find(m=>m.id===id); },
   cells(def,cx,cz,rot){
@@ -6150,6 +6489,9 @@ const Sim = {
     this.stepLocks(dt, dtHours);
     this.stepSpans(dt, dtHours);
     this.stepFolk(dt, dtHours);
+    // every four game hours under way, and never mid-lockage
+    if(!S._autoAt) S._autoAt=0;
+    if(S.tick - S._autoAt > 20*60*4 && !S.lock) this.autosave("time");
     this.stepSpoil(dtHours);
     this.stepExposure(dtHours);
 
@@ -6360,6 +6702,79 @@ const Sim = {
     const S=this.state, b=S.entities[S.playerBoatId], P=S.player;
     this.prev={ x:b.x, z:b.z, h:b.heading, dx:S.dinghy.x, dz:S.dinghy.z, dh:S.dinghy.heading,
                 lx:P.lx, ly:P.ly, lz:P.lz, wx:P.wx, wy:P.wy, wz:P.wz };
+  },
+  /* ---- SAVES ---------------------------------------------------------
+     The sim is one serialisable object, so a save is a snapshot plus enough
+     metadata to describe it on a shelf without loading it.               */
+  SAVE_VER: 2,
+  SLOTS: ["1","2","3","auto"],
+  slotKey(n){ return "cyw.save."+n; },
+  /* Browser storage can vanish — a failed write must be visible, never silent. */
+  writeSlot(n,name){
+    const blob=this.saveBlob(name);
+    try{ localStorage.setItem(this.slotKey(n), JSON.stringify(blob)); }
+    catch(e){ throw new Error("Couldn't save — browser storage is full or blocked"); }
+    return blob;
+  },
+  readSlot(n){
+    let raw=null;
+    try{ raw=localStorage.getItem(this.slotKey(n)); }catch(e){ return null; }
+    if(!raw) return null;
+    try{ return JSON.parse(raw); }catch(e){ return {corrupt:true, v:0, name:"Damaged save"}; }
+  },
+  clearSlot(n){ try{ localStorage.removeItem(this.slotKey(n)); }catch(e){} },
+  shelf(){ return this.SLOTS.map(n=>({slot:n, blob:this.readSlot(n)})); },
+  /* Autosave on a cadence AND at punctuation — arriving, locking through,
+     sleeping — because those are the moments worth coming back to. */
+  autosave(why){
+    try{
+      this.writeSlot("auto", (this.state.entities[this.state.playerBoatId]||{}).name);
+      this.state._autoAt = this.state.tick;
+      this.state._autoWhy = why || "";
+    }catch(e){ /* a failed autosave must not interrupt play */ }
+  },
+  saveBlob(name){
+    const S=this.state, b=S.entities[S.playerBoatId];
+    return {
+      v: this.SAVE_VER,
+      build: DATA.meta.build || 0,
+      name: name || (b && b.name) || "Unnamed",
+      saved: Date.now(),
+      // the shelf card — readable without parsing the state
+      card: {
+        day: S.clock ? S.clock.day : 0,
+        season: DATA.time.seasons[Math.floor(((S.clock?S.clock.day:1)-1)
+                  /DATA.time.daysPerSeason)%4],
+        seg: this.seg().name, sub: this.seg().sub || "",
+        mile: (()=>{ try{ return +(this.seg().startMile
+                 - Math.abs(b.z)*this.seg().milesPerMeter).toFixed(1); }
+               catch(e){ return null; } })(),
+        cash: S.money!==undefined ? S.money : (S.cash!==undefined ? S.cash : null),
+        where: S.docked ? "tied up" : S.anchored ? "at anchor"
+             : S.player.mode==="foot" ? "ashore" : "under way"
+      },
+      state: this.snapshot()
+    };
+  },
+  loadBlob(blob){
+    if(!blob || typeof blob!=="object") throw new Error("That isn't a save file");
+    if(blob.v===undefined)  throw new Error("No version on that save");
+    if(blob.v > this.SAVE_VER)
+      throw new Error("That save is from a newer build than this one");
+    if(blob.v < this.SAVE_VER) blob = this.migrateSave(blob);
+    this.restore(blob.state);
+    return blob;
+  },
+  /* An old save either migrates or is refused with a reason. It never loads
+     wrong and pretends to be fine. */
+  migrateSave(blob){
+    let b=blob;
+    if(b.v===1){                         // v1 had no per-body water field
+      const st=JSON.parse(b.state);
+      if(st.segId===undefined) throw new Error("That save predates the waterway graph");
+      b={...b, v:2, state:JSON.stringify(st)};
+    }
+    return b;
   },
   snapshot(){ return JSON.stringify(this.state); },
   restore(json){ this.state = JSON.parse(json); this.capturePrev(); }
@@ -7330,54 +7745,202 @@ const Render = {
 
   buildBoat(){
     const T=this.three;
+    const b=Sim.state.entities[Sim.state.playerBoatId];
+    const H=Sim.hull(b), L=H.look||{}, D=Sim.deck(b);
     const grp=new T.Group();
-    // hull: extruded plan-view outline (pointed bow, square transom)
-    const sh=new T.Shape();
-    sh.moveTo(0,5.6); sh.lineTo(1.62,3.2); sh.lineTo(1.75,-4.75); sh.lineTo(-1.75,-4.75);
-    sh.lineTo(-1.62,3.2); sh.lineTo(0,5.6);
-    const hg=new T.ExtrudeGeometry(sh,{depth:1.5,bevelEnabled:false});
-    hg.rotateX(Math.PI/2); hg.translate(0,0.90,0);
-    grp.add(new T.Mesh(hg,new T.MeshPhongMaterial({shininess:0,color:0x6d757a,flatShading:true})));
-    // deck
-    const dk=new T.Mesh(new T.BoxGeometry(3.5,0.16,9.5),new T.MeshPhongMaterial({shininess:0,color:0x9a8763,flatShading:true}));
-    dk.position.set(0,0.92,0); grp.add(dk);
-    // shack — three walls, aft left OPEN so you can actually walk inside
-    const wallM=new T.MeshPhongMaterial({shininess:0,color:0xb9b0a0,flatShading:true});
-    const pw=new T.Mesh(new T.BoxGeometry(0.30,2.1,4.4),wallM); pw.position.set(-1.19,1.95,-0.6); grp.add(pw);
-    const sw=new T.Mesh(new T.BoxGeometry(0.30,2.1,4.4),wallM); sw.position.set( 1.19,1.95,-0.6); grp.add(sw);
-    // forward bulkhead with a DOORWAY at centre
-    const fpo=new T.Mesh(new T.BoxGeometry(0.92,2.1,0.30),wallM); fpo.position.set(-0.90,1.95,1.45); grp.add(fpo);
-    const fst=new T.Mesh(new T.BoxGeometry(0.92,2.1,0.30),wallM); fst.position.set( 0.90,1.95,1.45); grp.add(fst);
-    const hdr=new T.Mesh(new T.BoxGeometry(0.90,0.42,0.30),wallM); hdr.position.set(0,2.79,1.45); grp.add(hdr);
-    const glassM=new T.MeshPhongMaterial({shininess:0,color:0x16232b,flatShading:true});
-    const wl=new T.Mesh(new T.BoxGeometry(0.66,0.66,0.38),glassM); wl.position.set(-0.90,2.42,1.45); grp.add(wl);
-    const wr=new T.Mesh(new T.BoxGeometry(0.66,0.66,0.38),glassM); wr.position.set( 0.90,2.42,1.45); grp.add(wr);
-    // galley + berth props so the interior reads as a home
-    const gal=new T.Mesh(new T.BoxGeometry(0.9,0.85,1.4),new T.MeshPhongMaterial({shininess:0,color:0x7d6a53,flatShading:true}));
-    gal.position.set(-0.72,1.40,-0.30); grp.add(gal);
-    const stove=new T.Mesh(new T.BoxGeometry(0.55,0.12,0.55),new T.MeshPhongMaterial({shininess:0,color:0x2c2f31,flatShading:true}));
-    stove.position.set(-0.72,1.86,-0.30); grp.add(stove);
-    const bunk=new T.Mesh(new T.BoxGeometry(0.95,0.45,1.9),new T.MeshPhongMaterial({shininess:0,color:0x6b5f6e,flatShading:true}));
-    bunk.position.set(0.72,1.20,-2.10); grp.add(bunk);
-    const roof=new T.Mesh(new T.BoxGeometry(3.4,0.18,4.9),new T.MeshPhongMaterial({shininess:0,color:0x4c5a4a,flatShading:true}));
-    roof.position.set(0,3.08,-0.6); grp.add(roof);
-    // mast + WHITE BURGEE (gold when you cross your wake)
-    const mast=new T.Mesh(new T.CylinderGeometry(0.07,0.07,3,5),new T.MeshPhongMaterial({shininess:0,color:0x33383a}));
-    mast.position.set(0,4.5,-2.6); grp.add(mast);
-    const bg=new T.PlaneGeometry(1.1,0.66);
-    const flag=new T.Mesh(bg,new T.MeshBasicMaterial({color:0xffffff,side:T.DoubleSide}));
-    flag.position.set(0.58,5.5,-2.6); grp.add(flag); this.flag=flag;
-    // open helm on the foredeck — console, wheel, throttle lever
-    const con=new T.Mesh(new T.BoxGeometry(1.5,0.95,0.5),new T.MeshPhongMaterial({shininess:0,color:0x59504a,flatShading:true}));
-    con.position.set(0,1.30,2.75); grp.add(con);
-    const face=new T.Mesh(new T.BoxGeometry(1.2,0.5,0.06),new T.MeshBasicMaterial({color:0x0f1d22}));
-    face.position.set(0,1.58,2.50); grp.add(face);
+    const M=(c,sh)=>new T.MeshPhongMaterial({shininess:sh||0,color:c,flatShading:true});
+
+    /* The walk rects ARE the boat's footprint, so the hull is derived from
+       them. Geometry that disagreed with where you can stand is how you get a
+       deck floating beside its own hull. */
+    let x0=99,x1=-99,z0=99,z1=-99, dy=1.0;
+    D.walk.forEach(r=>{ x0=Math.min(x0,r.x0); x1=Math.max(x1,r.x1);
+                        z0=Math.min(z0,r.z0); z1=Math.max(z1,r.z1);
+                        dy=Math.min(dy===1.0?r.y:dy, r.y); });
+    const halfB = Math.max(Math.abs(x0),Math.abs(x1));
+    const bowZ = z1 + (L.bowRake||0.5);
+    const strZ = z0 - 0.15;
+
+    const hullM=M(L.hullCol!==undefined?L.hullCol:0x6d757a);
+    const deckM=M(L.deckCol!==undefined?L.deckCol:0x9a8763);
+    const houseM=M(L.houseCol!==undefined?L.houseCol:0xb9b0a0);
+    const roofM=M(L.roofCol!==undefined?L.roofCol:0x4c5a4a);
+    const glassM=M(0x16232b, 24);
+
+    const depth = Math.max(0.9, dy*1.5);
+    const mkHull=(cx,hw)=>{
+      const sh=new T.Shape();
+      const rake=L.bowRake||0.5, sharp=Math.min(0.88, 0.30+rake*0.42);
+      sh.moveTo(cx, bowZ);
+      sh.lineTo(cx+hw*sharp, z1-0.25);
+      sh.lineTo(cx+hw, z0+0.9);
+      sh.lineTo(cx+hw*0.97, strZ);
+      sh.lineTo(cx-hw*0.97, strZ);
+      sh.lineTo(cx-hw, z0+0.9);
+      sh.lineTo(cx-hw*sharp, z1-0.25);
+      sh.lineTo(cx, bowZ);
+      const g=new T.ExtrudeGeometry(sh,{depth:depth,bevelEnabled:false});
+      g.rotateX(Math.PI/2); g.translate(0, dy-0.6, 0);
+      return new T.Mesh(g,hullM);
+    };
+
+    if(L.form==="cat"){
+      const hw=halfB*0.30, off=halfB-hw;
+      grp.add(mkHull(-off,hw)); grp.add(mkHull(off,hw));
+      const bridge=new T.Mesh(new T.BoxGeometry(halfB*2*0.95,0.34,(z1-z0)*0.82),hullM);
+      bridge.position.set(0, dy-0.20, (z0+z1)/2); grp.add(bridge);
+    } else if(L.form==="pontoon"){
+      [-1,1].forEach(sgn=>{
+        const tube=new T.Mesh(new T.CylinderGeometry(0.46,0.46,(bowZ-strZ)*0.94,9),hullM);
+        tube.rotation.x=Math.PI/2;
+        tube.position.set(sgn*(halfB-0.52), dy-0.42, (z0+z1)/2);
+        grp.add(tube);
+        const nose=new T.Mesh(new T.ConeGeometry(0.46,0.95,9),hullM);
+        nose.rotation.x=-Math.PI/2;
+        nose.position.set(sgn*(halfB-0.52), dy-0.42, bowZ-0.1); grp.add(nose);
+      });
+    } else {
+      grp.add(mkHull(0,halfB));
+    }
+
+    /* the walk rects, drawn as actual deck */
+    D.walk.forEach(r=>{
+      const w=r.x1-r.x0, d=r.z1-r.z0;
+      if(w<=0||d<=0) return;
+      const m=new T.Mesh(new T.BoxGeometry(w,0.15,d),deckM);
+      m.position.set((r.x0+r.x1)/2, r.y-0.075, (r.z0+r.z1)/2);
+      grp.add(m);
+    });
+
+    /* the house, sized from the profile rather than hand-placed */
+    /* The cabin walk rect IS the house. One owner of that truth, or the walls
+       land somewhere you can walk and you go straight through them. */
+    const bare = !!L.bare;
+    const inner = D.walk.find(r=>r.id==="cabin" || r.id==="saloon");
+    const hz = inner ? [inner.z0, inner.z1] : (L.houseZ || [z0+1.2, z1-1.2]);
+    const hw = inner ? Math.max(Math.abs(inner.x0),Math.abs(inner.x1))
+                     : halfB*(L.houseW!==undefined?L.houseW:0.68);
+    const hh = L.houseH!==undefined?L.houseH:2.1;
+    const hBase = dy;
+    const hLen = hz[1]-hz[0], hMid=(hz[0]+hz[1])/2;
+
+    const wall=(w,h,d,x,y,z,mat)=>{
+      const m=new T.Mesh(new T.BoxGeometry(w,h,d),mat||houseM);
+      m.position.set(x,y,z); grp.add(m); return m;
+    };
+    const T_=0.22, xo=hw+T_/2;      // wall centres, clear of the floor you stand on
+    const roofY = D.roofY!==undefined ? D.roofY
+                : bare ? dy+0.9 : hBase+hh+0.18;
+    if(!bare){
+    wall(T_,hh,hLen+T_,-xo,hBase+hh/2,hMid);
+    wall(T_,hh,hLen+T_, xo,hBase+hh/2,hMid);
+    wall(hw*2+T_*2,hh,T_, 0,hBase+hh/2,hz[0]-T_/2);
+    // forward face with a doorway at centre
+    const dW=0.52;                   // a doorway you can actually fit through
+    wall(hw-dW,hh,T_, -(hw+dW)/2, hBase+hh/2, hz[1]+T_/2);
+    wall(hw-dW,hh,T_,  (hw+dW)/2, hBase+hh/2, hz[1]+T_/2);
+    wall(dW*2,hh*0.22,T_, 0, hBase+hh*0.89, hz[1]+T_/2);
+    // glazing
+    [-1,1].forEach(s=>{
+      wall(0.62,0.62,0.26, s*hw*0.52, hBase+hh*0.70, hz[1]+T_/2, glassM);
+      wall(0.26,0.55,hLen*0.55, s*xo, hBase+hh*0.66, hMid, glassM);
+    });
+    // roof
+    const roofY0 = D.roofY!==undefined ? D.roofY : hBase+hh+0.18;
+    const rf=new T.Mesh(new T.BoxGeometry(hw*2+T_*2+0.12,0.18,hLen+T_*2+0.12),roofM);
+    rf.position.set(0, roofY0-0.09, hMid); grp.add(rf);
+    } else {
+      /* A bare barge has a tiller and an outboard and nothing else. Every
+         square foot is walkable, and that is exactly the point of her. */
+      const HS0=(D.stations||[]).find(st=>st.act==="HELM")||{lx:0,lz:z0+0.6};
+      const post=new T.Mesh(new T.CylinderGeometry(0.07,0.07,1.05,6),M(0x39424a));
+      post.position.set(HS0.lx, dy+0.52, HS0.lz); grp.add(post);
+      const till=new T.Mesh(new T.BoxGeometry(0.07,0.07,1.15),M(0x6b5a44));
+      till.position.set(HS0.lx, dy+1.02, HS0.lz+0.55); grp.add(till);
+      const ob=new T.Mesh(new T.BoxGeometry(0.42,0.62,0.36),M(0x2c3237));
+      ob.position.set(HS0.lx, dy+0.10, z0-0.28); grp.add(ob);
+      const cleat=new T.Mesh(new T.BoxGeometry(0.30,0.12,0.10),M(0x8b9196));
+      cleat.position.set(0, dy+0.06, z1-0.3); grp.add(cleat);
+    }
+
+    /* a flybridge reads as a second storey, which is what gates the bridges */
+    if(L.flybridge && D.roof && D.roof.length){
+      const r=D.roof[0];
+      const console_=new T.Mesh(new T.BoxGeometry((r.x1-r.x0)*0.42,0.75,0.6),houseM);
+      console_.position.set((r.x0+r.x1)/2, r.y+0.38, r.z1-0.9); grp.add(console_);
+      const scr=new T.Mesh(new T.BoxGeometry((r.x1-r.x0)*0.72,0.72,0.1),glassM);
+      scr.position.set((r.x0+r.x1)/2, r.y+0.60, r.z1-0.3); grp.add(scr);
+      [[-1,-1],[1,-1],[-1,1],[1,1]].forEach(([sx,sz])=>{
+        const p=new T.Mesh(new T.CylinderGeometry(0.05,0.05,1.9,6),M(0x39424a));
+        p.position.set((sx>0?r.x1:r.x0)*0.92, r.y+0.95, sz>0?r.z1-0.2:r.z0+0.2);
+        grp.add(p);
+      });
+      const hard=new T.Mesh(new T.BoxGeometry((r.x1-r.x0)*0.98,0.12,(r.z1-r.z0)*0.62),roofM);
+      hard.position.set((r.x0+r.x1)/2, r.y+1.92, (r.z0+r.z1)/2-0.2); grp.add(hard);
+    }
+
+    /* rails, because an open deck with no edge reads as a raft */
+    const railM=M(L.rails==="glass"?0x2a3a44:0xb9bfc4, L.rails==="glass"?30:0);
+    const railH = L.rails==="glass" ? 0.86 : 0.92;
+    const edge=[];
+    D.walk.forEach(r=>{
+      if(r.z1>=z1-0.35) edge.push([r.x0,r.z1,r.x1,r.z1]);
+      if(r.z0<=z0+0.35) edge.push([r.x0,r.z0,r.x1,r.z0]);
+      if(r.x0<=x0+0.05) edge.push([r.x0,r.z0,r.x0,r.z1]);
+      if(r.x1>=x1-0.05) edge.push([r.x1,r.z0,r.x1,r.z1]);
+    });
+    edge.forEach(([ax,az,bx,bz])=>{
+      const len=Math.hypot(bx-ax,bz-az); if(len<0.4) return;
+      if(L.rails==="glass"){
+        const p=new T.Mesh(new T.BoxGeometry(len,railH,0.05),railM);
+        p.position.set((ax+bx)/2, dy+railH/2, (az+bz)/2);
+        p.rotation.y = -Math.atan2(bz-az, bx-ax);
+        grp.add(p);
+      } else {
+        const n=Math.max(2,Math.round(len/0.95));
+        for(let i=0;i<=n;i++){
+          const f=i/n;
+          const p=new T.Mesh(new T.CylinderGeometry(0.035,0.035,railH,5),railM);
+          p.position.set(ax+(bx-ax)*f, dy+railH/2, az+(bz-az)*f); grp.add(p);
+        }
+        const top=new T.Mesh(new T.BoxGeometry(len,0.06,0.06),railM);
+        top.position.set((ax+bx)/2, dy+railH, (az+bz)/2);
+        top.rotation.y = -Math.atan2(bz-az, bx-ax);
+        grp.add(top);
+      }
+    });
+
+    /* galley, berth — props so the inside reads as a home */
+    const gal=new T.Mesh(new T.BoxGeometry(0.9,0.85,1.4),M(0x7d6a53));
+    const GS=(D.stations||[]).find(st=>st.id==="galley");
+    gal.position.set(GS?GS.lx:-hw*0.55, hBase+0.45, GS?GS.lz:hMid-0.3); grp.add(gal);
+    const stove=new T.Mesh(new T.BoxGeometry(0.55,0.12,0.55),M(0x2c2f31));
+    stove.position.set(GS?GS.lx:-hw*0.55, hBase+0.92, GS?GS.lz:hMid-0.3); grp.add(stove);
+    const bunk=new T.Mesh(new T.BoxGeometry(0.95,0.45,1.9),M(0x6b5f6e));
+    const BS=(D.stations||[]).find(st=>st.id==="berth");
+    bunk.position.set(BS?BS.lx:hw*0.55, hBase+0.26, BS?BS.lz:hMid-1.4); grp.add(bunk);
+
+    /* mast and burgee — white, gold once you cross your own wake */
+    const mastH = Math.max(2.2, (H.airDraftFt/3.2808) - roofY + 0.4);
+    const mast=new T.Mesh(new T.CylinderGeometry(0.07,0.07,mastH,5),M(0x33383a));
+    mast.position.set(0, roofY+mastH/2, hMid-hLen*0.35); grp.add(mast);
+    const flag=new T.Mesh(new T.PlaneGeometry(1.1,0.66),
+      new T.MeshBasicMaterial({color:0xffffff,side:T.DoubleSide}));
+    flag.position.set(0.58, roofY+mastH-0.45, hMid-hLen*0.35);
+    grp.add(flag); this.burgee=flag;
+
+
+    /* the helm itself, placed at whichever station this hull calls the helm */
+    const HS = (D.stations||[]).find(st=>st.act==="HELM") || {lx:0,lz:z1-1.2};
+    const HX = HS.lx, HZ = HS.lz, HY = dy + 0.62;
+    const binn=new T.Mesh(new T.BoxGeometry(0.72,0.62,0.42),M(0x2f3940));
+    binn.position.set(HX, dy+0.31, HZ-0.1); grp.add(binn);
     const wheel=new T.Mesh(new T.TorusGeometry(0.34,0.05,6,14),new T.MeshPhongMaterial({shininess:0,color:0x2b2b2e,flatShading:true}));
-    wheel.position.set(0,1.98,2.58); wheel.rotation.x=-0.42; grp.add(wheel); this.wheel=wheel;
+    wheel.position.set(HX, HY+0.36, HZ-0.22); wheel.rotation.x=-0.42; grp.add(wheel); this.wheel=wheel;
     const lever=new T.Mesh(new T.CylinderGeometry(0.045,0.045,0.5,5),new T.MeshPhongMaterial({shininess:0,color:0xc9a227}));
-    lever.position.set(0.62,2.02,2.65); grp.add(lever); this.lever=lever;
-    const rail=new T.Mesh(new T.BoxGeometry(3.3,0.09,0.09),new T.MeshPhongMaterial({shininess:0,color:0x8a8f8c}));
-    rail.position.set(0,1.55,4.3); grp.add(rail);
+    lever.position.set(HX+0.62, HY+0.40, HZ-0.15); grp.add(lever); this.lever=lever;
+    const rail=new T.Mesh(new T.BoxGeometry(halfB*1.8,0.09,0.09),new T.MeshPhongMaterial({shininess:0,color:0x8a8f8c}));
+    rail.position.set(0, dy+0.55, z1-0.4); grp.add(rail);
     // the crew member — a child of the boat, so she rides it for free
     this.crewOutfitSig="";
     const pg=this.makeFigure({outfit:this.playerOutfit()});
@@ -7389,6 +7952,18 @@ const Render = {
     scap.position.y=0.11; swg.add(scap);
     swg.visible=false; this.scene.add(swg); this.swimmer=swg;
     this.scene.add(grp); this.boat=grp;
+    this.boatHullId = b.hullId;
+  },
+
+  /* swap the whole boat when the hull changes */
+  syncHullMesh(){
+    const b=Sim.state.entities[Sim.state.playerBoatId];
+    if(this.boatHullId===b.hullId) return;
+    if(this.boat){ this.scene.remove(this.boat); this.boat=null; }
+    this.buildBoat();
+    this.modSig=null;
+    this.buildModuleLayer && this.buildModuleLayer();
+    this.buildLadders && this.buildLadders();
   },
 
   buildNodes(){
@@ -8888,7 +9463,7 @@ const Render = {
     this.sky.position.copy(this.cam.position);
     this.water.position.set(this.cam.position.x,0,this.cam.position.z);
     this.syncViewWeapon(dt); this.syncShots(); this.syncCarcasses(); this.syncVessels();
-    this.syncFolk(dt); this.syncField(); this.syncForks(); this.syncJobMark(); this.syncLights(dt); this.syncCookMarks(); this.syncNavLights();
+    this.syncHullMesh(); this.syncFolk(dt); this.syncField(); this.syncForks(); this.syncJobMark(); this.syncLights(dt); this.syncCookMarks(); this.syncNavLights();
     if(this.chandler) this.poseFigure(this.chandler,{speed:0,act:"idle"},dt);
     if(this.lockKeeper) this.poseFigure(this.lockKeeper,{speed:0,act:"idle"},dt);
     // underwater: fog everything down, and dim the sun
@@ -9007,10 +9582,165 @@ const UI = {
     ["gDepth","gSpeed","gHead","gFuel","gWx","gTime","place2","prompt","tabbody",
      "vitals","vHp","vSt","vWm","vHpN","vStN","vWmN","vFood","vMood","reticle","weapon","breath","place"].forEach(i=>this.el[i]=document.getElementById(i));
   },
+  /* ---- the minimap ----------------------------------------------------
+     Heading-up, the boat fixed at the centre. It draws the same bodies the
+     chart draws, so it can never show water the chart doesn't.           */
+  miniFrame(){
+    const el=document.getElementById("mini"); if(!el) return;
+    const want = !!DATA.ui.miniMap && Sim.state.player.mode!=="foot";
+    if(el.classList.contains("on")!==want) el.classList.toggle("on",want);
+    if(!want) return;
+    const cv=document.getElementById("mcv"); if(!cv) return;
+    // bigger where there's room; a phone gets the small one
+    const W = Math.max(140, Math.min(232, Math.round(innerWidth*0.20)));
+    if(el._w!==W){
+      el._w=W; el.style.width=W+"px"; el.style.height=W+"px";
+      el.style.left="12px";
+      el.style.top = (document.getElementById("hud")||{offsetHeight:58}).offsetHeight + 52 + "px";
+      const dpr=Math.min(2,devicePixelRatio||1);
+      cv.width=W*dpr; cv.height=W*dpr; cv.style.width=W+"px"; cv.style.height=W+"px";
+      cv._dpr=dpr;
+      el.querySelector(".rng").textContent=DATA.ui.miniRangeM+" m";
+    }
+    const x=cv.getContext("2d"), dpr=cv._dpr, C=W/2;
+    const S=Sim.state, b=S.entities[S.playerBoatId];
+    const R=DATA.ui.miniRangeM, k=C/R;
+    x.setTransform(dpr,0,0,dpr,0,0);
+    x.clearRect(0,0,W,W);
+    x.fillStyle="#0c1319"; x.fillRect(0,0,W,W);
+    x.save(); x.translate(C,C); x.rotate(-b.heading*Math.PI/180);
+    x.scale(k,k); x.translate(-b.x,-b.z);
+
+    const ribbon=(pts,w,col)=>{
+      if(!pts||pts.length<2) return;
+      x.lineWidth=w; x.lineJoin="round"; x.lineCap="round"; x.strokeStyle=col;
+      x.beginPath();
+      pts.forEach((p,i)=> i?x.lineTo(p[0],p[1]):x.moveTo(p[0],p[1]));
+      x.stroke();
+    };
+    Sim.bodies().forEach(bd=>{
+      if(bd.kind==="basin"){
+        x.beginPath(); x.arc(bd.x,bd.z,bd.r,0,6.2832);
+        x.fillStyle="#1d4a58"; x.fill();
+      } else if(bd.line){
+        ribbon(bd.line.pts, bd.halfWidthM*2.3, "#16333d");
+        ribbon(bd.line.pts, bd.halfWidthM*1.5, "#1d4a58");
+      }
+    });
+    // anything solid you'd want to see coming
+    (Sim.seg().structures||[]).forEach(st=>{
+      if(st.x===undefined) return;
+      x.fillStyle = st.kind==="dock"||st.kind==="ramp" ? "#6b563a" : "#3f4a52";
+      x.fillRect(st.x-9, st.z-9, 18, 18);
+    });
+    x.restore();
+
+    // markers in screen space so symbols never rotate
+    const toScreen=(wx,wz)=>{
+      const dx=(wx-b.x)*k, dz=(wz-b.z)*k;
+      const a=-b.heading*Math.PI/180, ca=Math.cos(a), sa=Math.sin(a);
+      return [C+dx*ca-dz*sa, C+dx*sa+dz*ca];
+    };
+    x.strokeStyle="#4fb477"; x.lineWidth=1.6;
+    Sim.bodies().forEach(bd=>{
+      if(!bd.anchorage) return;
+      const p = bd.kind==="basin" ? {x:bd.x,z:bd.z}
+              : Sim.pointOn(bd.line, bd.line.len*0.62);
+      const [sx,sy]=toScreen(p.x,p.z);
+      if(Math.hypot(sx-C,sy-C) > C-8) return;
+      x.beginPath();
+      x.moveTo(sx,sy-5.5); x.lineTo(sx,sy+4.5);
+      x.moveTo(sx-4,sy+0.5); x.lineTo(sx+4,sy+0.5);
+      x.stroke();
+    });
+
+    // you, at the centre, pointing up
+    x.fillStyle="#e8eef2";
+    x.beginPath();
+    x.moveTo(C,C-8); x.lineTo(C+5.5,C+6.5); x.lineTo(C,C+3); x.lineTo(C-5.5,C+6.5);
+    x.closePath(); x.fill();
+
+    const g=x.createRadialGradient(C,C,C*0.62,C,C,C);
+    g.addColorStop(0,"rgba(0,0,0,0)"); g.addColorStop(1,"rgba(0,0,0,.5)");
+    x.fillStyle=g; x.fillRect(0,0,W,W);
+  },
   say(txt,key,ms){ const p=this.el.prompt;
     if(p.dataset.k===key && p.classList.contains("on")) return;
     p.dataset.k=key||""; p.innerHTML=txt; p.classList.add("on");
     this.promptT=ms||DATA.ui.promptMs; },
+  /* ---- gauge art -------------------------------------------------------
+     Drawn into the existing gauges rather than replacing them, so one updater
+     feeds both faces and they can never disagree about a number.          */
+  arc(cx,cy,r,a0,a1,col,w){
+    const x1=cx+Math.cos(a0)*r, y1=cy+Math.sin(a0)*r;
+    const x2=cx+Math.cos(a1)*r, y2=cy+Math.sin(a1)*r;
+    const big = Math.abs(a1-a0) > Math.PI ? 1 : 0;   // keys off the SWEEP
+    return '<path d="M'+x1+' '+y1+' A'+r+' '+r+' 0 '+big+' 1 '+x2+' '+y2+
+           '" fill="none" stroke="'+col+'" stroke-width="'+w+'" stroke-linecap="round"/>';
+  },
+  drawRose(el,hdg){
+    el.setAttribute("viewBox","0 0 54 54"); el.setAttribute("width",54); el.setAttribute("height",54);
+    let s='<circle cx="27" cy="27" r="24" fill="#0c1319" stroke="#2b3a46"/>';
+    s+='<g transform="rotate('+(-hdg)+' 27 27)">';
+    for(let i=0;i<36;i++){
+      const a=i*10*Math.PI/180, maj=i%9===0, mid=i%3===0;
+      const r1=maj?17:mid?19.5:21.5, r2=23.4;
+      s+='<line x1="'+(27+Math.sin(a)*r1)+'" y1="'+(27-Math.cos(a)*r1)+
+         '" x2="'+(27+Math.sin(a)*r2)+'" y2="'+(27-Math.cos(a)*r2)+
+         '" stroke="'+(maj?"#c9a227":"#3d5260")+'" stroke-width="'+(maj?1.3:.8)+'"/>';
+    }
+    ["N","E","S","W"].forEach((L,i)=>{
+      const a=i*90*Math.PI/180, lx=27+Math.sin(a)*12, ly=27-Math.cos(a)*12;
+      s+='<text x="'+lx+'" y="'+(ly+3)+'" text-anchor="middle" font-family="Oswald,sans-serif"'+
+         ' font-size="8" fill="'+(i===0?"#e6c14a":"#7d93a1")+
+         '" transform="rotate('+hdg+' '+lx+' '+ly+')">'+L+'</text>';
+    });
+    s+='</g><path d="M27 2.2 l3 5 h-6 Z" fill="#7ee0a4"/>';
+    el.innerHTML=s;
+  },
+  drawSweep(el,kn,max){
+    el.setAttribute("viewBox","0 0 62 40"); el.setAttribute("width",62); el.setAttribute("height",40);
+    const f=Math.max(0,Math.min(1,kn/max));
+    const a0=-165*Math.PI/180, a1=-15*Math.PI/180, aN=a0+(a1-a0)*f;
+    let s=this.arc(31,36,23,a0,a1,"#22303a",4.5);
+    if(f>0.002) s+=this.arc(31,36,23,a0,aN,"#4fb477",4.5);
+    for(let k=0;k<=4;k++){
+      const a=a0+(a1-a0)*(k/4);
+      s+='<line x1="'+(31+Math.cos(a)*16.5)+'" y1="'+(36+Math.sin(a)*16.5)+
+         '" x2="'+(31+Math.cos(a)*19.5)+'" y2="'+(36+Math.sin(a)*19.5)+
+         '" stroke="#4a6070" stroke-width="1"/>';
+    }
+    s+='<line x1="31" y1="36" x2="'+(31+Math.cos(aN)*18)+'" y2="'+(36+Math.sin(aN)*18)+
+       '" stroke="#e8eef2" stroke-width="1.5" stroke-linecap="round"/>'+
+       '<circle cx="31" cy="36" r="2.2" fill="#c9a227"/>';
+    el.innerHTML=s;
+  },
+  drawLadder(el,uk){
+    el.setAttribute("viewBox","0 0 24 46"); el.setAttribute("width",24); el.setAttribute("height",46);
+    const seg=9, span=DATA.ui.depthLadderFt||20;
+    // full when you have water under you, draining as it shallows
+    const lit = uk<=-9 ? 0 : Math.round(Math.max(0,Math.min(1,uk/span))*seg);
+    const col = uk<DATA.ui.depthAlarmFt ? "#ff7b74"
+              : uk<DATA.ui.depthCautionFt ? "#e0a33e" : "#4fb477";
+    let s='<rect x="6" y="1" width="12" height="44" rx="2" fill="#0c1319" stroke="#2b3a46"/>';
+    for(let i=0;i<seg;i++){
+      const on=i<lit;
+      s+='<rect x="8" y="'+(3+i*4.6)+'" width="8" height="3.1" rx="1" fill="'+
+         (on?col:"#1c2833")+'"/>';
+    }
+    el.innerHTML=s;
+  },
+  drawDial(el,frac,col,needleOnly){
+    el.setAttribute("viewBox","0 0 42 40"); el.setAttribute("width",42); el.setAttribute("height",40);
+    const b0=-200*Math.PI/180, b1=20*Math.PI/180, bN=b0+(b1-b0)*Math.max(0,Math.min(1,frac));
+    const cx=21, cy=27, R=15.5;
+    let s=this.arc(cx,cy,R,b0,b1,"#22303a",4);
+    if(!needleOnly && frac>0.002) s+=this.arc(cx,cy,R,b0,bN,col,4);
+    s+='<line x1="'+cx+'" y1="'+cy+'" x2="'+(cx+Math.cos(bN)*(R-4))+'" y2="'+
+       (cy+Math.sin(bN)*(R-4))+'" stroke="#e8eef2" stroke-width="1.4" stroke-linecap="round"/>'+
+       '<circle cx="'+cx+'" cy="'+cy+'" r="1.9" fill="#c9a227"/>';
+    el.innerHTML=s;
+  },
   frame(dt){
     const S=Sim.state, b=S.entities[S.playerBoatId];
     const inD = S.player.mode==="dinghy";
@@ -9036,6 +9766,19 @@ const UI = {
     const hh=Math.floor(S.clock.hour), mm=Math.floor((S.clock.hour%1)*60);
     this.el.gTime.querySelector(".val").textContent=String(hh).padStart(2,"0")+":"+String(mm).padStart(2,"0");
     this.el.gTime.querySelector(".sub").textContent="Day "+S.clock.day+(S.compression>1?"  "+S.compression+"×":"");
+    /* the dressed faces, from the very same values */
+    if(this.dressed){
+      const kn = inD ? Math.abs(S.dinghy.speedMs)/(0.5144*Sim.travelMul()) : Sim.knots(b);
+      const hd = inD ? S.dinghy.heading : b.heading;
+      this.drawRose(  this.el.gHead.querySelector(".art"),  hd);
+      this.drawSweep( this.el.gSpeed.querySelector(".art"), kn, DATA.ui.speedMaxKn);
+      this.drawLadder(this.el.gDepth.querySelector(".art"), uk);
+      this.drawDial(  this.el.gFuel.querySelector(".art"),  fp/100,
+                      fp<8?"#d9534f":fp<20?"#e0a33e":"#4fb477");
+      this.drawDial(  this.el.gWx.querySelector(".art"),
+                      Math.min(1,S.weather.windKt/35), "#8fa3b0", true);
+    }
+    this.miniFrame();
     const mile=(Sim.seg().startMile - (Math.abs(b.z)*Sim.seg().milesPerMeter)).toFixed(1);
     const season=DATA.time.seasons[Math.floor((S.clock.day-1)/DATA.time.daysPerSeason)%4];
     this.el.place.firstChild.textContent=
@@ -9773,6 +10516,12 @@ const Create = {
     if(this.step!==2) $("crnote").className="";
   },
   frame(){
+    { const bk=document.getElementById("broker");
+      if(bk){ const want=!!Sim.state.brokerUI;
+        if(bk.classList.contains("on")!==want){
+          bk.classList.toggle("on",want);
+          if(want && window.BrokerUI) BrokerUI.draw();
+        } else if(want && window.BrokerUI) BrokerUI.draw(); } }
     const on=!!Sim.state.createUI;
     const el=document.getElementById("create");
     if(el.classList.contains("on")!==on) el.classList.toggle("on",on);
@@ -10269,6 +11018,10 @@ const Input = {
       if(e.code==="KeyZ"){ Sim.cmd("DIVE"); }
       if(e.code==="KeyV"){ Sim.cmd("COMMS",{}); }
       if(e.code==="KeyM"){ Sim.cmd("RADIO_UI"); }
+      if(e.code==="KeyK" && window.SaveUI){ SaveUI.open(); return; }
+      // opening anything you have to read gives the cursor back
+      if("KeyI KeyC KeyT KeyR KeyB KeyM KeyV KeyK".indexOf(e.code)>=0
+         && this.locked && document.exitPointerLock) document.exitPointerLock();
       if(e.code==="KeyI"){ Sim.cmd("INV_UI",{}); }
       if(e.code==="KeyF" && e.shiftKey){ Sim.cmd("LEVEL"); }
       if(e.code==="KeyL"){ Sim.cmd("LEVEL"); }
@@ -10282,6 +11035,23 @@ const Input = {
       if(e.code==="KeyR" && Sim.state.build.on){ Sim.cmd("BUILD_ROT"); }
     });
     addEventListener("keyup",e=>this.keys[e.code]=false);
+    /* Losing focus loses the keyup. Every latch has to be dropped when the
+       window does, or the player walks off the boat on his own. */
+    this.clearHeld=()=>{
+      this.keys={};
+      this.dragging=false;
+      this.stickId=null; this.lookId=null;
+      const kn=document.getElementById("knob");
+      if(kn) kn.style.transform="translate(0px,0px)";
+      this.stick={x:0,y:0};
+      Sim.cmd("WALK",{fx:0,fz:0,run:false,
+        yaw:Render.look.yaw, pitch:Render.look.pitch});
+      if(Sim.state.player.mode!=="foot"){ Sim.cmd("THROTTLE",{v:0}); Sim.cmd("RUDDER",{v:0}); }
+    };
+    addEventListener("blur", ()=>this.clearHeld());
+    document.addEventListener("visibilitychange", ()=>{
+      if(document.hidden) this.clearHeld();
+    });
 
     // iOS still pinch-zooms on two fingers even with user-scalable=no
     ["gesturestart","gesturechange","gestureend"].forEach(g=>
@@ -10295,8 +11065,36 @@ const Input = {
       Render.look.yaw   += (x-this.lastX)*k;
       Render.look.pitch += (y-this.lastY)*k*(Render.opts.invertY?1:-1);
       this.lastX=x;this.lastY=y; };
-    app.addEventListener("mousedown",e=>down(e.clientX,e.clientY));
-    addEventListener("mousemove",e=>move(e.clientX,e.clientY));
+    /* ---- desktop: pointer lock ---------------------------------------
+       Click the view to capture the mouse. Look with no button held, the way
+       any first-person game does. Escape releases it. Drag-to-look stays as
+       the fallback for any browser that refuses the lock.                  */
+    this.locked=false;
+    const canLock = !this.touch && !!app.requestPointerLock;
+    const lookRaw=(dx,dy)=>{
+      const k=0.0022*Render.opts.lookSens;
+      Render.look.yaw   += dx*k;
+      Render.look.pitch += dy*k*(Render.opts.invertY?1:-1);
+      Render.look.pitch = Math.max(-1.45, Math.min(1.45, Render.look.pitch));
+    };
+    if(canLock){
+      app.addEventListener("click", ()=>{
+        const S2=Sim.state;
+        if(S2.invUI||S2.comms||S2.shop||S2.createUI||S2.prep||S2.radio) return;
+        if(!this.locked && app.requestPointerLock) app.requestPointerLock();
+      });
+      document.addEventListener("pointerlockchange", ()=>{
+        this.locked = (document.pointerLockElement===app);
+        document.body.classList.toggle("locked", this.locked);
+        if(!this.locked) this.clearHeld();
+      });
+      document.addEventListener("pointerlockerror", ()=>{ this.locked=false; });
+    }
+    addEventListener("mousemove",e=>{
+      if(this.locked){ lookRaw(e.movementX||0, e.movementY||0); return; }
+      move(e.clientX,e.clientY);
+    });
+    app.addEventListener("mousedown",e=>{ if(!this.locked) down(e.clientX,e.clientY); });
     addEventListener("mouseup",()=>this.dragging=false);
     app.addEventListener("touchstart",e=>{
       e.preventDefault();
@@ -10484,6 +11282,7 @@ const Admin = {
         ["I","stowage"],
         ["R","rig and gear"],
         ["C","chart"],
+        ["K","save and load"],
         ["T","tablet"],
         ["Q","aim · click to shoot"],
         ["Esc","close whatever's open"]
@@ -10739,6 +11538,136 @@ const Admin = {
     // diagnostics
     $("aChaos").onclick=e=>{const v=!Sim.state.flags.chaos;Sim.cmd("FLAG",{k:"chaos",v});e.target.textContent="🎲 Chaos: "+(v?"ON":"OFF");};
     $("aPerf").onclick=e=>{this.perf=!this.perf;e.target.textContent="Perf HUD: "+(this.perf?"ON":"OFF");};
+    /* ---- the save sheet ------------------------------------------- */
+    const SV={
+      sel:"1",
+      ago(t){ const m=Math.round((Date.now()-t)/60000);
+        if(m<1) return "just now"; if(m<60) return m+" minute"+(m==1?"":"s")+" ago";
+        const h=Math.round(m/60); if(h<24) return h+" hour"+(h==1?"":"s")+" ago";
+        return Math.round(h/24)+" day"+(h<48?"":"s")+" ago"; },
+      line(b){
+        if(!b) return "\u2014";
+        if(b.corrupt) return "damaged \u2014 cannot be read";
+        const c=b.card||{};
+        const bits=["Day "+(c.day||"?")];
+        if(c.season) bits.push(c.season);
+        if(c.seg) bits.push(c.seg + (c.mile!=null ? " mile "+Math.round(c.mile) : ""));
+        if(c.where) bits.push(c.where);
+        return bits.join(" \u00b7 ") + "  \u00b7 " + SV.ago(b.saved);
+      },
+      draw(){
+        const el=document.getElementById("slots"); if(!el) return;
+        el.innerHTML = Sim.shelf().map(({slot,blob})=>{
+          const lab = slot==="auto" ? "A" : slot;
+          const nm  = blob ? (blob.name||"Unnamed") : "Empty slot";
+          return '<div class="slot'+(blob?'':' empty')+(SV.sel===slot?' sel':'')+
+            '" data-slot="'+slot+'"><span class="no">'+lab+'</span>'+
+            '<div class="meta"><div class="nm">'+(slot==="auto"?"Autosave":nm)+'</div>'+
+            '<div class="sub">'+SV.line(blob)+'</div></div>'+
+            (blob?'<span class="del" data-del="'+slot+'">\u00d7</span>':'')+'</div>';
+        }).join("");
+        el.querySelectorAll("[data-slot]").forEach(n=>n.onclick=e=>{
+          if(e.target.dataset.del!==undefined) return;
+          SV.sel=n.dataset.slot; SV.draw(); });
+        el.querySelectorAll("[data-del]").forEach(n=>n.onclick=e=>{
+          e.stopPropagation(); Sim.clearSlot(n.dataset.del); SV.draw(); });
+      },
+      open(){ SV.draw(); document.getElementById("saveui").classList.add("on"); },
+      close(){ document.getElementById("saveui").classList.remove("on"); }
+    };
+    window.SaveUI=SV;
+    const $$=id=>document.getElementById(id);
+    /* ---- the brokerage --------------------------------------------- */
+    const BK={
+      money(){ return Sim.state.money||0; },
+      draw(){
+        const b=Sim.state.entities[Sim.state.playerBoatId];
+        const H=Sim.hull(b), trade=Sim.tradeValue(b);
+        const now=document.getElementById("brokerNow");
+        if(now) now.innerHTML =
+          "You're in <b>"+H.name+"</b>. They'll allow <b>$"+trade.toLocaleString()+
+          "</b> against her, and you have <b>$"+Math.round(BK.money()).toLocaleString()+"</b>.";
+        const list=document.getElementById("brokerList"); if(!list) return;
+        list.innerHTML = DATA.hulls.map(h=>{
+          const own = h.id===b.hullId;
+          const plan = own ? null : Sim.hullSwapPlan(b,h.id);
+          const due  = own ? 0 : Math.max(0,(h.price||0)-trade-(plan?plan.refund:0));
+          const can  = BK.money() >= due;
+          const spec = h.loa+"′ \u00b7 "+h.beam+"′ beam \u00b7 "+
+                       h.baseDraftFt+"′ draft \u00b7 "+h.airDraftFt+"′ air \u00b7 "+
+                       h.maxKt+" kt \u00b7 "+h.gph+" gph";
+          const note = own ? "This is your boat."
+            : (plan && plan.drop.length
+               ? plan.drop.length+" of your fittings wouldn't fit her and would be sold with the old boat."
+               : "Everything you've fitted would come across.");
+          return '<div class="boat'+(own?' own':'')+'" data-hull="'+h.id+'">'+
+            '<div class="bt"><span class="bn">'+h.name+'</span>'+
+            '<span class="bp">$'+(h.price||0).toLocaleString()+'</span></div>'+
+            '<div class="bs">'+spec+'</div>'+
+            '<div class="bw">'+note+'</div>'+
+            (own?'':'<div class="due '+(can?'can':'cant')+'">'+
+              (due>0 ? "To pay: $"+Math.round(due).toLocaleString()
+                     : "Nothing to pay — $"+Math.round(-due||0).toLocaleString()+" back")+
+              (can?'':'  \u2014 short')+'</div>')+
+            '</div>';
+        }).join("");
+        list.querySelectorAll("[data-hull]").forEach(n=>n.onclick=()=>{
+          if(n.classList.contains("own")) return;
+          Sim.cmd("BUY_HULL",{id:n.dataset.hull});
+        });
+      },
+      open(){ BK.draw(); document.getElementById("broker").classList.add("on"); },
+      close(){ Sim.cmd("BROKER_UI",{on:false});
+               document.getElementById("broker").classList.remove("on"); }
+    };
+    window.BrokerUI=BK;
+    if($$("btnBroker")) $$("btnBroker").onclick=()=>Sim.cmd("BROKER_UI",{on:true});
+    if($$("bkClose")) $$("bkClose").onclick=BK.close;
+    if($$("broker")) $$("broker").onclick=e=>{ if(e.target.id==="broker") BK.close(); };
+    if($$("btnSave")) $$("btnSave").onclick=SV.open;
+    const applyDash=on=>{
+      DATA.ui.dressedDash=on; UI.dressed=on;
+      document.getElementById("dash").classList.toggle("dressed",on);
+    };
+    if($$("sDash")){ $$("sDash").checked=!!DATA.ui.dressedDash;
+      $$("sDash").onchange=e=>applyDash(e.target.checked); }
+    if($$("sMini")){ $$("sMini").checked=!!DATA.ui.miniMap;
+      $$("sMini").onchange=e=>{ DATA.ui.miniMap=e.target.checked; }; }
+    applyDash(!!DATA.ui.dressedDash);
+    if($$("svClose")) $$("svClose").onclick=SV.close;
+    if($$("saveui")) $$("saveui").onclick=e=>{ if(e.target.id==="saveui") SV.close(); };
+    if($$("svSave")) $$("svSave").onclick=()=>{
+      if(SV.sel==="auto"){ UI.say("The autosave slot writes itself","rs"); return; }
+      try{ const b=Sim.writeSlot(SV.sel); SV.draw();
+           UI.say("Saved to slot "+SV.sel,"rs"); }
+      catch(e){ UI.say(e.message,"rs"); }
+    };
+    if($$("svExport")) $$("svExport").onclick=()=>{
+      try{
+        const blob=Sim.saveBlob();
+        const name="crossing-your-wake-day"+(blob.card.day||0)+".json";
+        const url=URL.createObjectURL(new Blob([JSON.stringify(blob)],
+                    {type:"application/json"}));
+        const a=document.createElement("a");
+        a.href=url; a.download=name; document.body.appendChild(a); a.click();
+        setTimeout(()=>{ URL.revokeObjectURL(url); a.remove(); },400);
+        UI.say("Exported "+name,"rs");
+      }catch(e){ UI.say("Export failed: "+e.message,"rs"); }
+    };
+    if($$("svImport")) $$("svImport").onclick=()=>$$("svFile").click();
+    if($$("svFile")) $$("svFile").onchange=e=>{
+      const f=e.target.files && e.target.files[0]; if(!f) return;
+      const r=new FileReader();
+      r.onload=()=>{
+        try{
+          const blob=Sim.loadBlob(JSON.parse(r.result));
+          Render.buildWorld && Render.buildWorld();
+          SV.close(); UI.say("Loaded "+(blob.name||"save"),"rs");
+        }catch(err){ UI.say(err.message,"rs"); }
+      };
+      r.onerror=()=>UI.say("Couldn't read that file","rs");
+      r.readAsText(f); e.target.value="";
+    };
     $("aSnap").onclick=()=>$("aSnapOut").value=Sim.snapshot();
     $("aRestore").onclick=()=>{try{Sim.restore($("aSnapOut").value);UI.say("Snapshot restored","rs");}catch(e){UI.say("Bad snapshot JSON","rs");}};
 
@@ -10841,6 +11770,11 @@ function loop(t){
     if(lb.style.display!==(show?"":"none")) lb.style.display=show?"":"none";
     const face=(P8.lvl||0)>0?"⬇️":"🪜";
     if(lb.textContent!==face) lb.textContent=face; }
+  { const bb=document.getElementById("btnBroker");
+    if(bb){ const b0=Sim.state.entities[Sim.state.playerBoatId];
+      const want = Sim.atYard(b0) && Sim.state.player.mode!=="dinghy";
+      const disp = want?"":"none";
+      if(bb.style.display!==disp) bb.style.display=disp; } }
   const ib=document.getElementById("btnInv");
   if(ib){ const face=Sim.state.invUI?"✕":"🎒";
     if(ib.textContent!==face) ib.textContent=face; }
