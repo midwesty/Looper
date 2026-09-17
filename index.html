@@ -633,6 +633,7 @@ button.bk.sel{color:var(--c-brass);border-color:var(--c-brass-dim);background:va
   <div class="gauge" id="gSpeed"><svg class="art" data-art="sweep"></svg><div class="lab">Speed</div><div class="val">0.0</div><div class="sub">knots</div></div>
   <div class="gauge" id="gHead"><svg class="art" data-art="rose"></svg><div class="lab">Heading</div><div class="val">000</div><div class="sub">magnetic</div></div>
   <div class="gauge" id="gFuel"><svg class="art" data-art="dial"></svg><div class="lab">Fuel</div><div class="val">100</div><div class="bar"><i style="width:100%"></i></div></div>
+  <div class="gauge" id="gWater"><svg class="art" data-art="dial"></svg><div class="lab">Water</div><div class="val">100</div><div class="bar"><i style="width:100%"></i></div></div>
   <div class="gauge" id="gWx"><svg class="art" data-art="dial"></svg><div class="lab">Wind</div><div class="val">0</div><div class="sub">kt</div></div>
   <div class="gauge" id="gTime"><div class="lab">Clock</div><div class="val">06:00</div><div class="sub">Day 1</div></div>
 </div>
@@ -976,7 +977,7 @@ button.bk.sel{color:var(--c-brass);border-color:var(--c-brass-dim);background:va
 
 /* ============================ DATA ============================ */
 const DATA = {
-  meta:{ title:"Crossing Your Wake", build:58, tickHz:20,
+  meta:{ title:"Crossing Your Wake", build:59, tickHz:20,
          /* 1 world metre represents ~11 chart metres. Derived so that at the
             default 1 real min : 1 game hour clock, a hull's true knots and the
             distance it covers on the chart agree. Builder-tunable. */
@@ -1010,7 +1011,30 @@ const DATA = {
     warmthMax:100,
     warmDropDryPerHr:5, warmDropWetPerHr:34, warmDropNightMul:2.1,
     warmGainAboardPerHr:70, warmGainFirePerHr:110, fireRadiusM:6.5,
-    coldHPPerHr:7, hpRegenPerHr:9, dryOutPerHr:55
+    coldHPPerHr:7, hpRegenPerHr:9, dryOutPerHr:55,
+    /* Thirst runs faster than hunger and matters sooner — which is true, and
+       is why a water tank is the first thing a real boat worries about. */
+    thirstPerHr:2.4, thirstHeatMul:1.9, thirstWorkMul:1.5,
+    dryThroatBelow:25, parchedBelow:8,
+    thirstHPPerHr:6, thirstSpeedMul:0.80,
+    drinkPerPint:14
+  },
+
+  /* Water aboard: a tank level in gallons, and a quality the tank remembers.
+     Untreated water from a river is drinkable and sometimes costs you a day. */
+  water:{
+    baseTankGal:18,              // a jerry can or two, before you fit anything
+    galPerKg:3.785,              // weight is the honest cost of carrying it
+    rainCatchGalPerHr:2.6,       // in real rain, with something rigged to catch it
+    fillPricePerGal:0.28,        // at a dock, where they meter it
+    quality:{
+      clean:   {id:"clean",   label:"clean",    sickChance:0},
+      filtered:{id:"filtered",label:"filtered", sickChance:0.02},
+      raw:     {id:"raw",     label:"untreated",sickChance:0.34},
+      foul:    {id:"foul",    label:"foul",     sickChance:0.72}
+    },
+    sickDays:[1,3],              // how long a bad drink costs you
+    sickStamMul:0.62, sickHPPerHr:3.5
   },
 
   /* Zomboid/Sims-style status chips. Data-driven: a stat, a comparison and a
@@ -1020,6 +1044,9 @@ const DATA = {
     {id:"cold",     label:"Cold",         icon:"🥶", tone:"warn", stat:"warmth",   op:"<",  v:36},
     {id:"byfire",   label:"By the fire",  icon:"🔥", tone:"good", stat:"nearFire", op:">=", v:1},
     {id:"wet",      label:"Soaked",       icon:"💧", tone:"warn", stat:"wet",      op:">",  v:0.3},
+    {id:"parched",  label:"Parched",      icon:"🥵", tone:"bad",  stat:"thirst",   op:"<",  v:8},
+    {id:"dry",      label:"Dry throat",   icon:"🚰", tone:"warn", stat:"thirst",   op:"<",  v:25},
+    {id:"illwater", label:"Bad water",    icon:"🤢", tone:"bad",  stat:"sickHrs",  op:">",  v:0},
     {id:"winded",   label:"Winded",       icon:"😮‍💨", tone:"warn", stat:"stamFrac", op:"<",  v:0.18},
     {id:"hurt",     label:"Hurt",         icon:"🩹", tone:"bad",  stat:"hpFrac",   op:"<",  v:0.45},
     {id:"wellfed",  label:"Well fed",     icon:"🍲", tone:"good", stat:"meals",    op:">=", v:3},
@@ -1589,6 +1616,17 @@ const DATA = {
     {id:"deck_plate", name:"Deck Plate",   cat:"structure", w:1,d:1, h:0.10, mass:22,  amp:0,   install:"field", recipe:{plank:2,fastener:1}, walkable:true, color:0x9a8763},
     {id:"rail",       name:"Guard Rail",   cat:"structure", shape:"rail", w:1,d:1, h:0.95, mass:7,   amp:0,   install:"field", recipe:{plank:1,fastener:1}, color:0x8a8f8c},
     {id:"platform",   name:"Swim Platform",cat:"structure", w:2,d:1, h:0.10, mass:48,  amp:0,   install:"yard",  cost:210, walkable:true, color:0x8f7f63},
+    /* WATER — a tank, a way to fill it, and two ways to make bad water good */
+    {id:"water_tank",  name:"Water Tank",   cat:"water", shape:"tank", w:1,d:2, h:0.75, mass:34, amp:0, install:"field",
+     recipe:{plank:3,fastener:3}, cost:180, color:0x5a7f8a, water:{galCap:45}},
+    {id:"water_tank_big", name:"Deep Tank", cat:"water", shape:"tank", w:2,d:2, h:0.85, mass:62, amp:0, install:"yard",
+     cost:520, color:0x4a6f7a, water:{galCap:120}},
+    {id:"rain_catcher", name:"Rain Catcher", cat:"water", shape:"catcher", w:2,d:2, h:0.30, mass:16, amp:0, install:"field",
+     recipe:{cloth:4,plank:2,fastener:2}, cost:95, color:0x8a9a7a, water:{catch:1}},
+    {id:"water_filter", name:"Cartridge Filter", cat:"water", shape:"filter", w:1,d:1, h:0.45, mass:11, amp:0, install:"field",
+     recipe:{fastener:3,scrap:2}, cost:140, color:0xb9b0a0, water:{treats:"filtered", cartridge:true}},
+    {id:"watermaker",  name:"Watermaker",   cat:"water", shape:"filter", w:1,d:2, h:0.55, mass:41, amp:22, install:"yard",
+     cost:1450, color:0xc4ccd0, water:{treats:"clean", galPerHr:6.5, needsPower:true}},
 
     /* GALLEY */
     {id:"counter",    name:"Galley Counter",cat:"galley",   w:1,d:2, h:0.90, mass:42,  amp:0,   install:"field", recipe:{plank:5,fastener:3}, surface:true, color:0x7d6a53},
@@ -2400,6 +2438,7 @@ const Sim = {
          shared-boat co-op tractable later (Addendum A1.1 Shape A) */
       player:{ lx:0, ly:1.0, lz:2.05, yaw:0, mode:"helm", swim:false, wx:0, wz:0, wy:0, vy:0, air:false, ashore:false, inX:0, inZ:0, inT:0,
         hp:60, stam:70, warmth:100, wet:0, run:false, stamHold:0, foods:[],
+        thirst:100, sickHrs:0,
         weapon:"", aim:false, steady:1, pitch:0, stand:"", rideOn:"", rideAt:null, lvl:0,
         carry:{}, worn:["pockets"],
         wearing:{head:"", torso:"tshirt", legs:"shorts", feet:"deckshoes", hands:""},
@@ -2955,6 +2994,29 @@ const Sim = {
                                                c.payload.id,c.payload.n||1); break;
       case "NEW_GAME": this.applyCharacter(c.payload||{}); S.createUI=false; break;
       case "CREATE_UI": S.createUI = c.payload.on!==undefined ? !!c.payload.on : !S.createUI; break;
+      case "DRINK": this.drinkWater(); break;
+      case "SCOOP": {
+        // whatever you're floating in, straight into the tank
+        if(this.waterGal(b) >= this.waterCap(b)-0.01){ S.notice="The tank's full"; break; }
+        const bd=this.bodyAt(b.x,b.z);
+        const q = this.seg().form==="urban" ? "foul" : "raw";
+        const got=this.addWater(b, 6, q);
+        const t=this.waterTreatment(b);
+        S.notice = "Six gallons aboard \u2014 "
+          + (t ? DATA.water.quality[t].label : DATA.water.quality[q].label)
+          + (t ? "" : ". You'd want to boil that");
+        break; }
+      case "FILL_WATER": {
+        if(!S.docked && !this.atYard(b)){ S.notice="You'd need a dock tap \u2014 tie up first"; break; }
+        const cap=this.waterCap(b), have=this.waterGal(b);
+        const want=cap-have;
+        if(want < 0.5){ S.notice="She's full"; break; }
+        const cost=Math.round(want*DATA.water.fillPricePerGal*100)/100;
+        if((S.money||0) < cost){ S.notice="That'd be $"+cost.toFixed(2)+" and you're short"; break; }
+        S.money -= cost;
+        b.waterGal = cap; b.waterQ = "clean";
+        S.notice = Math.round(want)+" gallons, $"+cost.toFixed(2);
+        break; }
       case "BROKER_UI": {
         if(c.payload.on && !this.atYard(b)){
           S.notice="Boats change hands at a yard, not out here"; break; }
@@ -3288,6 +3350,64 @@ const Sim = {
   /* ---- derived values (pure) ---- */
   hull(b){ return DATA.hulls.find(h=>h.id===b.hullId) || DATA.hulls[0]; },
   hullDef(id){ return DATA.hulls.find(h=>h.id===id); },
+
+  /* ---- FRESH WATER ---------------------------------------------------
+     A tank level in gallons plus a quality the tank remembers. Everything
+     else — drinking, filling, catching rain, getting ill — reads from here. */
+  waterCap(b){
+    let cap=DATA.water.baseTankGal;
+    (b.modules||[]).forEach(m=>{
+      const d=this.modDef(m.defId);
+      if(d && d.water && d.water.galCap) cap += d.water.galCap;
+    });
+    return cap;
+  },
+  waterGal(b){ return b.waterGal!==undefined ? b.waterGal : DATA.water.baseTankGal; },
+  waterPct(b){ const c=this.waterCap(b); return c>0 ? clamp(this.waterGal(b)/c,0,1)*100 : 0; },
+  waterQuality(b){ return b.waterQ || "clean"; },
+  /* The best treatment fitted decides what comes out of the tap. A watermaker
+     needs current; with flat batteries it's a box of expensive plumbing. */
+  waterTreatment(b){
+    let best=null;
+    (b.modules||[]).forEach(m=>{
+      const d=this.modDef(m.defId);
+      if(!d || !d.water || !d.water.treats) return;
+      if(d.water.needsPower && (b.battPct||0) < 12) return;
+      if(d.water.treats==="clean") best="clean";
+      else if(best!=="clean") best="filtered";
+    });
+    return best;
+  },
+  hasRainCatcher(b){
+    return (b.modules||[]).some(m=>{ const d=this.modDef(m.defId);
+      return d && d.water && d.water.catch; });
+  },
+  /* Adding water to a tank can only make the contents worse, never better —
+     a pint of river water in a clean tank is a tank of river water. */
+  addWater(b, gal, quality){
+    const cap=this.waterCap(b);
+    const had=this.waterGal(b);
+    const rank={clean:3, filtered:2, raw:1, foul:0};
+    const t=this.waterTreatment(b);
+    let q = t && rank[t] > rank[quality] ? t : quality;   // treat on the way in
+    if(had > 0.5 && rank[q] > rank[this.waterQuality(b)]) q = this.waterQuality(b);
+    b.waterGal = clamp(had + gal, 0, cap);
+    b.waterQ = q;
+    return b.waterGal - had;
+  },
+  drinkWater(){
+    const S=this.state, P=S.player, b=S.entities[S.playerBoatId];
+    if(this.waterGal(b) < 0.13){ S.notice="The tank's dry"; return false; }
+    b.waterGal -= 0.13;                                   // a pint
+    P.thirst = clamp(P.thirst + DATA.vitals.drinkPerPint, 0, 100);
+    const q=DATA.water.quality[this.waterQuality(b)];
+    if(q && q.sickChance > 0 && Math.random() < q.sickChance){
+      const r=DATA.water.sickDays;
+      P.sickHrs = (r[0] + Math.random()*(r[1]-r[0])) * 24;
+      S.notice="That water was "+q.label+". You'll know about it by morning";
+    }
+    return true;
+  },
   /* What a yard will give you for yours. A boat is worth less than it cost and
      more when it's been looked after — and the gear you fitted counts. */
   tradeValue(b){
@@ -3497,6 +3617,7 @@ const Sim = {
     const S=this.state, P=S.player, b=S.entities[S.playerBoatId];
     return {
       warmth:P.warmth, wet:P.wet, meals:P.foods.length,
+      thirst:P.thirst, sickHrs:P.sickHrs||0,
       docked:S.docked?1:0,
       upstairs:(S.player.lvl||0)>0?1:0,
       darkBoat:(()=>{ const b2=S.entities[S.playerBoatId];
@@ -5868,6 +5989,44 @@ const Sim = {
     return this.litFires(P.wx,P.wz,DATA.vitals.fireRadiusM).length>0;
   },
 
+  /* Thirst, rain, and the watermaker. All per dtHours — standing rule 1. */
+  stepWater(dtHours){
+    const S=this.state, P=S.player, b=S.entities[S.playerBoatId];
+    const V=DATA.vitals;
+    if(b.waterGal===undefined){ b.waterGal=DATA.water.baseTankGal; b.waterQ="clean"; }
+
+    let rate=V.thirstPerHr;
+    const hot = S.weather.tempF!==undefined ? S.weather.tempF > 84
+              : (S.season==="Summer" || DATA.time.seasons[Math.floor((S.clock.day-1)
+                  /DATA.time.daysPerSeason)%4]==="Summer");
+    if(hot) rate *= V.thirstHeatMul;
+    if(P.mode==="foot" && P.run) rate *= V.thirstWorkMul;
+    P.thirst = clamp(P.thirst - rate*dtHours, 0, 100);
+
+    // rain fills a catcher, and the forecast finally pays you
+    if(this.hasRainCatcher(b) && S.weather.rain > 0.25){
+      this.addWater(b, DATA.water.rainCatchGalPerHr * S.weather.rain * dtHours, "filtered");
+    }
+    // a watermaker turns whatever you're floating in into fresh, for current
+    (b.modules||[]).forEach(m=>{
+      const d=this.modDef(m.defId);
+      if(!d || !d.water || !d.water.galPerHr) return;
+      if(d.water.needsPower && (b.battPct||0) < 12) return;
+      if(this.waterGal(b) >= this.waterCap(b) - 0.01) return;
+      this.addWater(b, d.water.galPerHr*dtHours, d.water.treats||"clean");
+      b.battPct = clamp((b.battPct||0) - (d.amp||0)*dtHours*0.05, 0, 100);
+    });
+
+    // being ill is a day you don't get back
+    if(P.sickHrs > 0){
+      P.sickHrs = Math.max(0, P.sickHrs - dtHours);
+      P.hp = clamp(P.hp - DATA.water.sickHPPerHr*dtHours, 1, 100);
+      if(P.sickHrs===0) S.notice="You feel like yourself again";
+    }
+    // and being parched is worse than being hungry
+    if(P.thirst < V.parchedBelow)
+      P.hp = clamp(P.hp - V.thirstHPPerHr*dtHours, 1, 100);
+  },
   stepVitals(dt, dtHours){
     const S=this.state, P=S.player, V=DATA.vitals;
     // food timers burn in GAME hours, like every other consumable
@@ -6476,6 +6635,7 @@ const Sim = {
     })(this);
 
     this.moveActor(b, dt);
+    this.stepWater(dtHours);
     this.stepVitals(dt, dtHours);
     this.stepFishing(dt);
     this.stepCooking(dtHours);
@@ -9579,7 +9739,7 @@ const UI = {
   el:{}, promptT:0, lockT:0, tab:"chart", foodSig:"", moodSig:"",
   storesView:"larder", bookStation:"all", bookSort:"ready", bookItem:"",
   init(){
-    ["gDepth","gSpeed","gHead","gFuel","gWx","gTime","place2","prompt","tabbody",
+    ["gDepth","gSpeed","gHead","gFuel","gWater","gWx","gTime","place2","prompt","tabbody",
      "vitals","vHp","vSt","vWm","vHpN","vStN","vWmN","vFood","vMood","reticle","weapon","breath","place"].forEach(i=>this.el[i]=document.getElementById(i));
   },
   /* ---- the minimap ----------------------------------------------------
@@ -9762,6 +9922,10 @@ const UI = {
     this.el.gFuel.querySelector(".val").textContent=Math.round(fp);
     this.el.gFuel.className = "gauge" + (fp<8?" alarm":fp<20?" caution":"");
     this.el.gFuel.querySelector(".bar i").style.width=fp+"%";
+    const wp = Sim.waterPct(b);
+    this.el.gWater.querySelector(".val").textContent=Math.round(wp);
+    this.el.gWater.className = "gauge" + (wp<8?" alarm":wp<22?" caution":"");
+    this.el.gWater.querySelector(".bar i").style.width=wp+"%";
     this.el.gWx.querySelector(".val").textContent=Math.round(S.weather.windKt);
     const hh=Math.floor(S.clock.hour), mm=Math.floor((S.clock.hour%1)*60);
     this.el.gTime.querySelector(".val").textContent=String(hh).padStart(2,"0")+":"+String(mm).padStart(2,"0");
@@ -9775,6 +9939,8 @@ const UI = {
       this.drawLadder(this.el.gDepth.querySelector(".art"), uk);
       this.drawDial(  this.el.gFuel.querySelector(".art"),  fp/100,
                       fp<8?"#d9534f":fp<20?"#e0a33e":"#4fb477");
+      this.drawDial(  this.el.gWater.querySelector(".art"), wp/100,
+                      wp<8?"#d9534f":wp<22?"#e0a33e":"#6fb7d0");
       this.drawDial(  this.el.gWx.querySelector(".art"),
                       Math.min(1,S.weather.windKt/35), "#8fa3b0", true);
     }
@@ -9958,6 +10124,12 @@ const UI = {
         }
       }
       // --- 2. only if there is nothing to do: how the boat is faring ---
+      if(!msg && !P.swim && !S.shop && Sim.waterPct(b) < 8 && !S.docked){
+        msg = Sim.hasRainCatcher(b)
+          ? "The tank's nearly dry \u2014 rain would fill it, or scoop from over the side"
+          : "The tank's nearly dry \u2014 tie up at a dock, or scoop from over the side";
+        key = "dry";
+      }
       if(!msg && !P.swim && !S.shop && P.mode!=="foot"){
         const bd=Sim.bodyAt(b.x,b.z);
         if(bd && !bd.ref && bd.name){
@@ -11019,6 +11191,7 @@ const Input = {
       if(e.code==="KeyV"){ Sim.cmd("COMMS",{}); }
       if(e.code==="KeyM"){ Sim.cmd("RADIO_UI"); }
       if(e.code==="KeyK" && window.SaveUI){ SaveUI.open(); return; }
+      if(e.code==="KeyJ"){ Sim.cmd("DRINK",{}); return; }
       // opening anything you have to read gives the cursor back
       if("KeyI KeyC KeyT KeyR KeyB KeyM KeyV KeyK".indexOf(e.code)>=0
          && this.locked && document.exitPointerLock) document.exitPointerLock();
@@ -11283,6 +11456,7 @@ const Admin = {
         ["R","rig and gear"],
         ["C","chart"],
         ["K","save and load"],
+        ["J","take a drink"],
         ["T","tablet"],
         ["Q","aim · click to shoot"],
         ["Esc","close whatever's open"]
