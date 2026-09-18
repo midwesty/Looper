@@ -1,0 +1,237 @@
+{
+  "segment": "tt-reach-end",
+  "generated": "2026-09-18T13:09:45Z",
+  "ok": true,
+  "counts": {
+    "passed": 16,
+    "failed": 0,
+    "skipped": 1,
+    "estimated": 5
+  },
+  "checks": [
+    {
+      "name": "depth coverage has no long gap",
+      "status": "pass",
+      "detail": "depth areas cover the whole reach"
+    },
+    {
+      "name": "reference channel navigable end to end",
+      "status": "pass",
+      "detail": "shallowest sample 8.99 ft against a published controlling depth of 9.00 ft (within the 0.05 ft allowed for metre-to-foot conversion)"
+    },
+    {
+      "name": "every aid numbered or explicitly unnumbered",
+      "status": "pass",
+      "detail": "33 aids"
+    },
+    {
+      "name": "bridge clearances within 3..250 ft",
+      "status": "pass",
+      "detail": "1 spans"
+    },
+    {
+      "name": "opening spans clear more when open",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "name": "reference centreline stays off land",
+      "status": "pass",
+      "detail": "clear of 22 land polygons"
+    },
+    {
+      "name": "all bodies inside the segment extent",
+      "status": "pass",
+      "detail": "1 bodies"
+    },
+    {
+      "name": "body ids unique",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "name": "length matches the centreline",
+      "status": "pass",
+      "detail": "declared 77744.9 m against a measured 77744.9 m"
+    },
+    {
+      "name": "atFrac values in range",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "name": "unverified paths resolve",
+      "status": "pass",
+      "detail": "5 paths"
+    },
+    {
+      "name": "mile axis agrees with lock directions",
+      "status": "skip",
+      "detail": "no locks in this segment"
+    },
+    {
+      "name": "verified flag agrees with the unverified list",
+      "status": "pass",
+      "detail": "verified=False with 5 unverified fields"
+    },
+    {
+      "name": "mileSystem.primary names a declared axis",
+      "status": "pass",
+      "detail": "primary='TOMBIGBEE', systems=['TOMBIGBEE']"
+    },
+    {
+      "name": "buoyage is stated",
+      "status": "pass",
+      "detail": "returning toward upstream"
+    },
+    {
+      "name": "mile numbering stays on one axis",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "name": "aids lie near the route",
+      "status": "pass",
+      "detail": ""
+    }
+  ],
+  "estimates": [
+    {
+      "path": "terrain.blendM",
+      "reason": "not measurable from elevation; set to falloffM/3 by convention"
+    },
+    {
+      "path": "currentKt",
+      "reason": "no CO-OPS current prediction for this reach; assumed still"
+    },
+    {
+      "path": "buoyage.returningToward",
+      "reason": "not read from the chart; the schema default (upstream) was used and must be confirmed against the chart's own statement"
+    },
+    {
+      "path": "tide",
+      "reason": "no CO-OPS station was consulted; emitted as null, which asserts non-tidal \u2014 confirm for any reach below a lock"
+    },
+    {
+      "path": "biome",
+      "reason": "suggested from the region key, not authored; confirm 'cypress-delta' against the species file"
+    }
+  ],
+  "notes": [
+    "route stitched from 1 charted track line(s) into 1 chain(s); the longest is 77.9 km",
+    "width and depth still come from the depth areas around it",
+    "bridge U37TT218-brg-0 has no charted vertical clearance and was dropped; a bridge with an unknown clearance is worse than no bridge",
+    "bridge U37TT218-brg-3 has no charted vertical clearance and was dropped; a bridge with an unknown clearance is worse than no bridge",
+    "bridge U37TT218-brg-10 has no charted vertical clearance and was dropped; a bridge with an unknown clearance is worse than no bridge",
+    "lock U37TT218-lok-1 has neither a lift nor pool elevations and was dropped",
+    "U37TB176: DEPARE[0]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[2]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[11]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[17]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[25]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[26]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[35]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[50]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[53]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[63]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[69]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[85]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[113]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[114]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[125]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[133]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[135]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[139]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[146]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[167]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[170]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[171]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[179]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[181]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[182]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[190]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[205]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[208]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[214]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[215]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[216]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[217]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[223]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[227]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[230]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[233]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[243]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[248]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[250]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[252]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[257]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[259]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[260]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: DEPARE[265]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TB176: 46 of 46 LIGHTS had no mark within 25 m and were not turned into aids \u2014 a light on a dam or a bridge pier is not something to steer between",
+    "U37TB176: M_NSYS gives MARSYS=2 but no ORIENT, so the chart names the buoyage system without stating its direction on this reach",
+    "U37TB176: layers present: ADMARE, AIRARE, BUAARE, BUISGL, CBLSUB, COALNE, CONVYR, CRANES, CTNARE, C_AGGR, DAMCON, DAYMAR, DEPARE, DEPCNT, DSID, GATCON, Generic, HRBFAC, LIGHTS, LNDARE, LNDRGN, MORFAC, M_COVR, M_NPUB, M_QUAL, PILPNT, PIPSOL, PYLONS, RAILWY, RECTRC, RESARE, RIVERS, ROADWY, SEAARE, SILTNK, SLCONS, UWTROC, berths, bridge, cblohd, dismar, lokbsn, m_nsys, notmrk, sistat, sistaw",
+    "U37TB176: no channel polygon layer in this cell (FAIRWY/DRGARE) \u2014 that is a fact about how the cell is compiled, not a problem with the download",
+    "U37TT218: DEPARE[0]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TT218: DEPARE[1]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TT218: DEPARE[3]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TT218: DEPARE[8]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TT218: DEPARE[11]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TT218: DEPARE[17]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TT218: DEPARE[19]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TT218: DEPARE[23]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TT218: DEPARE[28]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TT218: DEPARE[29]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TT218: DEPARE[34]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TT218: DEPARE[36]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TT218: DEPARE[40]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TT218: DEPARE[42]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TT218: DEPARE[44]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TT218: DEPARE[49]: no DRVAL2; deep limit taken as DRVAL1",
+    "U37TT218: 24 of 36 LIGHTS had no mark within 25 m and were not turned into aids \u2014 a light on a dam or a bridge pier is not something to steer between",
+    "U37TT218: M_NSYS gives MARSYS=2 but no ORIENT, so the chart names the buoyage system without stating its direction on this reach",
+    "U37TT218: layers present: ADMARE, BUAARE, BUISGL, COALNE, CONVYR, CRANES, CTNARE, C_AGGR, DAMCON, DAYMAR, DEPARE, DEPCNT, DSID, GATCON, Generic, LIGHTS, LNDARE, LNDMRK, LNDRGN, MORFAC, M_COVR, M_NPUB, M_QUAL, PIPSOL, PYLONS, RAILWY, RECTRC, RESARE, RIVERS, ROADWY, SEAARE, SILTNK, SLCONS, bridge, cblohd, dismar, lokbsn, m_nsys, notmrk, sistat, sistaw",
+    "U37TT218: no channel polygon layer in this cell (FAIRWY/DRGARE) \u2014 that is a fact about how the cell is compiled, not a problem with the download",
+    "U37TB176 is the later posting and takes precedence",
+    "1 lock complex(es) sit at an end of the reach and were treated as its boundary rather than an internal split: Howell Heflin Lock",
+    "Selden Lock is 17930 m off this route \u2014 it is on other water and is not a stop on it",
+    "Demopolis Lock is 2208 m off this route \u2014 it is on other water and is not a stop on it",
+    "U37tb176-lok-0 is 2154 m off this route \u2014 it is on other water and is not a stop on it",
+    "U37tb176-lok-1 is 17998 m off this route \u2014 it is on other water and is not a stop on it",
+    "U37tb176-lok-2 is 17864 m off this route \u2014 it is on other water and is not a stop on it",
+    "U37tb176-lok-3 is 2261 m off this route \u2014 it is on other water and is not a stop on it",
+    "Tom Bevill Lock is 43828 m off this route \u2014 it is on other water and is not a stop on it"
+  ],
+  "sources": [
+    {
+      "name": "S-57 cell U37TB176",
+      "retrieved": "2026-09-18T13:09:23Z",
+      "note": null
+    },
+    {
+      "name": "S-57 cell U37TT218",
+      "retrieved": "2026-09-18T13:09:23Z",
+      "note": null
+    }
+  ],
+  "stats": {
+    "channelSource": "track",
+    "centerlineVertices": 1948,
+    "depthSamplesInterpolated": 0,
+    "depthGapSpans": [],
+    "pools": {},
+    "mileFit": {
+      "points": 50,
+      "residualMi": 0.113,
+      "rateRatio": 1.017
+    },
+    "mileAxisBreak": null,
+    "controllingDepthFt": 9.0,
+    "extent": [
+      -3038.9,
+      -3038.9,
+      29199.4,
+      37002.8
+    ]
+  }
+}
