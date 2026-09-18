@@ -148,6 +148,35 @@ body.prepping #prompt{bottom:calc(56vh + 8px)}
 #touch{position:fixed;inset:0;z-index:15;pointer-events:none;display:none}
 #touch.on{display:block}
 body.locked{cursor:none}
+/* ---------- SANDBOX ---------- */
+#sandbar{position:fixed;left:50%;transform:translateX(-50%);z-index:13;
+  bottom:calc(96px + env(safe-area-inset-bottom));display:none;gap:6px}
+#sandbar.on{display:flex}
+button.sb{font-family:var(--f-display);font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;padding:8px 12px;border-radius:var(--r);cursor:pointer;
+  background:rgba(16,22,28,.92);border:1px solid var(--c-brass-dim);
+  color:var(--c-brass);pointer-events:auto}
+button.sb:active{background:var(--c-brass);color:#151007}
+/* ---------- TIME FAN ---------- */
+#timefan{position:relative;display:flex;align-items:center;justify-content:flex-end}
+#timeopts{display:none;align-items:center;gap:5px;margin-right:5px}
+#timefan.open #timeopts{display:flex}
+button.tf{font-family:var(--f-display);font-size:11px;letter-spacing:.06em;
+  width:38px;height:38px;flex:none;border-radius:var(--r);cursor:pointer;
+  background:rgba(16,22,28,.92);border:1px solid var(--c-line);color:var(--c-ink);
+  pointer-events:auto}
+button.tf.on{background:var(--c-brass);border-color:var(--c-brass);color:#151007}
+/* ---------- PAUSED ---------- */
+#pausemark{position:fixed;inset:0;z-index:30;display:none;pointer-events:none;
+  align-items:center;justify-content:center;
+  background:rgba(4,7,9,.35);backdrop-filter:blur(1.5px)}
+#pausemark.on{display:flex}
+#pausemark div{font-family:var(--f-display);font-size:13px;letter-spacing:.3em;
+  text-transform:uppercase;color:var(--c-ink);
+  background:rgba(10,14,18,.82);border:1px solid var(--c-line);
+  border-radius:var(--r);padding:11px 22px;text-align:center}
+#pausemark small{display:block;font-family:var(--f-body);font-size:10px;
+  letter-spacing:.02em;text-transform:none;color:var(--c-ink-dim);margin-top:6px}
 /* ---------- DRESSED DASH ---------- */
 .gauge .art{display:none}
 #dash.dressed .gauge .art{display:block;margin:0 auto 3px;overflow:visible}
@@ -163,6 +192,11 @@ body.locked{cursor:none}
   text-shadow:0 0 11px rgba(217,83,79,.7)}
 #dash.dressed .gauge .sub{order:4;font-size:8.5px}
 #dash.dressed .gauge .bar{display:none}
+#gWater{cursor:pointer;position:relative}
+#gWater:after{content:"tap to drink";position:absolute;left:0;right:0;bottom:-1px;
+  font-family:var(--f-display);font-size:6.5px;letter-spacing:.12em;
+  color:var(--c-brass-dim);opacity:.75;text-align:center}
+#gWater:active{filter:brightness(1.25)}
 /* ---------- MINIMAP ---------- */
 #mini{position:fixed;z-index:9;pointer-events:none;display:none;
   border:1px solid var(--c-line);border-radius:50%;overflow:hidden;background:#0c1319;
@@ -622,6 +656,12 @@ button.bk.sel{color:var(--c-brass);border-color:var(--c-brass-dim);background:va
 <div id="reticle"><i></i><i></i><i></i><i></i><b></b></div>
 <div id="prompt"></div>
 
+<div id="sandbar">
+  <button class="sb" id="sbHull">⛵ Next boat</button>
+  <button class="sb" id="sbStrip">▢ Strip her</button>
+  <button class="sb" id="sbStock">↺ As built</button>
+</div>
+<div id="pausemark"><div>Paused<small>Nothing happens while she's stopped</small></div></div>
 <div id="mini">
   <canvas id="mcv"></canvas>
   <span class="ck n">N</span><span class="ck s">S</span>
@@ -658,7 +698,12 @@ button.bk.sel{color:var(--c-brass);border-color:var(--c-brass-dim);background:va
     <button class="iconbtn" id="btnUse" title="Use (E)">✋</button>
     <button class="iconbtn" id="btnMode" title="Helm / on foot (F)">🚶</button>
     <button class="iconbtn" id="btnNeutral" title="Neutral">N</button>
-    <button class="iconbtn" id="btnFF" title="Time compression">⏩</button>
+    <div id="timefan"><div id="timeopts">
+    <button class="tf" data-t="pause">⏸</button>
+    <button class="tf" data-t="1">1×</button>
+    <button class="tf" data-t="4">4×</button>
+    <button class="tf" data-t="16">16×</button>
+  </div><button class="iconbtn" id="btnFF" title="Time">⏩</button></div>
   </div>
 </div>
 
@@ -670,6 +715,10 @@ button.bk.sel{color:var(--c-brass);border-color:var(--c-brass-dim);background:va
   </div>
   <div id="bblist"></div>
   <div id="bbrow">
+    <button class="bb" id="bbPick">✋ Pick up</button>
+    <button class="bb" id="bbNext" style="display:none">⇅ Next thing</button>
+    <button class="bb" id="bbEdge">▤ Edges</button>
+    <button class="bb" id="bbSide" style="display:none">⤢ Side: N</button>
     <button class="bb" id="bbRot">⟳ Rotate</button>
     <button class="bb" id="bbErase">🗑 Remove</button>
     <button class="bb" id="bbCamp" style="display:none">📦 Pack</button>
@@ -688,6 +737,7 @@ button.bk.sel{color:var(--c-brass);border-color:var(--c-brass-dim);background:va
       <button class="bb primary" id="crNext">Next</button>
     </div>
     <button id="crSkip">Just start</button>
+    <button id="crSandbox">Build sandbox</button>
   </div>
 </div>
 
@@ -958,6 +1008,10 @@ button.bk.sel{color:var(--c-brass);border-color:var(--c-brass-dim);background:va
   <p><b>Build 23 — Tenn-Tom Waterway.</b> Drive her, walk her, build on her — then swim ashore and gather what you build with.</p>
   <p style="font-size:11px">Desktop: <b>W/S</b> throttle · <b>A/D</b> rudder · drag to look · <b>G</b> walk/helm · <b>F</b> fish · <b>T</b> rig · <b>V</b> VHF · <b>M</b> radio · <b>I</b> stowage · <b>L</b> ladder · <b>U</b> build level · <b>K</b> shop · <b>Z</b> dive · <b>R</b> aim · <b>C</b> fire · <b>E</b> use · <b>B</b> build · <b>Shift</b> run · <b>Space</b> jump · <b>V</b> view · <b>Tab</b> tablet · <b>~</b> admin · <b>Space</b> anchor<br>Mobile: left stick to drive, drag the right side to look.</p>
   <button id="go">Cast off</button>
+  <button id="goSandbox">Build sandbox</button>
+  <p style="font-size:10px;color:#8fa3b0;margin-top:6px">
+    The sandbox is the same game, tied up at the yard with full stores and every
+    boat to hand. <b>Time still runs.</b></p>
   <div id="loading"></div>
 </div>
 
@@ -977,7 +1031,7 @@ button.bk.sel{color:var(--c-brass);border-color:var(--c-brass-dim);background:va
 
 /* ============================ DATA ============================ */
 const DATA = {
-  meta:{ title:"Crossing Your Wake", build:59, tickHz:20,
+  meta:{ title:"Crossing Your Wake", build:64, tickHz:20,
          /* 1 world metre represents ~11 chart metres. Derived so that at the
             default 1 real min : 1 game hour clock, a hull's true knots and the
             distance it covers on the chart agree. Builder-tunable. */
@@ -993,6 +1047,17 @@ const DATA = {
        SURFACE    snaps onto a module that exposes a top (counter, deck box)
      install: "field" = anywhere with materials  |  "yard" = boatyard only    */
   grid:{ cell:0.5, ghostDist:1.7 },
+
+  /* Pieces that stand on a cell BOUNDARY rather than inside a cell.
+     A rail is one of these, which is why it can now be picked up and moved. */
+  edgePieces:[
+    {id:"rail_edge",  name:"Guard Rail",  h:0.92, mass:7,  blocks:true,  sight:false,
+     install:"field", recipe:{plank:1,fastener:1}, cost:24,  look:{kind:"rail",  c:0xb9bfc4}},
+    {id:"rail_glass", name:"Glass Rail",  h:0.86, mass:11, blocks:true,  sight:false,
+     install:"yard",  cost:110, look:{kind:"glass", c:0x2a3a44}},
+    {id:"bulwark",    name:"Bulwark",     h:0.62, mass:14, blocks:true,  sight:false,
+     install:"field", recipe:{plank:2,fastener:1}, cost:38,  look:{kind:"solid", c:0x8f846e}}
+  ],
   swim:{ speedMs:1.55, eyeY:0.42, boardRangeM:7.5, strandedM:70 },
   move:{ jumpV:3.75, gravity:9.8, deckY:1.0, airControl:0.78, speedMul:1.0 },
 
@@ -2447,7 +2512,7 @@ const Sim = {
         skills:{forage:{lvl:1,xp:0}, fishing:{lvl:1,xp:0}, trapping:{lvl:1,xp:0},
                 hunting:{lvl:1,xp:0}, cooking:{lvl:1,xp:0}, fab:{lvl:1,xp:0}},
         known:{} },
-      build:{ on:false, sel:"deck_plate", rot:0, remove:false, cx:0, cz:0, ok:false, why:"", where:"boat", lvl:0 },
+      build:{ on:false, sel:"deck_plate", rot:0, remove:false, cx:0, cz:0, ok:false, why:"", where:"boat", lvl:0, edge:false, side:"N", picking:false, pick:0 },
       nodes:[], landMods:[], nextLand:1, packedCamp:null,
       fish:{ state:"", tLeft:0, sp:"", spot:0 }, lastRainDay:-99,
       prep:{ on:false, station:"", key:"", items:[] }, cooks:{},
@@ -2459,7 +2524,7 @@ const Sim = {
       lock:null, lockLevel:0, lockedThrough:0, danger:0, obstructMin:0,
       spans:{}, spanCalled:null, people:[], nextPerson:1,
       stores:{}, spoil:{}, invUI:null,
-      character:null, docked:false, createUI:false, brokerUI:false,
+      character:null, docked:false, createUI:false, brokerUI:false, sandbox:false, paused:false,
       wx:[], radio:{on:false, station:"", track:0, t:0}, radioUI:false,
       comms:false, forecastSeen:0,
       jobs:[], nextJob:1, jobsDay:-99, rep:0, busk:null, dockedNights:0, lastDockDay:-99,
@@ -2487,6 +2552,8 @@ const Sim = {
     this.resolveSites();
     this.state.nodes = this.seedNodes();
     this.state.underNodes = this.seedUnderNodes();
+    { const b0=this.state.entities[this.state.playerBoatId];
+      if(b0 && !b0.edges) this.fitStockEdges(b0); }
     this.capturePrev();
     return this.state;
   },
@@ -2516,7 +2583,15 @@ const Sim = {
       case "SET_TIME":  if(c.payload.hour!=null)S.clock.hour=c.payload.hour;
                         if(c.payload.day!=null)S.clock.day=c.payload.day; break;
       case "FREEZE":    S.timeFrozen=!S.timeFrozen; break;
-      case "COMPRESS":  S.compression=c.payload.v; break;
+      case "COMPRESS":  S.compression=c.payload.v; S.paused=false; break;
+      case "PAUSE": {
+        S.paused = c.payload && c.payload.on!==undefined ? !!c.payload.on : !S.paused;
+        if(S.paused){
+          // pausing is pausing. Anything else you were doing stops with it.
+          S.build.on=false; S.build.picking=false;
+          S.invUI=false; S.shop=false; S.comms=false; S.brokerUI=false;
+        }
+        break; }
       case "SET_WX":    Object.assign(S.weather,c.payload); break;
       case "FLAG":      S.flags[c.payload.k]=c.payload.v; break;
       case "REFLOAT":   S.flags.aground=false; b.hullIntegrity=Math.max(b.hullIntegrity,60); break;
@@ -2993,7 +3068,75 @@ const Sim = {
       case "MOVE_ITEM": S.notice=this.moveItem(c.payload.from,c.payload.to,
                                                c.payload.id,c.payload.n||1); break;
       case "NEW_GAME": this.applyCharacter(c.payload||{}); S.createUI=false; break;
+      case "SANDBOX": {
+        this.applyCharacter(c.payload||{});
+        S.createUI=false;
+        S.sandbox=true;
+        // tied up at the yard, calm and light, so nothing is in the way
+        const y=this.yardPier();
+        b.x = y.x - Math.sin(y.rot)*(y.hl*0.35) + Math.cos(y.rot)*4.2;
+        b.z = y.z - Math.cos(y.rot)*(y.hl*0.35) - Math.sin(y.rot)*4.2;
+        b.heading = (y.rot*180/Math.PI + 90 + 360) % 360;
+        b.speedMs = 0;
+        S.docked = true; S.anchored = false;
+        S.clock.hour = 10;            // h and m are derived from this
+        S.wx = [{preset:"calm", hours:9999}];
+        this.cmd("SET_WX",{windKt:3, windDir:200, fog:0});
+        Object.keys(DATA.materials).forEach(k=>b.inv[k]=999);
+        b.fuelPct = 100; b.battPct = 100;
+        b.waterGal = this.waterCap(b); b.waterQ = "clean";
+        S.money = 250000;
+        S.notice = "Sandbox \u2014 the yard, full stores, every boat. Time still runs.";
+        break; }
+      case "SANDBOX_HULL": {
+        if(!S.sandbox){ S.notice="Only in the sandbox"; break; }
+        const ids=DATA.hulls.map(h=>h.id);
+        const i=ids.indexOf(b.hullId);
+        const next=ids[(i+1)%ids.length];
+        b.hullId=next; b.modules=[]; b.edges=null; this.fitStockEdges(b);
+        S.player.lvl=0; S.player.lx=0; S.player.lz=0;
+        Object.keys(DATA.materials).forEach(k=>b.inv[k]=999);
+        S.notice="Now in the "+this.hull(b).name;
+        break; }
+      case "SANDBOX_STRIP": {
+        if(!S.sandbox){ S.notice="Only in the sandbox"; break; }
+        b.modules=[]; b.edges=[];
+        S.notice="Stripped to bare deck";
+        break; }
+      case "SANDBOX_STOCK": {
+        if(!S.sandbox){ S.notice="Only in the sandbox"; break; }
+        b.edges=null; this.fitStockEdges(b);
+        Object.keys(DATA.materials).forEach(k=>b.inv[k]=999);
+        S.notice="Back to how she left the yard";
+        break; }
       case "CREATE_UI": S.createUI = c.payload.on!==undefined ? !!c.payload.on : !S.createUI; break;
+      case "EDGE_MODE": {
+        const B=S.build;
+        B.edge = c.payload.on!==undefined ? !!c.payload.on : !B.edge;
+        S.notice = B.edge ? "Edges \u2014 rails and barriers" : "Cells \u2014 floors and fittings";
+        break; }
+      case "EDGE_SIDE": {
+        const B=S.build, i=this.edgeSides.indexOf(B.side||"N");
+        B.side = this.edgeSides[(i+1)%4];
+        break; }
+      case "EDGE_PLACE": {
+        const B=S.build;
+        if(!B.on || !B.edge) break;
+        const r = B.remove
+          ? this.removeEdge(b, B.cx, B.cz, B.side||"N")
+          : this.placeEdge(b, B.sel, B.cx, B.cz, B.side||"N", B.lvl||0);
+        if(!r.ok) S.notice=r.why;
+        break; }
+      case "PICK_MODE": {
+        const B=S.build;
+        B.picking = c.payload.on!==undefined ? !!c.payload.on : !B.picking;
+        B.pick=0;
+        S.notice = B.picking ? "Pick up \u2014 point at a tile" : "Placing";
+        break; }
+      case "PICK_NEXT": { S.build.pick=(S.build.pick||0)+1; break; }
+      case "PICK_UP": {
+        if(this.pickUpHere()){ S.build.picking=false; }
+        break; }
       case "DRINK": this.drinkWater(); break;
       case "SCOOP": {
         // whatever you're floating in, straight into the tank
@@ -3437,6 +3580,60 @@ const Sim = {
     drop.forEach(m=>{ const d=this.modDef(m.defId); if(d) refund+=Math.round((d.cost||0)*0.30); });
     return {keep, drop, refund};
   },
+  /* The rail a hull comes with is PLACED, not drawn. That single change is
+     what makes it selectable, movable and removable. */
+  fitStockEdges(b){
+    const D=this.deck(b), H=this.hull(b), L=H.look||{};
+    if(L.rails==="none"){ b.edges=[]; return; }
+    const kind = L.rails==="glass" ? "rail_glass" : "rail_edge";
+    const c=DATA.grid.cell;
+    const rects=D.walk;
+    let x0=99,x1=-99,z0=99,z1=-99;
+    rects.forEach(r=>{ x0=Math.min(x0,r.x0); x1=Math.max(x1,r.x1);
+                       z0=Math.min(z0,r.z0); z1=Math.max(z1,r.z1); });
+    const inAny=(x,z)=>rects.some(r=>x>=r.x0-0.01&&x<=r.x1+0.01&&z>=r.z0-0.01&&z<=r.z1+0.01);
+    const out=[];
+    const seen={};
+    for(let cx=Math.floor(x0/c); cx<=Math.ceil(x1/c); cx++)
+    for(let cz=Math.floor(z0/c); cz<=Math.ceil(z1/c); cz++){
+      const [x,z]=this.cellCentre(cx,cz);
+      if(!inAny(x,z)) continue;
+      // a boundary is a rail if the cell across it isn't deck
+      [["N",0,1],["S",0,-1],["E",1,0],["W",-1,0]].forEach(([side,dx,dz])=>{
+        const [nx,nz]=this.cellCentre(cx+dx, cz+dz);
+        if(inAny(nx,nz)) return;
+        const k=this.edgeKey(cx,cz,side);
+        if(seen[k]) return; seen[k]=1;
+        out.push({id:"e"+out.length, defId:kind, cx, cz, side, lvl:0, stock:true});
+      });
+    }
+    b.edges=out;
+  },
+  placeEdge(b,defId,cx,cz,side,lvl){
+    if(this.edgeAt(b,cx,cz,side)) return {ok:false, why:"Something's already on that edge"};
+    const d=this.edgeDef(defId); if(!d) return {ok:false, why:"No such piece"};
+    const why=this.canAfford(b,d); if(why) return {ok:false, why};
+    if(d.recipe) for(const k in d.recipe) b.inv[k]-=d.recipe[k];
+    if(d.cost && this.state.money!==undefined) this.state.money-=d.cost;
+    this.edgesOf(b).push({id:"e"+Date.now().toString(36), defId, cx, cz, side, lvl:lvl||0});
+    return {ok:true};
+  },
+  /* Pick up returns the piece whole. Nothing is lost and nothing is gained —
+     which is what makes moving a rail a ten-second problem, not a permanent one. */
+  liftEdge(b,cx,cz,side){
+    const e=this.edgeAt(b,cx,cz,side); if(!e) return {ok:false, why:"Nothing there"};
+    const d=this.edgeDef(e.defId);
+    b.edges = this.edgesOf(b).filter(q=>q!==e);
+    return {ok:true, defId:e.defId, name:d?d.name:"piece"};
+  },
+  removeEdge(b,cx,cz,side){
+    const e=this.edgeAt(b,cx,cz,side); if(!e) return {ok:false, why:"Nothing there"};
+    const d=this.edgeDef(e.defId);
+    if(d && d.recipe) for(const k in d.recipe)
+      b.inv[k]=(b.inv[k]||0)+Math.floor(d.recipe[k]*0.6);   // demolition returns most of it
+    b.edges = this.edgesOf(b).filter(q=>q!==e);
+    return {ok:true};
+  },
   buyHull(newId){
     const S=this.state, b=S.entities[S.playerBoatId];
     const H=this.hullDef(newId);
@@ -3451,6 +3648,7 @@ const Sim = {
     S.money = (S.money||0) - due;
     b.hullId = newId;
     b.modules = plan.keep;
+    b.edges = null; this.fitStockEdges(b);      // her rails, not the old boat's
     // tanks resize with the boat; you don't get free fuel out of a trade
     const pct = b.fuelPct!==undefined ? b.fuelPct : 100;
     b.fuelPct = Math.min(pct, 100);
@@ -3466,6 +3664,124 @@ const Sim = {
     return out;
   },
   cellCentre(cx,cz){ const c=DATA.grid.cell; return [cx*c, cz*c]; },
+
+  /* ---- EDGES ---------------------------------------------------------
+     An edge is the boundary between two cells. It is stored once, in a
+     canonical form, so the same boundary is the same edge whichever cell you
+     approach it from — otherwise a rail blocks from one side only.        */
+  edgeKey(cx,cz,side){
+    // fold S and W onto the N and E of the neighbouring cell
+    if(side==="S") return (cx)+","+(cz-1)+",N";
+    if(side==="W") return (cx-1)+","+(cz)+",E";
+    return cx+","+cz+","+side;
+  },
+  edgeSides:["N","E","S","W"],
+  /* The line an edge occupies, in boat-local metres. */
+  edgeLine(cx,cz,side){
+    const c=DATA.grid.cell, x=cx*c, z=cz*c, h=c/2;
+    if(side==="N") return [x-h, z+h, x+h, z+h];
+    if(side==="S") return [x-h, z-h, x+h, z-h];
+    if(side==="E") return [x+h, z-h, x+h, z+h];
+    return               [x-h, z-h, x-h, z+h];   // W
+  },
+  edgesOf(b){
+    if(!b.edges) b.edges=[];
+    return b.edges;
+  },
+  edgeAt(b,cx,cz,side){
+    const k=this.edgeKey(cx,cz,side);
+    return this.edgesOf(b).find(e=>this.edgeKey(e.cx,e.cz,e.side)===k) || null;
+  },
+  edgeDef(id){ return DATA.edgePieces.find(p=>p.id===id); },
+
+  /* Everything standing on or around one tile, in one list. A module fills the
+     tile; edge pieces stand on its four boundaries. To the player they are all
+     just "things here". */
+  thingsOn(b,cx,cz,lvl){
+    const L=lvl||0, out=[];
+    (b.modules||[]).forEach(m=>{
+      if((m.lvl||0)!==L) return;
+      const D=this.modDef(m.defId); if(!D) return;
+      if(this.cells(D,m.cx,m.cz,m.rot).some(q=>q[0]===cx&&q[1]===cz))
+        out.push({kind:"cell", id:m.id, defId:m.defId, name:D.name, m});
+    });
+    this.edgeSides.forEach(side=>{
+      const e=this.edgeAt(b,cx,cz,side);
+      if(!e || (e.lvl||0)!==L) return;
+      const d=this.edgeDef(e.defId); if(!d) return;
+      out.push({kind:"edge", id:e.id, defId:e.defId,
+                name:d.name+" ("+({N:"forward",S:"aft",E:"starboard",W:"port"}[side])+")",
+                side, e});
+    });
+    return out;
+  },
+  /* What the cursor currently has selected, clamped so the index can't point
+     past the end after something is removed. */
+  pickTarget(b){
+    const B=this.state.build;
+    const list=this.thingsOn(b, B.cx, B.cz, B.lvl||0);
+    if(!list.length) return null;
+    const i = ((B.pick||0) % list.length + list.length) % list.length;
+    return list[i];
+  },
+  /* Pick up returns the piece whole — nothing lost, nothing gained — and puts
+     it straight back in your hand. */
+  pickUpHere(){
+    const S=this.state, b=S.entities[S.playerBoatId], B=S.build;
+    const t=this.pickTarget(b);
+    if(!t){ S.notice="Nothing here to pick up"; return false; }
+    if(t.kind==="edge"){
+      b.edges = this.edgesOf(b).filter(q=>q!==t.e);
+      B.edge=true; B.side=t.side;
+    } else {
+      const D=this.modDef(t.defId);
+      if(D && D.install==="yard" && !this.atYard(b)){
+        S.notice="That came off at a yard and it goes back on at one"; return false; }
+      b.modules = b.modules.filter(q=>q!==t.m);
+      B.edge=false; B.rot=t.m.rot||0;
+    }
+    B.sel=t.defId; B.remove=false; B.pick=0;
+    S.notice="Picked up the "+t.name;
+    return true;
+  },
+  /* Does a piece on this boundary stop you crossing it? */
+  edgeBlocks(b,cx,cz,side){
+    const e=this.edgeAt(b,cx,cz,side); if(!e) return false;
+    const d=this.edgeDef(e.defId);
+    if(!d || !d.blocks) return false;
+    if(d.openable && e.open) return false;
+    return true;
+  },
+  /* Which boundary lies between two neighbouring cells. */
+  sideBetween(ax,az,bx,bz){
+    if(bx===ax+1 && bz===az) return ["E", ax, az];
+    if(bx===ax-1 && bz===az) return ["W", ax, az];
+    if(bz===az+1 && bx===ax) return ["N", ax, az];
+    if(bz===az-1 && bx===ax) return ["S", ax, az];
+    return null;
+  },
+  /* The single question movement asks: can I go from here to there? */
+  crossingBlocked(b, fx, fz, tx, tz){
+    const c=DATA.grid.cell;
+    const a=[Math.round(fx/c), Math.round(fz/c)];
+    const t=[Math.round(tx/c), Math.round(tz/c)];
+    if(a[0]===t[0] && a[1]===t[1]) return false;
+    // step one cell at a time so a diagonal can't slip through a corner
+    let cx=a[0], cz=a[1], guard=0;
+    while((cx!==t[0] || cz!==t[1]) && guard++ < 24){
+      const nx = cx + Math.sign(t[0]-cx), nz = cz;
+      if(nx!==cx){
+        const s=this.sideBetween(cx,cz,nx,cz);
+        if(s && this.edgeBlocks(b,s[1],s[2],s[0])) return true;
+        cx=nx; continue;
+      }
+      const mz = cz + Math.sign(t[1]-cz);
+      const s2=this.sideBetween(cx,cz,cx,mz);
+      if(s2 && this.edgeBlocks(b,s2[1],s2[2],s2[0])) return true;
+      cz=mz;
+    }
+    return false;
+  },
   /* a cell is deck if it is inside a hull walk rect OR under a placed
      walkable structure piece — this is how the boat physically grows */
   cellIsDeck(b,cx,cz){
@@ -6552,8 +6868,12 @@ const Sim = {
     const dx=dirX*sp, dz=dirZ*sp;
     if(P.air){ P.lx+=dx; P.lz+=dz; return; }
     const F=[1,0.55,0.3,0.14,0.06];
-    for(let q=0;q<F.length;q++){ if(this.onDeck(b,P.lx+dx*F[q],P.lz)){ P.lx+=dx*F[q]; break; } }
-    for(let q=0;q<F.length;q++){ if(this.onDeck(b,P.lx,P.lz+dz*F[q])){ P.lz+=dz*F[q]; break; } }
+    for(let q=0;q<F.length;q++){
+      const nx=P.lx+dx*F[q];
+      if(this.onDeck(b,nx,P.lz) && !this.crossingBlocked(b,P.lx,P.lz,nx,P.lz)){ P.lx=nx; break; } }
+    for(let q=0;q<F.length;q++){
+      const nz=P.lz+dz*F[q];
+      if(this.onDeck(b,P.lx,nz) && !this.crossingBlocked(b,P.lx,P.lz,P.lx,nz)){ P.lz=nz; break; } }
   },
 
   step(){
@@ -6562,7 +6882,7 @@ const Sim = {
 
     // clock — dtHours is the ONLY time unit any consumable may use
     const hoursPerSec = 1/ (DATA.time.realSecPerGameHour / S.compression);
-    const dtHours = S.timeFrozen ? 0 : hoursPerSec*dt;
+    const dtHours = (S.timeFrozen || S.paused) ? 0 : hoursPerSec*dt;
     if(dtHours>0){
       S.clock.hour += dtHours;
       while(S.clock.hour>=24){ S.clock.hour-=24; S.clock.day++; }
@@ -6852,7 +7172,8 @@ const Sim = {
     while(this._acc >= step && guard++ < 240){
       while(this.queue.length) this.apply(this.queue.shift());
       this.capturePrev();
-      this.step(); this._acc -= step;
+      if(!this.state.paused) this.step();
+      this._acc -= step;
     }
     return clamp(this._acc/step,0,1); // interpolation alpha for the renderer
   },
@@ -7056,7 +7377,7 @@ const Render = {
     this.sun=new T.DirectionalLight(0xffe8c0,1.5); this.scene.add(this.sun);
 
     this.buildSky(); this.buildWater(); this.buildBoat();
-    this.buildModuleLayer(); this.buildDinghy(); this.buildDinghyCrew(); this.buildLadders(); this.buildRod(); this.buildViewWeapon();
+    this.buildModuleLayer(); this.buildEdgeLayer(); this.buildDinghy(); this.buildDinghyCrew(); this.buildLadders(); this.buildRod(); this.buildViewWeapon();
     this.buildWorld();
     this.worldSig=Sim.state.worldSig;
     addEventListener("resize",()=>{
@@ -8039,7 +8360,10 @@ const Render = {
       hard.position.set((r.x0+r.x1)/2, r.y+1.92, (r.z0+r.z1)/2-0.2); grp.add(hard);
     }
 
-    /* rails, because an open deck with no edge reads as a raft */
+    /* Rails are PIECES now, drawn by the edge layer — see buildEdgeLayer.
+       They used to be geometry here, which is exactly why you couldn't move
+       them. This block stays only as the fallback for a hull with no edges. */
+    if(!b.edges){
     const railM=M(L.rails==="glass"?0x2a3a44:0xb9bfc4, L.rails==="glass"?30:0);
     const railH = L.rails==="glass" ? 0.86 : 0.92;
     const edge=[];
@@ -8070,7 +8394,11 @@ const Render = {
       }
     });
 
-    /* galley, berth — props so the inside reads as a home */
+    }
+
+    /* galley, berth — props so the inside reads as a home. A bare hull has
+       no inside, so it gets none of them. */
+    if(!bare){
     const gal=new T.Mesh(new T.BoxGeometry(0.9,0.85,1.4),M(0x7d6a53));
     const GS=(D.stations||[]).find(st=>st.id==="galley");
     gal.position.set(GS?GS.lx:-hw*0.55, hBase+0.45, GS?GS.lz:hMid-0.3); grp.add(gal);
@@ -8079,6 +8407,7 @@ const Render = {
     const bunk=new T.Mesh(new T.BoxGeometry(0.95,0.45,1.9),M(0x6b5f6e));
     const BS=(D.stations||[]).find(st=>st.id==="berth");
     bunk.position.set(BS?BS.lx:hw*0.55, hBase+0.26, BS?BS.lz:hMid-1.4); grp.add(bunk);
+    }
 
     /* mast and burgee — white, gold once you cross your own wake */
     const mastH = Math.max(2.2, (H.airDraftFt/3.2808) - roofY + 0.4);
@@ -8116,12 +8445,79 @@ const Render = {
   },
 
   /* swap the whole boat when the hull changes */
+  /* ---- the edge layer -------------------------------------------------
+     Rails are data now, so they are drawn from the data. Change one and it
+     redraws; pick one up and it goes. */
+  /* The tile under the cursor, always drawn. Without it you're guessing. */
+  syncTileMark(){
+    const T=this.three, B=Sim.state.build;
+    if(!this.tileMark){
+      const g=new T.PlaneGeometry(1,1); g.rotateX(-Math.PI/2);
+      this.tileMark=new T.Mesh(g, new T.MeshBasicMaterial({
+        color:0xc9a227, transparent:true, opacity:0.22,
+        depthWrite:false, side:T.DoubleSide}));
+      this.tileMark.visible=false;
+      this.boat.add(this.tileMark);
+    }
+    const want = !!B.on;
+    if(this.tileMark.visible!==want) this.tileMark.visible=want;
+    if(!want) return;
+    const b=Sim.state.entities[Sim.state.playerBoatId], c=DATA.grid.cell;
+    this.tileMark.scale.set(c*0.94, 1, c*0.94);
+    this.tileMark.position.set(B.cx*c, Sim.levelY(b,B.lvl||0)+0.012, B.cz*c);
+    this.tileMark.material.color.setHex(B.picking ? 0xc9a227 : 0x4fb477);
+  },
+  buildEdgeLayer(){
+    const T=this.three;
+    const b=Sim.state.entities[Sim.state.playerBoatId];
+    if(this.edgeGroup){
+      if(this.edgeGroup.parent) this.edgeGroup.parent.remove(this.edgeGroup);
+      this.edgeGroup.traverse(o=>{ if(o.geometry) o.geometry.dispose(); });
+      this.edgeGroup=null;
+    }
+    const edges=Sim.edgesOf(b);
+    const grp=new T.Group();
+    const M=c=>new T.MeshPhongMaterial({shininess:0,color:c,flatShading:true});
+    edges.forEach(e=>{
+      const d=Sim.edgeDef(e.defId); if(!d) return;
+      const [ax,az,bx,bz]=Sim.edgeLine(e.cx,e.cz,e.side);
+      const len=Math.hypot(bx-ax,bz-az);
+      const y0=Sim.levelY(b, e.lvl||0);
+      const col=(d.look&&d.look.c)!==undefined ? d.look.c : 0xb9bfc4;
+      const kind=(d.look&&d.look.kind)||"rail";
+      const mat=M(col);
+      if(kind==="glass" || kind==="solid"){
+        const p=new T.Mesh(new T.BoxGeometry(len,d.h,kind==="solid"?0.10:0.05),mat);
+        p.position.set((ax+bx)/2, y0+d.h/2, (az+bz)/2);
+        p.rotation.y = -Math.atan2(bz-az, bx-ax);
+        grp.add(p);
+      } else {
+        for(let i=0;i<=1;i++){
+          const f=i, post=new T.Mesh(new T.CylinderGeometry(0.035,0.035,d.h,5),mat);
+          post.position.set(ax+(bx-ax)*f, y0+d.h/2, az+(bz-az)*f);
+          grp.add(post);
+        }
+        const top=new T.Mesh(new T.BoxGeometry(len,0.055,0.055),mat);
+        top.position.set((ax+bx)/2, y0+d.h, (az+bz)/2);
+        top.rotation.y = -Math.atan2(bz-az, bx-ax);
+        grp.add(top);
+      }
+    });
+    this.boat.add(grp); this.edgeGroup=grp;
+    this.edgeSig = edges.map(e=>e.defId+e.cx+","+e.cz+e.side+(e.lvl||0)).join("|");
+  },
+  syncEdgeLayer(){
+    const b=Sim.state.entities[Sim.state.playerBoatId];
+    const sig=Sim.edgesOf(b).map(e=>e.defId+e.cx+","+e.cz+e.side+(e.lvl||0)).join("|");
+    if(sig!==this.edgeSig) this.buildEdgeLayer();
+  },
   syncHullMesh(){
     const b=Sim.state.entities[Sim.state.playerBoatId];
     if(this.boatHullId===b.hullId) return;
     if(this.boat){ this.scene.remove(this.boat); this.boat=null; }
     this.buildBoat();
-    this.modSig=null;
+    this.modSig=null; this.edgeSig=null; this.edgeGroup=null;
+    this.buildEdgeLayer();
     this.buildModuleLayer && this.buildModuleLayer();
     this.buildLadders && this.buildLadders();
   },
@@ -9311,8 +9707,45 @@ const Render = {
     this.ghost.scale.set(B.remove?c*0.9:w*c*0.9, B.remove?0.5:Math.max(D.h,0.2), B.remove?c*0.9:d*c*0.9);
     { const bb=Sim.state.entities[Sim.state.playerBoatId];
       const gy=(B.lvl||0)>0 ? Sim.levelY(bb,1)+0.2 : 1.20;
-      this.ghost.position.set(B.remove?B.cx*c:sx/cs.length, gy,
-                              B.remove?B.cz*c:sz/cs.length); }
+      if(B.picking){
+        const t=Sim.pickTarget(bb);
+        const y0=Sim.levelY(bb,B.lvl||0);
+        if(t && t.kind==="edge"){
+          const [ax,az,bx2,bz]=Sim.edgeLine(B.cx,B.cz,t.side);
+          const d=Sim.edgeDef(t.defId) || {h:0.9};
+          this.ghost.scale.set(Math.hypot(bx2-ax,bz-az)*0.98, d.h*1.06, 0.13);
+          this.ghost.position.set((ax+bx2)/2, y0+d.h/2, (az+bz)/2);
+          this.ghost.rotation.y = -Math.atan2(bz-az, bx2-ax);
+        } else if(t){
+          const D=Sim.modDef(t.defId)||{w:1,d:1,h:0.4};
+          const cs=Sim.cells(D,t.m.cx,t.m.cz,t.m.rot);
+          let mx=0,mz=0; cs.forEach(q=>{ mx+=q[0]*c; mz+=q[1]*c; });
+          this.ghost.rotation.y=0;
+          this.ghost.scale.set((B.rot%2?D.d:D.w)*c*1.02, Math.max(D.h,0.25)*1.06,
+                               (B.rot%2?D.w:D.d)*c*1.02);
+          this.ghost.position.set(mx/cs.length, y0+Math.max(D.h,0.25)/2, mz/cs.length);
+        } else {
+          this.ghost.rotation.y=0;
+          this.ghost.scale.set(c*0.92, 0.06, c*0.92);
+          this.ghost.position.set(B.cx*c, y0+0.03, B.cz*c);
+        }
+        this.ghost.material.color.setHex(t ? 0xc9a227 : 0x55606a);
+      } else if(B.edge){
+        // straddle the boundary so it's obvious which side you're on
+        const [ax,az,bx2,bz]=Sim.edgeLine(B.cx,B.cz,B.side||"N");
+        const d=Sim.edgeDef(B.sel) || {h:0.9};
+        const len=Math.hypot(bx2-ax,bz-az);
+        this.ghost.scale.set(len*0.94, d.h, 0.09);
+        this.ghost.position.set((ax+bx2)/2, Sim.levelY(bb,B.lvl||0)+d.h/2, (az+bz)/2);
+        this.ghost.rotation.y = -Math.atan2(bz-az, bx2-ax);
+        const taken = !!Sim.edgeAt(bb,B.cx,B.cz,B.side||"N");
+        this.ghost.material.color.setHex(
+          B.remove ? (taken?0xd9534f:0x555555) : (taken?0xd9534f:0x4fb477));
+      } else {
+        this.ghost.rotation.y = 0;
+        this.ghost.position.set(B.remove?B.cx*c:sx/cs.length, gy,
+                                B.remove?B.cz*c:sz/cs.length);
+      } }
     this.ghost.material.color.setHex(B.remove ? (B.ok?0xd9534f:0x555555) : (B.ok?0x4fb477:0xd9534f));
   },
 
@@ -9623,7 +10056,7 @@ const Render = {
     this.sky.position.copy(this.cam.position);
     this.water.position.set(this.cam.position.x,0,this.cam.position.z);
     this.syncViewWeapon(dt); this.syncShots(); this.syncCarcasses(); this.syncVessels();
-    this.syncHullMesh(); this.syncFolk(dt); this.syncField(); this.syncForks(); this.syncJobMark(); this.syncLights(dt); this.syncCookMarks(); this.syncNavLights();
+    this.syncHullMesh(); this.syncEdgeLayer(); this.syncTileMark(); this.syncFolk(dt); this.syncField(); this.syncForks(); this.syncJobMark(); this.syncLights(dt); this.syncCookMarks(); this.syncNavLights();
     if(this.chandler) this.poseFigure(this.chandler,{speed:0,act:"idle"},dt);
     if(this.lockKeeper) this.poseFigure(this.lockKeeper,{speed:0,act:"idle"},dt);
     // underwater: fog everything down, and dim the sun
@@ -10515,9 +10948,15 @@ const Build = {
       btn.onclick=()=>{ this.cat=c; this.renderCats(); this.renderList(); };
       cw.appendChild(btn); });
     $("bbExit").onclick=()=>Sim.cmd("BUILD_TOGGLE");
+    $("bbPick").onclick=()=>Sim.cmd("PICK_MODE");
+    $("bbNext").onclick=()=>Sim.cmd("PICK_NEXT");
+    $("bbEdge").onclick=()=>Sim.cmd("EDGE_MODE");
+    $("bbSide").onclick=()=>Sim.cmd("EDGE_SIDE");
     $("bbRot").onclick=()=>Sim.cmd("BUILD_ROT");
     $("bbErase").onclick=()=>Sim.cmd("BUILD_ERASE");
-    $("bbPlace").onclick=()=>Sim.cmd("BUILD_PLACE");
+    $("bbPlace").onclick=()=>Sim.cmd(
+      Sim.state.build.picking ? "PICK_UP"
+      : Sim.state.build.edge  ? "EDGE_PLACE" : "BUILD_PLACE");
     $("bbCamp").onclick=()=>Sim.cmd(Sim.state.packedCamp?"CAMP_PITCH":"CAMP_PACK");
     this.renderCats(); this.renderList();
   },
@@ -10537,6 +10976,27 @@ const Build = {
     }
   },
   renderList(){
+    if(Sim.state.build.edge){
+      const wrap=document.getElementById("bblist"); if(!wrap) return;
+      const bx=Sim.state.entities[Sim.state.playerBoatId];
+      wrap.innerHTML = DATA.edgePieces.map(p=>{
+        const sel = Sim.state.build.sel===p.id;
+        const locked = p.install==="yard" && !Sim.atYard(bx);
+        const cost = p.recipe
+          ? Object.keys(p.recipe).map(k=>p.recipe[k]+"\u00d7 "+DATA.materials[k].name).join("<br>")
+          : (p.cost ? "$"+p.cost : "free");
+        const col=((p.look&&p.look.c)||0xb9bfc4).toString(16).padStart(6,"0");
+        return '<div class="bitem'+(sel?' sel':'')+(locked?' locked':'')+
+          '" data-edge="'+p.id+'">'+
+          '<div class="sw" style="background:#'+col+'"></div>'+
+          '<div class="n">'+p.name+'</div><div class="c">'+p.mass+' kg<br>'+cost+
+          (p.install==="yard"?'<br><span style="color:var(--c-brass)">YARD</span>':"")+
+          '</div></div>';
+      }).join("");
+      wrap.querySelectorAll("[data-edge]").forEach(n=>n.onclick=()=>{
+        Sim.state.build.sel=n.dataset.edge; setTimeout(()=>Build.renderList(),40); });
+      return;
+    }
     const b=Sim.state.entities[Sim.state.playerBoatId];
     const where=Sim.state.build.where;
     const list=document.getElementById("bblist"); list.innerHTML="";
@@ -10599,6 +11059,7 @@ const Create = {
     };
     $("crBack").onclick=()=>{ if(this.step>0){ this.step--; this.render(); } };
     $("crSkip").onclick=()=>Sim.cmd("NEW_GAME", this.ch);
+    if($("crSandbox")) $("crSandbox").onclick=()=>Sim.cmd("SANDBOX", this.ch);
   },
   open(){ this.step=0; Sim.cmd("CREATE_UI",{on:true}); this.render(); },
   render(){
@@ -11202,7 +11663,17 @@ const Input = {
       if(e.code==="KeyK"){ Sim.cmd("SHOP",{on:!Sim.state.shop}); }
       if(e.code==="KeyX"){ Sim.cmd("WEAPON"); }
       if(e.code==="KeyC" && Sim.state.player.aim){ Sim.cmd("SHOOT",{pitch:Render.look.pitch}); }
-      if(e.code==="KeyE"){ Sim.state.build.on ? Sim.cmd("BUILD_PLACE") : Sim.cmd("INTERACT"); }
+      if(e.code==="KeyE"){ Sim.state.build.on
+        ? Sim.cmd(Sim.state.build.picking ? "PICK_UP"
+                : Sim.state.build.edge ? "EDGE_PLACE" : "BUILD_PLACE")
+        : Sim.cmd("INTERACT"); }
+      if(e.code==="KeyF" && Sim.state.build.on){ Sim.cmd("PICK_MODE"); return; }
+      if(e.code==="KeyG" && Sim.state.build.on){ Sim.cmd("EDGE_MODE"); return; }
+      if(e.code==="KeyR" && Sim.state.build.on){
+        if(Sim.state.build.picking) Sim.cmd("PICK_NEXT");
+        else if(Sim.state.build.edge) Sim.cmd("EDGE_SIDE");
+        else Sim.cmd("BUILD_ROT");
+        return; }
       if(e.code==="KeyB"){ Sim.cmd("BUILD_TOGGLE"); }
       if(e.code==="KeyQ"){ Sim.cmd(Sim.actionCmd()); }
       if(e.code==="KeyR" && Sim.state.build.on){ Sim.cmd("BUILD_ROT"); }
@@ -11320,7 +11791,10 @@ const Input = {
     /* The icon rail is wired for EVERYONE. It used to live inside the touch
        block, so on desktop the buttons drew and did nothing. */
     {
-      const tap=(id,fn)=>{ const el=document.getElementById(id); if(!el) return;
+      // takes an id or an element, so a generated button can use the same guard
+      const tap=(id,fn)=>{
+        const el = typeof id==="string" ? document.getElementById(id) : id;
+        if(!el) return;
         let last=0;
         const fire=e=>{ e.preventDefault(); if(e.stopPropagation) e.stopPropagation();
           const now=(performance&&performance.now)?performance.now():Date.now();
@@ -11345,9 +11819,20 @@ const Input = {
       tap("btnInv",()=>Sim.cmd("INV_UI",{}));
       tap("btnLevel",()=>Sim.cmd("LEVEL"));
       tap("btnShop",()=>Sim.cmd("SHOP",{on:!Sim.state.shop}));
+      // the face opens the fan; the fan sets the rate and folds away again
       tap("btnFF",()=>{
-        const n={1:4,4:16,16:1}[Sim.state.compression]||1; Sim.cmd("COMPRESS",{v:n});
-        UI.say(n===1 ? "Real time" : "Time compression <b>"+n+"×</b>","c");
+        const f=document.getElementById("timefan");
+        if(f) f.classList.toggle("open");
+      });
+      document.querySelectorAll("button.tf").forEach(btn=>{
+        tap(btn, ()=>{
+          const t=btn.dataset.t;
+          if(t==="pause"){ Sim.cmd("PAUSE",{}); }
+          else { Sim.cmd("PAUSE",{on:false}); Sim.cmd("COMPRESS",{v:+t});
+                 UI.say(+t===1 ? "Real time" : "Time compression <b>"+t+"×</b>","c"); }
+          const f=document.getElementById("timefan");
+          if(f) f.classList.remove("open");
+        });
       });
     }
   },
@@ -11457,6 +11942,8 @@ const Admin = {
         ["C","chart"],
         ["K","save and load"],
         ["J","take a drink"],
+        ["F","build mode: pick something up"],
+        ["G","build mode: cells \u21c4 edges"],
         ["T","tablet"],
         ["Q","aim · click to shoot"],
         ["Esc","close whatever's open"]
@@ -11795,6 +12282,10 @@ const Admin = {
                document.getElementById("broker").classList.remove("on"); }
     };
     window.BrokerUI=BK;
+    if($$("sbHull"))  $$("sbHull").onclick =()=>Sim.cmd("SANDBOX_HULL",{});
+    if($$("sbStrip")) $$("sbStrip").onclick=()=>Sim.cmd("SANDBOX_STRIP",{});
+    if($$("sbStock")) $$("sbStock").onclick=()=>Sim.cmd("SANDBOX_STOCK",{});
+    if($$("gWater")) $$("gWater").onclick=()=>Sim.cmd("DRINK",{});
     if($$("btnBroker")) $$("btnBroker").onclick=()=>Sim.cmd("BROKER_UI",{on:true});
     if($$("bkClose")) $$("bkClose").onclick=BK.close;
     if($$("broker")) $$("broker").onclick=e=>{ if(e.target.id==="broker") BK.close(); };
@@ -11933,11 +12424,19 @@ function loop(t){
     if(hb.style.display!==(show?"":"none")) hb.style.display=show?"":"none";
     const face=S6.comms?"✕":"📻";
     if(hb.textContent!==face) hb.textContent=face; }
+  { const sb=document.getElementById("sandbar");
+    if(sb){ const want=!!Sim.state.sandbox;
+      if(sb.classList.contains("on")!==want) sb.classList.toggle("on",want); } }
   const ff=document.getElementById("btnFF");
-  if(ff){ const c=Sim.state.compression;
-    const face = c===1 ? "⏩" : c===4 ? "4×" : c===16 ? "16×" : "⏩";
+  if(ff){ const c=Sim.state.compression, pz=Sim.state.paused;
+    const face = pz ? "\u23f8" : c===1 ? "\u23e9" : c===4 ? "4\u00d7" : c===16 ? "16\u00d7" : "\u23e9";
     if(ff.textContent!==face) ff.textContent=face;
-    ff.classList.toggle("hot", c!==1); }
+    ff.classList.toggle("hot", pz || c!==1);
+    document.querySelectorAll("button.tf").forEach(btn=>{
+      const on = btn.dataset.t==="pause" ? pz : (!pz && +btn.dataset.t===c);
+      if(btn.classList.contains("on")!==on) btn.classList.toggle("on",on); });
+    const pm=document.getElementById("pausemark");
+    if(pm && pm.classList.contains("on")!==pz) pm.classList.toggle("on",pz); }
   const lb=document.getElementById("btnLevel");
   if(lb){ const S8=Sim.state, P8=S8.player, b8=S8.entities[S8.playerBoatId];
     const show = P8.mode==="foot" && !P8.swim && !!Sim.ladderNear(b8,P8.lx,P8.lz);
@@ -11949,6 +12448,33 @@ function loop(t){
       const want = Sim.atYard(b0) && Sim.state.player.mode!=="dinghy";
       const disp = want?"":"none";
       if(bb.style.display!==disp) bb.style.display=disp; } }
+  { const B=Sim.state.build;
+    const bx=Sim.state.entities[Sim.state.playerBoatId];
+    const pb=document.getElementById("bbPick");
+    if(pb){ const lab=B.picking?"\u2715 Stop picking":"\u270b Pick up";
+      if(pb.textContent!==lab) pb.textContent=lab; }
+    const nb=document.getElementById("bbNext");
+    if(nb){ const list = B.on&&B.picking ? Sim.thingsOn(bx,B.cx,B.cz,B.lvl||0) : [];
+      const disp = list.length>1 ? "" : "none";
+      if(nb.style.display!==disp) nb.style.display=disp; }
+    const plb=document.getElementById("bbPlace");
+    if(plb){ const t = B.picking ? Sim.pickTarget(bx) : null;
+      const lab = B.picking ? (t ? "Take the "+t.name.replace(/ \(.*\)$/,"") : "Nothing here")
+                            : "Build";
+      if(plb.textContent!==lab) plb.textContent=lab;
+      plb.classList.toggle("dim", B.picking && !t); }
+    const sb=document.getElementById("bbSide");
+    if(sb){ const want = B.on && B.edge && !B.picking;
+      const disp = want ? "" : "none";
+      if(sb.style.display!==disp) sb.style.display=disp;
+      const lab="\u2922 Side: "+(B.side||"N");
+      if(sb.textContent!==lab) sb.textContent=lab; }
+    const eb=document.getElementById("bbEdge");
+    if(eb){ const lab=B.edge?"\u25a4 Cells":"\u25a4 Edges";
+      if(eb.textContent!==lab) eb.textContent=lab; }
+    const lb=document.getElementById("bbLift");
+    if(lb){ const disp = (B.on && B.edge) ? "" : "none";
+      if(lb.style.display!==disp) lb.style.display=disp; } }
   const ib=document.getElementById("btnInv");
   if(ib){ const face=Sim.state.invUI?"✕":"🎒";
     if(ib.textContent!==face) ib.textContent=face; }
@@ -12000,22 +12526,33 @@ function loop(t){
   requestAnimationFrame(loop);
 }
 
-document.getElementById("go").onclick=()=>{
+/* One boot path, two ways in. The sandbox is the same game with the stores
+   full and every boat to hand — never a separate build, or the two drift. */
+function boot(sandbox){
   document.getElementById("loading").textContent="Building the river…";
   setTimeout(()=>{
     try{
       Sim.init("delta");
       Render.init(); UI.init(); Build.init(); Prep.init(); Traps.init(); Shop.init(); Comms.init(); Radio.init(); Inv.init(); Create.init(); Input.init(); Admin.init(); Audio.start();
-      Create.open();
       document.getElementById("boot").style.display="none";
-      UI.say("Throttle up. Keep the <b>red buoys to starboard</b> heading downstream.","start");
+      if(sandbox){
+        Sim.cmd("SANDBOX",{});
+        Sim.advance(0.06);
+        Render.buildWorld && Render.buildWorld();
+        UI.say("Sandbox \u2014 <b>B</b> to build, <b>⛵ Next boat</b> to change hull. Time still runs.","start");
+      } else {
+        Create.open();
+        UI.say("Throttle up. Keep the <b>red buoys to starboard</b> heading downstream.","start");
+      }
       requestAnimationFrame(loop);
     }catch(e){
       document.getElementById("loading").textContent="Error: "+e.message;
       console.error(e);
     }
   },40);
-};
+}
+document.getElementById("go").onclick=()=>boot(false);
+document.getElementById("goSandbox").onclick=()=>boot(true);
 </script>
 </body>
 </html>
