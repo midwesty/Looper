@@ -1,6 +1,6 @@
 {
   "segment": "tt-heflin-demopolis",
-  "generated": "2026-09-18T13:31:55Z",
+  "generated": "2026-09-19T16:10:19Z",
   "ok": true,
   "counts": {
     "passed": 18,
@@ -57,7 +57,7 @@
     {
       "name": "length matches the centreline",
       "status": "pass",
-      "detail": "declared 7174.5 m against a measured 7174.5 m"
+      "detail": "declared 7152.9 m against a measured 7152.8 m"
     },
     {
       "name": "atFrac values in range",
@@ -107,7 +107,7 @@
     },
     {
       "path": "currentKt",
-      "reason": "no CO-OPS current prediction for this reach; assumed still"
+      "reason": "taken from the segment config (0.7 kt), not measured"
     },
     {
       "path": "buoyage.returningToward",
@@ -126,12 +126,14 @@
     "route stitched from 1 charted track line(s) into 1 chain(s); the longest is 77.9 km",
     "width and depth still come from the depth areas around it",
     "compressed 10.8:1 along the route \u2014 77.7 km of river becomes 7.2 km of world. Channel width, depth and terrain are untouched; only distance along the route changes.",
+    "centreline thinned from 1945 points to 121 (Douglas-Peucker, 3.0 m tolerance). The game walks this line on every depth lookup, so the spacing was a frame-rate cost, not a file size one.",
     "bridge U37TT218-brg-0 has no charted vertical clearance and was dropped; a bridge with an unknown clearance is worse than no bridge",
     "bridge U37TT218-brg-3 has no charted vertical clearance and was dropped; a bridge with an unknown clearance is worse than no bridge",
     "bridge U37TT218-brg-10 has no charted vertical clearance and was dropped; a bridge with an unknown clearance is worse than no bridge",
     "lock U37TB176-lok-1 has neither a lift nor pool elevations and was dropped",
     "lock U37TB176-lok-0 has neither a lift nor pool elevations and was dropped",
     "lock U37TB176-lok-3 has neither a lift nor pool elevations and was dropped",
+    "terrain fitted from 1300 transects: mean rise at falloff 7.18 m, 90th percentile 11.08 m, 102 of 1300 samples below a third of the mean. A low flatFrac on a bottomland river means the transects rarely found level ground \u2014 worth checking the sampling window against the floodplain's real width.",
     "U37TB176: DEPARE[0]: no DRVAL2; deep limit taken as DRVAL1",
     "U37TB176: DEPARE[2]: no DRVAL2; deep limit taken as DRVAL1",
     "U37TB176: DEPARE[11]: no DRVAL2; deep limit taken as DRVAL1",
@@ -180,6 +182,8 @@
     "U37TB176: M_NSYS gives MARSYS=2 but no ORIENT, so the chart names the buoyage system without stating its direction on this reach",
     "U37TB176: layers present: ADMARE, AIRARE, BUAARE, BUISGL, CBLSUB, COALNE, CONVYR, CRANES, CTNARE, C_AGGR, DAMCON, DAYMAR, DEPARE, DEPCNT, DSID, GATCON, Generic, HRBFAC, LIGHTS, LNDARE, LNDRGN, MORFAC, M_COVR, M_NPUB, M_QUAL, PILPNT, PIPSOL, PYLONS, RAILWY, RECTRC, RESARE, RIVERS, ROADWY, SEAARE, SILTNK, SLCONS, UWTROC, berths, bridge, cblohd, dismar, lokbsn, m_nsys, notmrk, sistat, sistaw",
     "U37TB176: no channel polygon layer in this cell (FAIRWY/DRGARE) \u2014 that is a fact about how the cell is compiled, not a problem with the download",
+    "U37TB176: aids: 0 of 138 carry a number",
+    "U37TB176: NO aid carries a number. The game's rule is shape and number, never colour alone, so this is worth settling before the segment is used: either the chart genuinely numbers nothing here, or OBJNAM was discarded \u2014 the layer notes above say which.",
     "U37TT218: DEPARE[0]: no DRVAL2; deep limit taken as DRVAL1",
     "U37TT218: DEPARE[1]: no DRVAL2; deep limit taken as DRVAL1",
     "U37TT218: DEPARE[3]: no DRVAL2; deep limit taken as DRVAL1",
@@ -200,6 +204,8 @@
     "U37TT218: M_NSYS gives MARSYS=2 but no ORIENT, so the chart names the buoyage system without stating its direction on this reach",
     "U37TT218: layers present: ADMARE, BUAARE, BUISGL, COALNE, CONVYR, CRANES, CTNARE, C_AGGR, DAMCON, DAYMAR, DEPARE, DEPCNT, DSID, GATCON, Generic, LIGHTS, LNDARE, LNDMRK, LNDRGN, MORFAC, M_COVR, M_NPUB, M_QUAL, PIPSOL, PYLONS, RAILWY, RECTRC, RESARE, RIVERS, ROADWY, SEAARE, SILTNK, SLCONS, bridge, cblohd, dismar, lokbsn, m_nsys, notmrk, sistat, sistaw",
     "U37TT218: no channel polygon layer in this cell (FAIRWY/DRGARE) \u2014 that is a fact about how the cell is compiled, not a problem with the download",
+    "U37TT218: aids: 0 of 89 carry a number",
+    "U37TT218: NO aid carries a number. The game's rule is shape and number, never colour alone, so this is worth settling before the segment is used: either the chart genuinely numbers nothing here, or OBJNAM was discarded \u2014 the layer notes above say which.",
     "U37TB176 is the later posting and takes precedence",
     "2 lock complex(es) bound the reach rather than splitting it, and name its ends: Howell Heflin Lock, Demopolis Lock",
     "Selden Lock is 17930 m off this route \u2014 it is on other water and is not a stop on it",
@@ -210,12 +216,12 @@
   "sources": [
     {
       "name": "S-57 cell U37TB176",
-      "retrieved": "2026-09-18T13:31:34Z",
+      "retrieved": "2026-09-19T16:09:57Z",
       "note": null
     },
     {
       "name": "S-57 cell U37TT218",
-      "retrieved": "2026-09-18T13:31:34Z",
+      "retrieved": "2026-09-19T16:09:57Z",
       "note": null
     }
   ],
@@ -223,7 +229,8 @@
     "channelSource": "track",
     "scaleRatio": 10.835,
     "trueLengthM": 77744.9,
-    "centerlineVertices": 1945,
+    "centerlinePointsBefore": 1948,
+    "centerlineVertices": 121,
     "depthSamplesInterpolated": 0,
     "depthGapSpans": [],
     "pools": {
