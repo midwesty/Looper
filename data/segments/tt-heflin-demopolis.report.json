@@ -1,12 +1,12 @@
 {
   "segment": "tt-heflin-demopolis",
-  "generated": "2026-09-21T00:45:55Z",
+  "generated": "2026-09-21T01:32:23Z",
   "ok": false,
   "counts": {
-    "passed": 17,
+    "passed": 21,
     "failed": 1,
     "skipped": 0,
-    "estimated": 5
+    "estimated": 13
   },
   "checks": [
     {
@@ -50,6 +50,26 @@
       "detail": "outside: ['pocket-0']"
     },
     {
+      "name": "every body has a size",
+      "status": "pass",
+      "detail": "25 bodies"
+    },
+    {
+      "name": "no body is at zero depth",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "name": "anchorages rest on a surveyed depth",
+      "status": "pass",
+      "detail": ""
+    },
+    {
+      "name": "no body duplicates the reference channel",
+      "status": "pass",
+      "detail": ""
+    },
+    {
       "name": "body ids unique",
       "status": "pass",
       "detail": ""
@@ -67,7 +87,7 @@
     {
       "name": "unverified paths resolve",
       "status": "pass",
-      "detail": "5 paths"
+      "detail": "13 paths"
     },
     {
       "name": "mile axis agrees with lock directions",
@@ -77,7 +97,7 @@
     {
       "name": "verified flag agrees with the unverified list",
       "status": "pass",
-      "detail": "verified=False with 5 unverified fields"
+      "detail": "verified=False with 13 unverified fields"
     },
     {
       "name": "mileSystem.primary names a declared axis",
@@ -101,6 +121,38 @@
     }
   ],
   "estimates": [
+    {
+      "path": "bodies[1].depthFt",
+      "reason": "no depth area covers rivers-83; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[2].depthFt",
+      "reason": "no depth area covers backwater-217-2; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[3].depthFt",
+      "reason": "no depth area covers rivers-19; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[4].depthFt",
+      "reason": "no depth area covers rivers-98; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[5].depthFt",
+      "reason": "no depth area covers rivers-195; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[6].depthFt",
+      "reason": "no depth area covers rivers-208; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[7].depthFt",
+      "reason": "no depth area covers rivers-211; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[8].depthFt",
+      "reason": "no depth area covers rivers-252; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
     {
       "path": "terrain.blendM",
       "reason": "not measurable from elevation; set to falloffM/3 by convention"
@@ -127,95 +179,13 @@
     "width and depth still come from the depth areas around it",
     "compressed 10.8:1 along the route \u2014 77.7 km of river becomes 7.2 km of world. Channel width, depth and terrain are untouched; only distance along the route changes.",
     "centreline thinned from 1945 points to 121 (Douglas-Peucker, 3.0 m tolerance). The game walks this line on every depth lookup, so the spacing was a frame-rate cost, not a file size one.",
-    "branch channel from a charted route 48.4 mi long that joins this segment's water, 9.0 ft",
+    "cove from the chart's own RIVERS area feature, 1.4 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Dead end: somewhere to go and come back from.",
     "basin from the chart's Backwater @ 217.2/RIVERS feature",
     "basin from the chart's RIVERS feature",
     "basin from the chart's RIVERS feature",
     "basin from the chart's RIVERS feature",
     "basin from the chart's RIVERS feature",
     "basin from the chart's RIVERS feature",
-    "basin from the chart's Martins Creek/RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's Factory Creek/RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's Boligee Creek/RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's Smith Branch/RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's Trussells Creek/RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's Gum Pond Slough/RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's High Run/RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's McConnico Creek/RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's Jones Creek/RIVERS feature",
-    "basin from the chart's Hayes Creek/RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's Cobb Creek/RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's Acron Creek/RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's Brush Creek/RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's Caney Slough/RIVERS feature",
-    "basin from the chart's Taylor Creek/RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's Hayes Creek/RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's Shed Branch/RIVERS feature",
-    "basin from the chart's Brush Creek/RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's Boligee Canal/RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's Tubbs Creek/RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's RIVERS feature",
-    "basin from the chart's Camp Springs Branch/RIVERS feature",
     "basin from the chart's RIVERS feature",
     "basin from depth areas reaching 1799 m outside the channel, 9.0 ft \u2014 water off the route, shallower than the channel and kept for the dinghy",
     "basin from depth areas reaching 1205 m outside the channel, 9.0 ft \u2014 water off the route, shallower than the channel and kept for the dinghy",
@@ -233,6 +203,7 @@
     "basin from depth areas reaching 30 m outside the channel, 9.0 ft \u2014 water off the route, shallower than the channel and kept for the dinghy",
     "basin from depth areas reaching 23 m outside the channel, 9.0 ft \u2014 water off the route, shallower than the channel and kept for the dinghy",
     "basin from depth areas reaching 20 m outside the channel, 9.0 ft \u2014 water off the route, shallower than the channel and kept for the dinghy",
+    "a charted route 48 mi long runs along this segment's own route and is the reference channel again, not a branch",
     "bridge U37TT218-brg-0 has no charted vertical clearance and was dropped; a bridge with an unknown clearance is worse than no bridge",
     "bridge U37TT218-brg-3 has no charted vertical clearance and was dropped; a bridge with an unknown clearance is worse than no bridge",
     "bridge U37TT218-brg-10 has no charted vertical clearance and was dropped; a bridge with an unknown clearance is worse than no bridge",
@@ -324,12 +295,12 @@
   "sources": [
     {
       "name": "S-57 cell Selden Lock",
-      "retrieved": "2026-09-21T00:45:33Z",
+      "retrieved": "2026-09-21T01:31:51Z",
       "note": null
     },
     {
       "name": "S-57 cell Catfish Bend",
-      "retrieved": "2026-09-21T00:45:33Z",
+      "retrieved": "2026-09-21T01:31:51Z",
       "note": null
     }
   ],
@@ -341,7 +312,7 @@
     "centerlineVertices": 121,
     "depthSamplesInterpolated": 0,
     "depthGapSpans": [],
-    "sideWaterBodies": 106,
+    "sideWaterBodies": 24,
     "pools": {
       "U37TT218-lok-1": {
         "upper": 109.99999999999999,
