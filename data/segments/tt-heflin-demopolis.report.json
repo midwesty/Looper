@@ -1,12 +1,12 @@
 {
   "segment": "tt-heflin-demopolis",
-  "generated": "2026-09-21T13:48:27Z",
-  "ok": false,
+  "generated": "2026-09-21T17:38:00Z",
+  "ok": true,
   "counts": {
-    "passed": 21,
-    "failed": 1,
+    "passed": 22,
+    "failed": 0,
     "skipped": 0,
-    "estimated": 80
+    "estimated": 77
   },
   "checks": [
     {
@@ -47,12 +47,12 @@
     {
       "name": "all bodies inside the segment extent",
       "status": "pass",
-      "detail": "102 bodies"
+      "detail": "98 bodies"
     },
     {
       "name": "every body has a size",
       "status": "pass",
-      "detail": "102 bodies"
+      "detail": "98 bodies"
     },
     {
       "name": "no body is at zero depth",
@@ -66,8 +66,8 @@
     },
     {
       "name": "no body duplicates the reference channel",
-      "status": "fail",
-      "detail": "['rivers-190'] follow the reference centreline \u2014 that is the main river emitted twice, not a branch"
+      "status": "pass",
+      "detail": ""
     },
     {
       "name": "body ids unique",
@@ -87,7 +87,7 @@
     {
       "name": "unverified paths resolve",
       "status": "pass",
-      "detail": "80 paths"
+      "detail": "77 paths"
     },
     {
       "name": "mile axis agrees with lock directions",
@@ -97,7 +97,7 @@
     {
       "name": "verified flag agrees with the unverified list",
       "status": "pass",
-      "detail": "verified=False with 80 unverified fields"
+      "detail": "verified=False with 77 unverified fields"
     },
     {
       "name": "mileSystem.primary names a declared axis",
@@ -306,120 +306,108 @@
       "reason": "no depth area covers rivers-187; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[66].depthFt",
+      "path": "bodies[65].depthFt",
       "reason": "no depth area covers rivers-200; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[67].depthFt",
+      "path": "bodies[66].depthFt",
       "reason": "no depth area covers hayes-creek-2; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[68].depthFt",
+      "path": "bodies[67].depthFt",
       "reason": "no depth area covers rivers-212; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[70].depthFt",
+      "path": "bodies[69].depthFt",
       "reason": "no depth area covers brush-creek-2; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[72].depthFt",
+      "path": "bodies[71].depthFt",
       "reason": "no depth area covers rivers-225; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[75].depthFt",
+      "path": "bodies[74].depthFt",
       "reason": "no depth area covers rivers-231; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[76].depthFt",
+      "path": "bodies[75].depthFt",
       "reason": "no depth area covers rivers-235; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[77].depthFt",
+      "path": "bodies[76].depthFt",
       "reason": "no depth area covers tubbs-creek; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[78].depthFt",
+      "path": "bodies[77].depthFt",
       "reason": "no depth area covers rivers-247; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[79].depthFt",
+      "path": "bodies[78].depthFt",
       "reason": "no depth area covers rivers-258; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[80].depthFt",
+      "path": "bodies[79].depthFt",
       "reason": "no depth area covers rivers-264; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[82].depthFt",
+      "path": "bodies[81].depthFt",
       "reason": "no depth area covers rivers-277; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[84].depthFt",
+      "path": "bodies[83].depthFt",
       "reason": "no depth area covers camp-springs-branch; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[86].depthFt",
+      "path": "bodies[85].depthFt",
       "reason": "no depth area covers rivers-285; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[87].depthFt",
+      "path": "bodies[86].depthFt",
       "reason": "no depth area covers backwater-217-2; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[88].depthFt",
+      "path": "bodies[87].depthFt",
       "reason": "no depth area covers rivers-19; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[89].depthFt",
+      "path": "bodies[88].depthFt",
       "reason": "no depth area covers rivers-98; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[90].depthFt",
+      "path": "bodies[89].depthFt",
       "reason": "no depth area covers rivers-195; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[91].depthFt",
+      "path": "bodies[90].depthFt",
       "reason": "no depth area covers rivers-208; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[92].depthFt",
+      "path": "bodies[91].depthFt",
       "reason": "no depth area covers rivers-211; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[93].depthFt",
+      "path": "bodies[92].depthFt",
       "reason": "no depth area covers rivers-252; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[94].depthFt",
+      "path": "bodies[93].depthFt",
       "reason": "no depth area covers pocket-3; emitted at 9.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[95].depthFt",
+      "path": "bodies[94].depthFt",
       "reason": "no depth area covers pocket-4; emitted at 9.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[96].depthFt",
+      "path": "bodies[95].depthFt",
       "reason": "no depth area covers pocket-5; emitted at 9.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[97].depthFt",
+      "path": "bodies[96].depthFt",
       "reason": "no depth area covers pocket-6; emitted at 9.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[98].depthFt",
+      "path": "bodies[97].depthFt",
       "reason": "no depth area covers pocket-7; emitted at 9.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
-    },
-    {
-      "path": "bodies[99].depthFt",
-      "reason": "no depth area covers pocket-8; emitted at 9.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
-    },
-    {
-      "path": "bodies[100].depthFt",
-      "reason": "no depth area covers pocket-9; emitted at 9.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
-    },
-    {
-      "path": "bodies[101].depthFt",
-      "reason": "no depth area covers pocket-10; emitted at 9.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
       "path": "terrain.blendM",
@@ -447,6 +435,7 @@
     "width and depth still come from the depth areas around it",
     "compressed 10.8:1 along the route \u2014 77.7 km of river becomes 7.2 km of world. Channel width, depth and terrain are untouched; only distance along the route changes.",
     "centreline thinned from 1945 points to 121 (Douglas-Peucker, 3.0 m tolerance). The game walks this line on every depth lookup, so the spacing was a frame-rate cost, not a file size one.",
+    "BACKWATERS: 9 place(s) where charted water reaches more than 174 m from the route \u2014 well beyond the 139 m channel. 12 strip(s) of water along the banks were set aside as the channel's own edge rather than emitted as pockets. These are the candidates for an `area` body.",
     "cove from the chart's own RIVERS area feature, 1.4 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Dead end: somewhere to go and come back from.",
     "cove from the chart's own RIVERS feature, 0.8 km; 9.0 ft against the channel's 9.0 ft. Kept: the dinghy goes where the boat does not, and depth gates itself at the helm. Dead end: somewhere to go and come back from.",
     "cove from the chart's own RIVERS area feature, 0.9 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Dead end: somewhere to go and come back from.",
@@ -540,17 +529,15 @@
     "basin from the chart's RIVERS feature",
     "basin from the chart's RIVERS feature",
     "basin from the chart's RIVERS feature",
-    "cove from depth areas off the channel, 44102 m long and 230 m wide, 9.0 ft \u2014 linear water, not a circle",
-    "cove from depth areas off the channel, 17844 m long and 249 m wide, 9.0 ft \u2014 linear water, not a circle",
-    "cove from depth areas off the channel, 17833 m long and 130 m wide, 9.0 ft \u2014 linear water, not a circle",
-    "cove from depth areas off the channel, 14626 m long and 46 m wide, 9.0 ft \u2014 linear water, not a circle",
-    "cove from depth areas off the channel, 14422 m long and 40 m wide, 9.0 ft \u2014 linear water, not a circle",
-    "cove from depth areas off the channel, 10121 m long and 53 m wide, 9.0 ft \u2014 linear water, not a circle",
-    "cove from depth areas off the channel, 19691 m long and 21 m wide, 9.0 ft \u2014 linear water, not a circle",
-    "cove from depth areas off the channel, 7926 m long and 20 m wide, 9.0 ft \u2014 linear water, not a circle",
-    "cove from depth areas off the channel, 4763 m long and 30 m wide, 9.0 ft \u2014 linear water, not a circle",
-    "cove from depth areas off the channel, 2189 m long and 52 m wide, 9.0 ft \u2014 linear water, not a circle",
-    "cove from depth areas off the channel, 994 m long and 25 m wide, 9.0 ft \u2014 linear water, not a circle",
+    "cove from depth areas off the channel, 43011 m long and 234 m wide, 9.0 ft \u2014 linear water, not a circle",
+    "cove from depth areas off the channel, 17887 m long and 155 m wide, 9.0 ft \u2014 linear water, not a circle",
+    "cove from depth areas off the channel, 16488 m long and 133 m wide, 9.0 ft \u2014 linear water, not a circle",
+    "cove from depth areas off the channel, 3823 m long and 252 m wide, 9.0 ft \u2014 linear water, not a circle",
+    "cove from depth areas off the channel, 2731 m long and 135 m wide, 9.0 ft \u2014 linear water, not a circle",
+    "cove from depth areas off the channel, 941 m long and 79 m wide, 9.0 ft \u2014 linear water, not a circle",
+    "cove from depth areas off the channel, 1386 m long and 41 m wide, 9.0 ft \u2014 linear water, not a circle",
+    "cove from depth areas off the channel, 556 m long and 69 m wide, 9.0 ft \u2014 linear water, not a circle",
+    "cove from depth areas off the channel, 677 m long and 23 m wide, 9.0 ft \u2014 linear water, not a circle",
     "a charted route 48 mi long runs along this segment's own route and is the reference channel again, not a branch",
     "dropped rivers-18: its nearest point is 1.1 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
     "dropped rivers-25: its nearest point is 1.0 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
@@ -574,17 +561,22 @@
     "dropped rivers-205: it is 0.9 km from this segment's route, beyond the 400 m that makes water reachable from it",
     "dropped rivers-237: it is 0.5 km from this segment's route, beyond the 400 m that makes water reachable from it",
     "2 depth area(s) lie entirely inside the channel corridor and add no water off the route",
-    "204 depth-area fragment(s) hug the channel without reaching 40 m clear of it \u2014 the channel's own margin rather than a pocket off the route",
+    "578 depth-area fragment(s) hug the channel without reaching 40 m clear of it \u2014 the channel's own margin rather than a pocket off the route",
     "dropped pocket-0: it sits outside this segment's extent, so it is a neighbouring segment's water rather than this one's",
     "dropped pocket-1: it sits outside this segment's extent, so it is a neighbouring segment's water rather than this one's",
     "dropped pocket-2: it sits outside this segment's extent, so it is a neighbouring segment's water rather than this one's",
+    "dropped rivers-190: it retraces the reference channel for 6 of 7 sampled points, so it is the main river again rather than side water",
+    "dropped pocket-13: it retraces the reference channel for 8 of 8 sampled points, so it is the main river again rather than side water",
+    "MEMBERSHIP: 1 creek(s) are kept because part of them passes near this route, but they drain somewhere else. Listed below; not acted on until it is decided which reach owns them.",
+    "  rivers-152: passes within 294 m of this route but its mouth (the end nearer charted water) is 0.7 km away \u2014 it may drain into a different reach and only pass this one",
+    "no junction candidates: no long charted route other than this one appears in the cells.",
     "bridge U37TT218-brg-0 has no charted vertical clearance and was dropped; a bridge with an unknown clearance is worse than no bridge",
     "bridge U37TT218-brg-3 has no charted vertical clearance and was dropped; a bridge with an unknown clearance is worse than no bridge",
     "bridge U37TT218-brg-10 has no charted vertical clearance and was dropped; a bridge with an unknown clearance is worse than no bridge",
     "lock U37TB176-lok-1 has neither a lift nor pool elevations and was dropped",
     "lock U37TB176-lok-0 has neither a lift nor pool elevations and was dropped",
     "lock U37TB176-lok-3 has neither a lift nor pool elevations and was dropped",
-    "terrain fitted from 1300 transects: mean rise at falloff 7.18 m, 90th percentile 11.08 m, 102 of 1300 samples below a third of the mean. A low flatFrac on a bottomland river means the transects rarely found level ground \u2014 worth checking the sampling window against the floodplain's real width.",
+    "terrain fitted from 1300 transects: mean rise at falloff 6.66 m, 90th percentile 10.48 m, 111 of 1300 samples below a third of the mean. A low flatFrac on a bottomland river means the transects rarely found level ground \u2014 worth checking the sampling window against the floodplain's real width.",
     "U37TB176: DEPARE[0]: no DRVAL2; deep limit taken as DRVAL1",
     "U37TB176: DEPARE[2]: no DRVAL2; deep limit taken as DRVAL1",
     "U37TB176: DEPARE[11]: no DRVAL2; deep limit taken as DRVAL1",
@@ -736,6 +728,9 @@
     "U37TT218: aids: 0 of 89 carry a number",
     "U37TT218: NO aid carries a number. The game's rule is shape and number, never colour alone, so this is worth settling before the segment is used: either the chart genuinely numbers nothing here, or OBJNAM was discarded \u2014 the layer notes above say which.",
     "U37TB176 is the later posting and takes precedence",
+    "aids: 227 across the cells, 212 after merging (15 deduplicated)",
+    "bridges: 81 across the cells, 68 after merging (13 deduplicated)",
+    "locks: 12 across the cells, 8 after merging (4 deduplicated)",
     "2 lock complex(es) bound the reach rather than splitting it, and name its ends: Howell Heflin Lock, Demopolis Lock",
     "Selden Lock is 17930 m off this route \u2014 it is on other water and is not a stop on it",
     "U37tb176-lok-1 is 17998 m off this route \u2014 it is on other water and is not a stop on it",
@@ -753,24 +748,30 @@
   "sources": [
     {
       "name": "S-57 cell Selden Lock",
-      "retrieved": "2026-09-21T13:47:59Z",
+      "retrieved": "2026-09-21T17:37:32Z",
       "note": null
     },
     {
       "name": "S-57 cell Catfish Bend",
-      "retrieved": "2026-09-21T13:47:59Z",
+      "retrieved": "2026-09-21T17:37:32Z",
       "note": null
     }
   ],
   "stats": {
     "channelSource": "track",
+    "widthSource": "charted water edge",
+    "widthSamplesUnmeasured": 0,
     "scaleRatio": 10.835,
     "trueLengthM": 77744.9,
     "centerlinePointsBefore": 1948,
     "centerlineVertices": 121,
     "depthSamplesInterpolated": 0,
     "depthGapSpans": [],
-    "sideWaterBodies": 101,
+    "backwaters": 9,
+    "bankStripsIgnored": 12,
+    "membershipQuestions": 1,
+    "sideWaterBodies": 97,
+    "junctionCandidates": [],
     "pools": {
       "U37TT218-lok-1": {
         "upper": 109.99999999999999,
@@ -786,10 +787,10 @@
     "trueCenterline": 1948,
     "controllingDepthFt": 9.0,
     "extent": [
-      -3077.3,
-      -3077.3,
-      5491.8,
-      6212.0
+      -3126.2,
+      -3126.2,
+      5540.7,
+      6260.9
     ]
   }
 }
