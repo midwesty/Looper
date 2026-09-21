@@ -1,12 +1,12 @@
 {
   "segment": "tt-heflin-demopolis",
-  "generated": "2026-09-21T02:09:40Z",
-  "ok": true,
+  "generated": "2026-09-21T13:48:27Z",
+  "ok": false,
   "counts": {
-    "passed": 22,
-    "failed": 0,
+    "passed": 21,
+    "failed": 1,
     "skipped": 0,
-    "estimated": 23
+    "estimated": 80
   },
   "checks": [
     {
@@ -47,12 +47,12 @@
     {
       "name": "all bodies inside the segment extent",
       "status": "pass",
-      "detail": "19 bodies"
+      "detail": "102 bodies"
     },
     {
       "name": "every body has a size",
       "status": "pass",
-      "detail": "19 bodies"
+      "detail": "102 bodies"
     },
     {
       "name": "no body is at zero depth",
@@ -66,8 +66,8 @@
     },
     {
       "name": "no body duplicates the reference channel",
-      "status": "pass",
-      "detail": ""
+      "status": "fail",
+      "detail": "['rivers-190'] follow the reference centreline \u2014 that is the main river emitted twice, not a branch"
     },
     {
       "name": "body ids unique",
@@ -87,7 +87,7 @@
     {
       "name": "unverified paths resolve",
       "status": "pass",
-      "detail": "23 paths"
+      "detail": "80 paths"
     },
     {
       "name": "mile axis agrees with lock directions",
@@ -97,7 +97,7 @@
     {
       "name": "verified flag agrees with the unverified list",
       "status": "pass",
-      "detail": "verified=False with 23 unverified fields"
+      "detail": "verified=False with 80 unverified fields"
     },
     {
       "name": "mileSystem.primary names a declared axis",
@@ -126,71 +126,299 @@
       "reason": "no depth area covers rivers-83; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[2].depthFt",
-      "reason": "no depth area covers backwater-217-2; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
-    },
-    {
       "path": "bodies[3].depthFt",
-      "reason": "no depth area covers rivers-19; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+      "reason": "no depth area covers rivers-5; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
       "path": "bodies[4].depthFt",
-      "reason": "no depth area covers rivers-98; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
-    },
-    {
-      "path": "bodies[5].depthFt",
-      "reason": "no depth area covers rivers-195; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+      "reason": "no depth area covers rivers-7; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
       "path": "bodies[6].depthFt",
-      "reason": "no depth area covers rivers-208; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+      "reason": "no depth area covers rivers-10; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
       "path": "bodies[7].depthFt",
-      "reason": "no depth area covers rivers-211; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+      "reason": "no depth area covers martins-creek; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
       "path": "bodies[8].depthFt",
-      "reason": "no depth area covers rivers-252; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+      "reason": "no depth area covers rivers-13; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
       "path": "bodies[9].depthFt",
-      "reason": "no depth area covers pocket-1; emitted at 9.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+      "reason": "no depth area covers rivers-16; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
       "path": "bodies[10].depthFt",
-      "reason": "no depth area covers pocket-2; emitted at 9.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+      "reason": "no depth area covers rivers-23; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
       "path": "bodies[11].depthFt",
-      "reason": "no depth area covers pocket-3; emitted at 9.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
-    },
-    {
-      "path": "bodies[12].depthFt",
-      "reason": "no depth area covers pocket-4; emitted at 9.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+      "reason": "no depth area covers rivers-34; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
       "path": "bodies[13].depthFt",
-      "reason": "no depth area covers pocket-5; emitted at 9.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+      "reason": "no depth area covers rivers-38; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
       "path": "bodies[14].depthFt",
-      "reason": "no depth area covers pocket-6; emitted at 9.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
-    },
-    {
-      "path": "bodies[15].depthFt",
-      "reason": "no depth area covers pocket-7; emitted at 9.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+      "reason": "no depth area covers rivers-41; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
       "path": "bodies[16].depthFt",
-      "reason": "no depth area covers pocket-8; emitted at 9.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+      "reason": "no depth area covers rivers-44; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
       "path": "bodies[17].depthFt",
+      "reason": "no depth area covers rivers-49; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[19].depthFt",
+      "reason": "no depth area covers rivers-55; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[20].depthFt",
+      "reason": "no depth area covers rivers-57; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[22].depthFt",
+      "reason": "no depth area covers rivers-59; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[23].depthFt",
+      "reason": "no depth area covers boligee-creek; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[24].depthFt",
+      "reason": "no depth area covers rivers-65; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[25].depthFt",
+      "reason": "no depth area covers rivers-70; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[26].depthFt",
+      "reason": "no depth area covers rivers-73; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[27].depthFt",
+      "reason": "no depth area covers rivers-80; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[28].depthFt",
+      "reason": "no depth area covers rivers-83-2; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[30].depthFt",
+      "reason": "no depth area covers rivers-89; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[31].depthFt",
+      "reason": "no depth area covers smith-branch; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[32].depthFt",
+      "reason": "no depth area covers rivers-92; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[33].depthFt",
+      "reason": "no depth area covers rivers-94; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[34].depthFt",
+      "reason": "no depth area covers rivers-95; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[35].depthFt",
+      "reason": "no depth area covers trussells-creek; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[37].depthFt",
+      "reason": "no depth area covers gum-pond-slough; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[38].depthFt",
+      "reason": "no depth area covers rivers-108; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[39].depthFt",
+      "reason": "no depth area covers rivers-111; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[41].depthFt",
+      "reason": "no depth area covers rivers-114; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[42].depthFt",
+      "reason": "no depth area covers rivers-115; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[44].depthFt",
+      "reason": "no depth area covers rivers-129; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[46].depthFt",
+      "reason": "no depth area covers rivers-134; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[47].depthFt",
+      "reason": "no depth area covers rivers-136; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[50].depthFt",
+      "reason": "no depth area covers hayes-creek; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[51].depthFt",
+      "reason": "no depth area covers rivers-152; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[52].depthFt",
+      "reason": "no depth area covers cobb-creek; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[53].depthFt",
+      "reason": "no depth area covers rivers-159; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[55].depthFt",
+      "reason": "no depth area covers rivers-164; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[58].depthFt",
+      "reason": "no depth area covers rivers-175; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[59].depthFt",
+      "reason": "no depth area covers brush-creek; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[60].depthFt",
+      "reason": "no depth area covers rivers-183; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[61].depthFt",
+      "reason": "no depth area covers caney-slough; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[63].depthFt",
+      "reason": "no depth area covers rivers-187; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[66].depthFt",
+      "reason": "no depth area covers rivers-200; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[67].depthFt",
+      "reason": "no depth area covers hayes-creek-2; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[68].depthFt",
+      "reason": "no depth area covers rivers-212; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[70].depthFt",
+      "reason": "no depth area covers brush-creek-2; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[72].depthFt",
+      "reason": "no depth area covers rivers-225; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[75].depthFt",
+      "reason": "no depth area covers rivers-231; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[76].depthFt",
+      "reason": "no depth area covers rivers-235; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[77].depthFt",
+      "reason": "no depth area covers tubbs-creek; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[78].depthFt",
+      "reason": "no depth area covers rivers-247; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[79].depthFt",
+      "reason": "no depth area covers rivers-258; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[80].depthFt",
+      "reason": "no depth area covers rivers-264; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[82].depthFt",
+      "reason": "no depth area covers rivers-277; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[84].depthFt",
+      "reason": "no depth area covers camp-springs-branch; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[86].depthFt",
+      "reason": "no depth area covers rivers-285; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[87].depthFt",
+      "reason": "no depth area covers backwater-217-2; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[88].depthFt",
+      "reason": "no depth area covers rivers-19; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[89].depthFt",
+      "reason": "no depth area covers rivers-98; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[90].depthFt",
+      "reason": "no depth area covers rivers-195; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[91].depthFt",
+      "reason": "no depth area covers rivers-208; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[92].depthFt",
+      "reason": "no depth area covers rivers-211; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[93].depthFt",
+      "reason": "no depth area covers rivers-252; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[94].depthFt",
+      "reason": "no depth area covers pocket-3; emitted at 9.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[95].depthFt",
+      "reason": "no depth area covers pocket-4; emitted at 9.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[96].depthFt",
+      "reason": "no depth area covers pocket-5; emitted at 9.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[97].depthFt",
+      "reason": "no depth area covers pocket-6; emitted at 9.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[98].depthFt",
+      "reason": "no depth area covers pocket-7; emitted at 9.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[99].depthFt",
+      "reason": "no depth area covers pocket-8; emitted at 9.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[100].depthFt",
       "reason": "no depth area covers pocket-9; emitted at 9.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[18].depthFt",
+      "path": "bodies[101].depthFt",
       "reason": "no depth area covers pocket-10; emitted at 9.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
@@ -220,6 +448,91 @@
     "compressed 10.8:1 along the route \u2014 77.7 km of river becomes 7.2 km of world. Channel width, depth and terrain are untouched; only distance along the route changes.",
     "centreline thinned from 1945 points to 121 (Douglas-Peucker, 3.0 m tolerance). The game walks this line on every depth lookup, so the spacing was a frame-rate cost, not a file size one.",
     "cove from the chart's own RIVERS area feature, 1.4 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Dead end: somewhere to go and come back from.",
+    "cove from the chart's own RIVERS feature, 0.8 km; 9.0 ft against the channel's 9.0 ft. Kept: the dinghy goes where the boat does not, and depth gates itself at the helm. Dead end: somewhere to go and come back from.",
+    "cove from the chart's own RIVERS area feature, 0.9 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Dead end: somewhere to go and come back from.",
+    "cove from the chart's own RIVERS area feature, 0.3 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Short \u2014 dinghy scale rather than a passage",
+    "cove from the chart's own RIVERS area feature, 0.1 km; 9.0 ft against the channel's 9.0 ft. Kept: the dinghy goes where the boat does not, and depth gates itself at the helm. Short \u2014 dinghy scale rather than a passage",
+    "cove from the chart's own RIVERS area feature, 0.2 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Short \u2014 dinghy scale rather than a passage",
+    "cove from the chart's own RIVERS area feature, 0.9 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Dead end: somewhere to go and come back from.",
+    "cove from the chart's own RIVERS area feature, 0.3 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Short \u2014 dinghy scale rather than a passage",
+    "cove from the chart's own RIVERS area feature, 0.5 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows",
+    "channel from the chart's own RIVERS area feature, 0.8 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows",
+    "cove from the chart's own RIVERS area feature, 0.4 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Dead end: somewhere to go and come back from.",
+    "cove from the chart's own RIVERS area feature, 1.6 km; 9.0 ft against the channel's 9.0 ft. Kept: the dinghy goes where the boat does not, and depth gates itself at the helm. Dead end: somewhere to go and come back from.",
+    "cove from the chart's own RIVERS area feature, 0.4 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows",
+    "cove from the chart's own RIVERS area feature, 0.2 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Short \u2014 dinghy scale rather than a passage",
+    "cove from the chart's own RIVERS feature, 2.6 km; 9.0 ft against the channel's 9.0 ft. Kept: the dinghy goes where the boat does not, and depth gates itself at the helm. Dead end: somewhere to go and come back from.",
+    "cove from the chart's own RIVERS area feature, 1.2 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Dead end: somewhere to go and come back from.",
+    "cove from the chart's own RIVERS area feature, 1.3 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Dead end: somewhere to go and come back from.",
+    "cove from the chart's own RIVERS area feature, 0.5 km; 9.0 ft against the channel's 9.0 ft. Kept: the dinghy goes where the boat does not, and depth gates itself at the helm",
+    "cove from the chart's own RIVERS area feature, 0.4 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows",
+    "cove from the chart's own RIVERS area feature, 0.6 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows",
+    "cove from the chart's own RIVERS area feature, 0.9 km; 9.0 ft against the channel's 9.0 ft. Kept: the dinghy goes where the boat does not, and depth gates itself at the helm. Dead end: somewhere to go and come back from.",
+    "channel from the chart's own RIVERS area feature, 0.8 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows",
+    "cove from the chart's own RIVERS area feature, 1.5 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Dead end: somewhere to go and come back from.",
+    "cove from the chart's own RIVERS area feature, 0.8 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Dead end: somewhere to go and come back from.",
+    "cove from the chart's own RIVERS area feature, 0.3 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Short \u2014 dinghy scale rather than a passage",
+    "cove from the chart's own RIVERS area feature, 0.6 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows",
+    "cove from the chart's own RIVERS area feature, 0.2 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Short \u2014 dinghy scale rather than a passage",
+    "cove from the chart's own RIVERS area feature, 0.3 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Short \u2014 dinghy scale rather than a passage. Dead end: somewhere to go and come back from.",
+    "cove from the chart's own RIVERS area feature, 0.5 km; 9.0 ft against the channel's 9.0 ft. Kept: the dinghy goes where the boat does not, and depth gates itself at the helm",
+    "cove from the chart's own RIVERS area feature, 0.5 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows",
+    "cove from the chart's own RIVERS area feature, 1.0 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Dead end: somewhere to go and come back from.",
+    "cove from the chart's own RIVERS area feature, 0.1 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Short \u2014 dinghy scale rather than a passage",
+    "cove from the chart's own RIVERS area feature, 0.4 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Short \u2014 dinghy scale rather than a passage",
+    "cove from the chart's own RIVERS area feature, 0.2 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Short \u2014 dinghy scale rather than a passage",
+    "cove from the chart's own RIVERS area feature, 0.6 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows",
+    "cove from the chart's own RIVERS area feature, 0.4 km; 9.0 ft against the channel's 9.0 ft. Kept: the dinghy goes where the boat does not, and depth gates itself at the helm. Short \u2014 dinghy scale rather than a passage. Dead end: somewhere to go and come back from.",
+    "cove from the chart's own RIVERS area feature, 0.4 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Dead end: somewhere to go and come back from.",
+    "cove from the chart's own RIVERS area feature, 0.5 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows",
+    "cove from the chart's own RIVERS area feature, 0.7 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Dead end: somewhere to go and come back from.",
+    "cove from the chart's own RIVERS area feature, 0.5 km; 9.0 ft against the channel's 9.0 ft. Kept: the dinghy goes where the boat does not, and depth gates itself at the helm",
+    "cove from the chart's own RIVERS area feature, 0.3 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Short \u2014 dinghy scale rather than a passage",
+    "cove from the chart's own RIVERS area feature, 0.2 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Short \u2014 dinghy scale rather than a passage",
+    "cove from the chart's own RIVERS area feature, 1.2 km; 9.0 ft against the channel's 9.0 ft. Kept: the dinghy goes where the boat does not, and depth gates itself at the helm. Dead end: somewhere to go and come back from.",
+    "cove from the chart's own RIVERS area feature, 1.3 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Dead end: somewhere to go and come back from.",
+    "cove from the chart's own RIVERS area feature, 0.2 km; 9.0 ft against the channel's 9.0 ft. Kept: the dinghy goes where the boat does not, and depth gates itself at the helm. Short \u2014 dinghy scale rather than a passage",
+    "cove from the chart's own RIVERS area feature, 0.2 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Short \u2014 dinghy scale rather than a passage",
+    "cove from the chart's own RIVERS area feature, 0.4 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Short \u2014 dinghy scale rather than a passage",
+    "cove from the chart's own RIVERS area feature, 0.4 km; 9.0 ft against the channel's 9.0 ft. Kept: the dinghy goes where the boat does not, and depth gates itself at the helm. Short \u2014 dinghy scale rather than a passage",
+    "cove from the chart's own RIVERS area feature, 1.4 km; 9.0 ft against the channel's 9.0 ft. Kept: the dinghy goes where the boat does not, and depth gates itself at the helm. Dead end: somewhere to go and come back from.",
+    "cove from the chart's own RIVERS area feature, 1.4 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Dead end: somewhere to go and come back from.",
+    "channel from the chart's own RIVERS area feature, 1.4 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows",
+    "cove from the chart's own RIVERS area feature, 2.1 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Dead end: somewhere to go and come back from.",
+    "cove from the chart's own RIVERS area feature, 0.7 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Dead end: somewhere to go and come back from.",
+    "cove from the chart's own Valley Branch/RIVERS feature, 1.4 km; 9.0 ft against the channel's 9.0 ft. Kept: the dinghy goes where the boat does not, and depth gates itself at the helm. Dead end: somewhere to go and come back from.",
+    "cove from the chart's own RIVERS area feature, 0.4 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Short \u2014 dinghy scale rather than a passage",
+    "cove from the chart's own RIVERS area feature, 2.0 km; 9.0 ft against the channel's 9.0 ft. Kept: the dinghy goes where the boat does not, and depth gates itself at the helm. Dead end: somewhere to go and come back from.",
+    "cove from the chart's own RIVERS area feature, 0.3 km; 9.0 ft against the channel's 9.0 ft. Kept: the dinghy goes where the boat does not, and depth gates itself at the helm. Short \u2014 dinghy scale rather than a passage",
+    "cove from the chart's own RIVERS area feature, 0.8 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Dead end: somewhere to go and come back from.",
+    "cove from the chart's own RIVERS area feature, 0.7 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Dead end: somewhere to go and come back from.",
+    "cove from the chart's own RIVERS area feature, 0.4 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows",
+    "cove from the chart's own RIVERS area feature, 0.7 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Dead end: somewhere to go and come back from.",
+    "cove from the chart's own RIVERS area feature, 1.3 km; 9.0 ft against the channel's 9.0 ft. Kept: the dinghy goes where the boat does not, and depth gates itself at the helm. Dead end: somewhere to go and come back from.",
+    "cove from the chart's own RIVERS area feature, 0.6 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows",
+    "cove from the chart's own RIVERS area feature, 0.3 km; 9.0 ft against the channel's 9.0 ft. Kept: the dinghy goes where the boat does not, and depth gates itself at the helm. Short \u2014 dinghy scale rather than a passage",
+    "cove from the chart's own RIVERS area feature, 0.4 km; 9.0 ft against the channel's 9.0 ft. Kept: the dinghy goes where the boat does not, and depth gates itself at the helm",
+    "cove from the chart's own RIVERS area feature, 0.4 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Short \u2014 dinghy scale rather than a passage",
+    "cove from the chart's own RIVERS area feature, 0.3 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Short \u2014 dinghy scale rather than a passage",
+    "cove from the chart's own RIVERS area feature, 0.6 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Dead end: somewhere to go and come back from.",
+    "cove from the chart's own RIVERS area feature, 0.6 km; 9.0 ft against the channel's 9.0 ft. Kept: the dinghy goes where the boat does not, and depth gates itself at the helm. Dead end: somewhere to go and come back from.",
+    "cove from the chart's own RIVERS area feature, 0.3 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Short \u2014 dinghy scale rather than a passage",
+    "cove from the chart's own RIVERS feature, 0.1 km; 9.0 ft against the channel's 9.0 ft. Kept: the dinghy goes where the boat does not, and depth gates itself at the helm. Short \u2014 dinghy scale rather than a passage",
+    "cove from the chart's own RIVERS area feature, 0.1 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Short \u2014 dinghy scale rather than a passage",
+    "cove from the chart's own RIVERS area feature, 0.5 km; 9.0 ft against the channel's 9.0 ft. Kept: the dinghy goes where the boat does not, and depth gates itself at the helm",
+    "channel from the chart's own RIVERS area feature, 1.3 km; 9.0 ft against the channel's 9.0 ft. Kept: the dinghy goes where the boat does not, and depth gates itself at the helm",
+    "cove from the chart's own RIVERS area feature, 0.2 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Short \u2014 dinghy scale rather than a passage",
+    "cove from the chart's own RIVERS area feature, 0.3 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Short \u2014 dinghy scale rather than a passage",
+    "cove from the chart's own RIVERS area feature, 0.5 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Dead end: somewhere to go and come back from.",
+    "cove from the chart's own RIVERS area feature, 0.6 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows",
+    "cove from the chart's own RIVERS area feature, 0.8 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows",
+    "cove from the chart's own RIVERS area feature, 0.3 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Short \u2014 dinghy scale rather than a passage",
+    "cove from the chart's own RIVERS area feature, 0.3 km; 9.0 ft against the channel's 9.0 ft. Kept: the dinghy goes where the boat does not, and depth gates itself at the helm. Short \u2014 dinghy scale rather than a passage",
+    "cove from the chart's own RIVERS area feature, 0.4 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows",
+    "cove from the chart's own RIVERS area feature, 0.2 km; 9.0 ft against the channel's 9.0 ft. Kept: the dinghy goes where the boat does not, and depth gates itself at the helm. Short \u2014 dinghy scale rather than a passage",
+    "cove from the chart's own RIVERS area feature, 0.6 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Dead end: somewhere to go and come back from.",
+    "cove from the chart's own RIVERS feature, 0.4 km; 9.0 ft against the channel's 9.0 ft. Kept: the dinghy goes where the boat does not, and depth gates itself at the helm. Short \u2014 dinghy scale rather than a passage",
+    "cove from the chart's own RIVERS area feature, 0.1 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Short \u2014 dinghy scale rather than a passage",
     "basin from the chart's Backwater @ 217.2/RIVERS feature",
     "basin from the chart's RIVERS feature",
     "basin from the chart's RIVERS feature",
@@ -227,111 +540,34 @@
     "basin from the chart's RIVERS feature",
     "basin from the chart's RIVERS feature",
     "basin from the chart's RIVERS feature",
-    "basin from depth areas reaching 1797 m outside the channel, 9.0 ft \u2014 water off the route, but that is exactly the channel's own depth, so it is marked unsurveyed: the pocket is most likely the channel brushing the corridor edge rather than separate water",
-    "basin from depth areas reaching 1189 m outside the channel, 9.0 ft \u2014 water off the route, but that is exactly the channel's own depth, so it is marked unsurveyed: the pocket is most likely the channel brushing the corridor edge rather than separate water",
-    "basin from depth areas reaching 860 m outside the channel, 9.0 ft \u2014 water off the route, but that is exactly the channel's own depth, so it is marked unsurveyed: the pocket is most likely the channel brushing the corridor edge rather than separate water",
-    "basin from depth areas reaching 464 m outside the channel, 9.0 ft \u2014 water off the route, but that is exactly the channel's own depth, so it is marked unsurveyed: the pocket is most likely the channel brushing the corridor edge rather than separate water",
-    "basin from depth areas reaching 428 m outside the channel, 9.0 ft \u2014 water off the route, but that is exactly the channel's own depth, so it is marked unsurveyed: the pocket is most likely the channel brushing the corridor edge rather than separate water",
-    "basin from depth areas reaching 412 m outside the channel, 9.0 ft \u2014 water off the route, but that is exactly the channel's own depth, so it is marked unsurveyed: the pocket is most likely the channel brushing the corridor edge rather than separate water",
-    "basin from depth areas reaching 359 m outside the channel, 9.0 ft \u2014 water off the route, but that is exactly the channel's own depth, so it is marked unsurveyed: the pocket is most likely the channel brushing the corridor edge rather than separate water",
-    "basin from depth areas reaching 225 m outside the channel, 9.0 ft \u2014 water off the route, but that is exactly the channel's own depth, so it is marked unsurveyed: the pocket is most likely the channel brushing the corridor edge rather than separate water",
-    "basin from depth areas reaching 212 m outside the channel, 9.0 ft \u2014 water off the route, but that is exactly the channel's own depth, so it is marked unsurveyed: the pocket is most likely the channel brushing the corridor edge rather than separate water",
-    "basin from depth areas reaching 191 m outside the channel, 9.0 ft \u2014 water off the route, but that is exactly the channel's own depth, so it is marked unsurveyed: the pocket is most likely the channel brushing the corridor edge rather than separate water",
-    "basin from depth areas reaching 89 m outside the channel, 9.0 ft \u2014 water off the route, but that is exactly the channel's own depth, so it is marked unsurveyed: the pocket is most likely the channel brushing the corridor edge rather than separate water",
+    "cove from depth areas off the channel, 44102 m long and 230 m wide, 9.0 ft \u2014 linear water, not a circle",
+    "cove from depth areas off the channel, 17844 m long and 249 m wide, 9.0 ft \u2014 linear water, not a circle",
+    "cove from depth areas off the channel, 17833 m long and 130 m wide, 9.0 ft \u2014 linear water, not a circle",
+    "cove from depth areas off the channel, 14626 m long and 46 m wide, 9.0 ft \u2014 linear water, not a circle",
+    "cove from depth areas off the channel, 14422 m long and 40 m wide, 9.0 ft \u2014 linear water, not a circle",
+    "cove from depth areas off the channel, 10121 m long and 53 m wide, 9.0 ft \u2014 linear water, not a circle",
+    "cove from depth areas off the channel, 19691 m long and 21 m wide, 9.0 ft \u2014 linear water, not a circle",
+    "cove from depth areas off the channel, 7926 m long and 20 m wide, 9.0 ft \u2014 linear water, not a circle",
+    "cove from depth areas off the channel, 4763 m long and 30 m wide, 9.0 ft \u2014 linear water, not a circle",
+    "cove from depth areas off the channel, 2189 m long and 52 m wide, 9.0 ft \u2014 linear water, not a circle",
+    "cove from depth areas off the channel, 994 m long and 25 m wide, 9.0 ft \u2014 linear water, not a circle",
     "a charted route 48 mi long runs along this segment's own route and is the reference channel again, not a branch",
-    "dropped rivers-0: its nearest point is 21.7 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-4: its nearest point is 12.7 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-5: its nearest point is 19.2 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Minter Creek: its nearest point is 22.1 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Whites Creek: its nearest point is 23.5 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Chickasaw Bogue: its nearest point is 27.5 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-12: its nearest point is 12.6 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped South Needham Creek: its nearest point is 11.6 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Runaway Branch Creek: its nearest point is 2.1 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-17: its nearest point is 6.7 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
     "dropped rivers-18: its nearest point is 1.1 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-19: its nearest point is 14.9 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Creehill Creek: its nearest point is 11.0 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Reedy Branch: its nearest point is 27.4 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Hine's Creek: its nearest point is 13.4 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-25: its nearest point is 14.6 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Spencers Creek: its nearest point is 30.9 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-28: its nearest point is 12.7 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Johnson Branch: its nearest point is 9.4 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-32: its nearest point is 6.6 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-33: its nearest point is 10.5 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-34: its nearest point is 5.7 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Sucarnoochee River: its nearest point is 18.5 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Yellow Creek: its nearest point is 6.8 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Limestone Creek: its nearest point is 14.6 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-41: its nearest point is 44.8 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-42: its nearest point is 10.9 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Dollarhide Creek: its nearest point is 11.3 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-44: its nearest point is 2.3 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-45: its nearest point is 14.2 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Lime Kiln Creek: its nearest point is 10.0 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-47: its nearest point is 12.8 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-48: its nearest point is 20.2 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Sixmile Creek: its nearest point is 23.8 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-50: its nearest point is 7.7 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-52: its nearest point is 12.6 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Big Brush Creek: its nearest point is 23.8 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Bohannons Cutoff: its nearest point is 32.7 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-56: its nearest point is 11.3 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-57: its nearest point is 18.0 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Fivemile Creek: its nearest point is 30.5 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-59: its nearest point is 14.4 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-60: its nearest point is 9.3 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Foscue Creek: its nearest point is 2.4 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Buck Creek: its nearest point is 36.1 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-63: its nearest point is 12.7 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Big Prairie Creek: its nearest point is 10.5 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Sucarnoochee River: its nearest point is 19.1 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-66: its nearest point is 2.4 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Buzzard's Roost Slough: its nearest point is 12.7 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Double Creek: its nearest point is 22.9 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-70: its nearest point is 8.4 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-72: its nearest point is 10.0 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-73: its nearest point is 23.5 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Cypress Slough: its nearest point is 10.0 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-79: its nearest point is 4.8 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Devil's Run: its nearest point is 3.0 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Sucarnoochee River: its nearest point is 18.3 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-82: its nearest point is 11.5 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped French Creek: its nearest point is 4.2 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Martin Slough: its nearest point is 31.8 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-86: its nearest point is 3.9 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-87: its nearest point is 8.3 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Grinnel Pond: its nearest point is 22.7 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Backbone Creek: its nearest point is 5.7 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Big Sandy Creek: its nearest point is 49.7 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-93: its nearest point is 7.8 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-94: its nearest point is 11.8 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Lost Creek: its nearest point is 28.9 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-96: its nearest point is 1.5 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Presley Ford Branch: its nearest point is 17.2 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-99: its nearest point is 23.7 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Cotohaga Creek: its nearest point is 24.2 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-102: its nearest point is 26.1 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Culpeper Creek: its nearest point is 15.3 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Chickasaw Bogue: its nearest point is 27.1 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-105: its nearest point is 2.6 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-106: its nearest point is 41.0 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-108: its nearest point is 22.2 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-109: its nearest point is 2.0 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-110: its nearest point is 11.5 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-111: its nearest point is 2.8 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-112: its nearest point is 8.3 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Whitfield Canal: its nearest point is 1.9 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Double Creek: its nearest point is 22.7 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-119: its nearest point is 22.6 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-120: its nearest point is 9.4 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped rivers-121: its nearest point is 3.6 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped King's Cut-Off: its nearest point is 36.9 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Wright's Creek: its nearest point is 15.9 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Double Creek: its nearest point is 22.9 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Kinterbish Creek: its nearest point is 33.1 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
-    "dropped Kinterbish Creek: its nearest point is 32.9 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
+    "dropped rivers-25: its nearest point is 1.0 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
+    "dropped rivers-30: its nearest point is 0.8 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
+    "dropped rivers-37: its nearest point is 0.4 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
+    "dropped rivers-63: its nearest point is 0.8 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
+    "dropped rivers-76: its nearest point is 0.8 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
+    "dropped rivers-85: its nearest point is 0.6 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
+    "dropped rivers-90: its nearest point is 1.0 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
+    "dropped rivers-99: its nearest point is 0.6 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
+    "dropped rivers-117: its nearest point is 0.8 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
+    "dropped McConnico Creek: its nearest point is 0.4 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
+    "dropped Tubbs Creek: its nearest point is 0.8 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
+    "dropped Factory Creek: its nearest point is 0.9 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
+    "dropped rivers-251: its nearest point is 1.1 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
+    "dropped rivers-267: its nearest point is 1.1 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
+    "dropped rivers-276: its nearest point is 0.8 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
     "dropped rivers-2: it is 0.4 km from this segment's route, beyond the 400 m that makes water reachable from it",
     "dropped rivers-66: it is 1.0 km from this segment's route, beyond the 400 m that makes water reachable from it",
     "dropped rivers-132: it is 0.9 km from this segment's route, beyond the 400 m that makes water reachable from it",
@@ -340,6 +576,8 @@
     "2 depth area(s) lie entirely inside the channel corridor and add no water off the route",
     "204 depth-area fragment(s) hug the channel without reaching 40 m clear of it \u2014 the channel's own margin rather than a pocket off the route",
     "dropped pocket-0: it sits outside this segment's extent, so it is a neighbouring segment's water rather than this one's",
+    "dropped pocket-1: it sits outside this segment's extent, so it is a neighbouring segment's water rather than this one's",
+    "dropped pocket-2: it sits outside this segment's extent, so it is a neighbouring segment's water rather than this one's",
     "bridge U37TT218-brg-0 has no charted vertical clearance and was dropped; a bridge with an unknown clearance is worse than no bridge",
     "bridge U37TT218-brg-3 has no charted vertical clearance and was dropped; a bridge with an unknown clearance is worse than no bridge",
     "bridge U37TT218-brg-10 has no charted vertical clearance and was dropped; a bridge with an unknown clearance is worse than no bridge",
@@ -502,17 +740,25 @@
     "Selden Lock is 17930 m off this route \u2014 it is on other water and is not a stop on it",
     "U37tb176-lok-1 is 17998 m off this route \u2014 it is on other water and is not a stop on it",
     "U37tb176-lok-2 is 17864 m off this route \u2014 it is on other water and is not a stop on it",
-    "Tom Bevill Lock is 43828 m off this route \u2014 it is on other water and is not a stop on it"
+    "Tom Bevill Lock is 43828 m off this route \u2014 it is on other water and is not a stop on it",
+    "179 aids lie more than 1200 m from this pool's route and were not taken into it",
+    "64 bridges lie more than 1200 m from this pool's route and were not taken into it",
+    "4 locks lie more than 3000 m from this pool's route and were not taken into it",
+    "187 mile_points lie more than 1200 m from this pool's route and were not taken into it",
+    "227 depth_areas do not reach this pool's corridor",
+    "223 land do not reach this pool's corridor",
+    "23 waterbodies do not reach this pool's corridor (including Fivemile Creek, Fenache Creek, Turkey Paw Branch, Turkey Paw Branch)",
+    "240 waterlines do not reach this pool's corridor (including Minter Creek, Whites Creek, Chickasaw Bogue, South Needham Creek, Runaway Branch Creek, Creehill Creek and others)"
   ],
   "sources": [
     {
       "name": "S-57 cell Selden Lock",
-      "retrieved": "2026-09-21T02:09:12Z",
+      "retrieved": "2026-09-21T13:47:59Z",
       "note": null
     },
     {
       "name": "S-57 cell Catfish Bend",
-      "retrieved": "2026-09-21T02:09:12Z",
+      "retrieved": "2026-09-21T13:47:59Z",
       "note": null
     }
   ],
@@ -524,7 +770,7 @@
     "centerlineVertices": 121,
     "depthSamplesInterpolated": 0,
     "depthGapSpans": [],
-    "sideWaterBodies": 18,
+    "sideWaterBodies": 101,
     "pools": {
       "U37TT218-lok-1": {
         "upper": 109.99999999999999,
@@ -540,10 +786,10 @@
     "trueCenterline": 1948,
     "controllingDepthFt": 9.0,
     "extent": [
-      -4189.3,
-      -4189.3,
-      6603.8,
-      7324.0
+      -3077.3,
+      -3077.3,
+      5491.8,
+      6212.0
     ]
   }
 }
