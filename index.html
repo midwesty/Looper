@@ -27,6 +27,7 @@ html,body{margin:0;padding:0;height:100%;overflow:hidden;background:#000;
 #bblist,#bbcats{touch-action:pan-x}
 canvas{display:block}
 #app{position:fixed;inset:0}
+body.overhead #app{touch-action:none}
 
 /* ---------- HELM DASH ---------- */
 #dash{position:fixed;left:0;right:0;bottom:0;z-index:20;
@@ -48,7 +49,7 @@ canvas{display:block}
 .bar i{display:block;height:100%;background:var(--c-brass);transition:width .25s var(--ease)}
 
 /* ---------- VITALS HUD ---------- */
-#vitals{position:fixed;left:10px;top:calc(52px + env(safe-area-inset-top));z-index:18;
+#vitals{position:fixed;left:10px;top:calc(10px + env(safe-area-inset-top));z-index:18;
   width:150px;opacity:0;transform:translateX(-8px);pointer-events:none;
   transition:opacity .25s var(--ease),transform .25s var(--ease)}
 #vitals.on{opacity:1;transform:none}
@@ -118,7 +119,7 @@ canvas{display:block}
 #reticle.dry i{background:var(--c-bad)}
 
 /* ---------- CONTEXT PROMPT ---------- */
-#prompt{position:fixed;left:50%;bottom:132px;transform:translateX(-50%);z-index:26;
+#prompt{position:fixed;left:50%;bottom:132px;transform:translateX(-50%);z-index:21;
   background:rgba(8,13,17,.94);border:1px solid var(--c-brass-dim);border-radius:var(--r);
   padding:9px 15px;font-size:14px;line-height:1.35;letter-spacing:.01em;opacity:0;
   transition:opacity .18s var(--ease);pointer-events:none;text-align:center;
@@ -132,7 +133,20 @@ body.prepping #prompt{bottom:calc(56vh + 8px)}
 #topbar{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;
   gap:8px;padding:calc(6px + env(safe-area-inset-top)) 10px 6px;
   background:linear-gradient(#000a,transparent);pointer-events:none}
-#place{font-family:var(--f-display);font-size:13px;letter-spacing:.18em;
+/* Cell seven carries three lines, stacked and centred, in the same height as
+   a gauge: name, time, then mile and season. */
+#gTime{flex:1.55;justify-content:center;gap:1px}
+#gTime .art{display:none !important}
+#gTime .pl{order:1;font-family:var(--f-display);font-size:11px;letter-spacing:.08em;
+  color:var(--c-ink);line-height:1.15;text-align:center;
+  max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#gTime .val{order:2;text-align:center}
+#gTime .sub{order:3;font-size:8px;letter-spacing:.02em;text-align:center;
+  line-height:1.2;max-width:100%;overflow:hidden;text-overflow:ellipsis;
+  white-space:nowrap}
+#gTime .lab{display:none}
+#dash.dressed #gTime .pl{color:var(--c-ink);text-shadow:none}
+#placeOld{font-family:var(--f-display);font-size:13px;letter-spacing:.18em;
   text-transform:uppercase;text-shadow:0 1px 3px #000}
 #place small{display:block;font-size:9px;letter-spacing:.1em;color:var(--c-ink-dim)}
 #topbar .spacer{flex:1}
@@ -148,9 +162,67 @@ body.prepping #prompt{bottom:calc(56vh + 8px)}
 #touch{position:fixed;inset:0;z-index:15;pointer-events:none;display:none}
 #touch.on{display:block}
 body.locked{cursor:none}
+/* ---------- OVERHEAD BUILD VIEW ---------- */
+#over{position:fixed;inset:0;z-index:23;display:none;pointer-events:none}
+#over.on{display:block}
+#ovLeave{position:absolute;left:10px;top:calc(10px + env(safe-area-inset-top));
+  pointer-events:auto;font-family:var(--f-display);font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;padding:10px 15px;border-radius:var(--r);cursor:pointer;
+  background:rgba(16,22,28,.94);border:1px solid var(--c-brass);color:var(--c-brass)}
+#ovLeave:active{background:var(--c-brass);color:#151007}
+#ovLevels{position:absolute;right:10px;top:calc(10px + env(safe-area-inset-top));
+  display:flex;flex-direction:column;gap:5px;pointer-events:auto}
+#ovLevels button{font-family:var(--f-display);font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;width:66px;padding:9px 0;border-radius:var(--r);cursor:pointer;
+  background:rgba(16,22,28,.92);border:1px solid var(--c-line);color:var(--c-ink-dim)}
+#ovLevels button.on{background:var(--c-brass);border-color:var(--c-brass);color:#151007}
+#ovLevels button.cur{border-color:var(--c-brass-dim);color:var(--c-brass)}
+#ovLevels button.add{color:var(--c-brass-dim);border-style:dashed}
+#ovZoom{position:absolute;right:10px;top:calc(160px + env(safe-area-inset-top));
+  display:flex;flex-direction:column;gap:5px;pointer-events:auto}
+#ovTurn{position:absolute;left:10px;top:calc(60px + env(safe-area-inset-top));
+  display:flex;flex-direction:column;align-items:flex-start;gap:5px;
+  pointer-events:auto}
+#ovTurn .row{display:flex;gap:5px}
+#ovQuarter{font-family:var(--f-display);font-size:9px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--c-brass);background:rgba(16,22,28,.92);
+  border:1px solid var(--c-line);border-radius:var(--r);padding:6px 9px;
+  white-space:nowrap}
+#ovTilt.on{background:var(--c-brass);color:#151007;border-color:var(--c-brass)}
+button.ovz{width:40px;height:40px;border-radius:var(--r);cursor:pointer;font-size:17px;
+  background:rgba(16,22,28,.92);border:1px solid var(--c-line);color:var(--c-ink)}
+button.ovz:active{background:var(--c-brass);color:#151007}
+#ovStatus{position:absolute;left:50%;transform:translateX(-50%);
+  top:calc(12px + env(safe-area-inset-top));display:flex;gap:12px;
+  font-family:var(--f-data);font-size:11px;color:var(--c-ink-dim);
+  background:rgba(10,14,18,.86);border:1px solid var(--c-line);
+  border-radius:var(--r);padding:7px 14px;pointer-events:none;white-space:nowrap}
+#ovStatus b{color:#7ee0a4;font-weight:400}
+#ovStatus .warn{color:var(--c-warn)}
+#ovStatus .bad{color:var(--c-bad)}
+#ovSel{position:absolute;left:50%;transform:translateX(-50%);
+  bottom:calc(122px + env(safe-area-inset-bottom));pointer-events:auto;
+  display:none;align-items:center;gap:6px;
+  background:rgba(10,14,18,.95);border:1px solid var(--c-brass-dim);
+  border-radius:var(--r);padding:6px 8px;max-width:calc(100vw - 120px)}
+#ovSel.on{display:flex}
+#ovSel .nm{font-size:12px;color:var(--c-ink);padding:0 6px;
+  max-width:12em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#ovSel button{font-family:var(--f-display);font-size:9.5px;letter-spacing:.1em;
+  text-transform:uppercase;padding:8px 11px;border-radius:3px;cursor:pointer;
+  background:var(--c-panel-2);border:1px solid var(--c-line);color:var(--c-ink)}
+#ovSel button.pri{background:var(--c-brass);border-color:var(--c-brass);color:#151007}
+body.overhead #topbar,
+body.overhead #touch,
+body.overhead #rail,
+body.overhead #dash,
+body.overhead #mini,
+body.overhead #vitals{display:none !important}
 /* ---------- SANDBOX ---------- */
-#sandbar{position:fixed;left:50%;transform:translateX(-50%);z-index:13;
-  bottom:calc(96px + env(safe-area-inset-bottom));display:none;gap:6px}
+#sandbar{position:fixed;left:50%;transform:translateX(-50%);z-index:22;
+  bottom:calc(178px + env(safe-area-inset-bottom));display:none;gap:6px;
+  flex-wrap:wrap;justify-content:center;max-width:calc(100vw - 110px)}
+body.building #sandbar{display:none !important}
 #sandbar.on{display:flex}
 button.sb{font-family:var(--f-display);font-size:10px;letter-spacing:.12em;
   text-transform:uppercase;padding:8px 12px;border-radius:var(--r);cursor:pointer;
@@ -158,13 +230,17 @@ button.sb{font-family:var(--f-display);font-size:10px;letter-spacing:.12em;
   color:var(--c-brass);pointer-events:auto}
 button.sb:active{background:var(--c-brass);color:#151007}
 /* ---------- TIME FAN ---------- */
-#timefan{position:relative;display:flex;align-items:center;justify-content:flex-end}
-#timeopts{display:none;align-items:center;gap:5px;margin-right:5px}
-#timefan.open #timeopts{display:flex}
+#timefan{position:relative;z-index:24}
+#timeopts{position:absolute;right:calc(100% + 6px);top:50%;z-index:25;
+  transform:translateY(-50%) scaleX(0.85);transform-origin:right center;
+  display:flex;align-items:center;gap:5px;
+  opacity:0;pointer-events:none;transition:opacity .14s var(--ease), transform .14s var(--ease)}
+#timefan.open #timeopts{opacity:1;pointer-events:auto;
+  transform:translateY(-50%) scaleX(1)}
 button.tf{font-family:var(--f-display);font-size:11px;letter-spacing:.06em;
   width:38px;height:38px;flex:none;border-radius:var(--r);cursor:pointer;
-  background:rgba(16,22,28,.92);border:1px solid var(--c-line);color:var(--c-ink);
-  pointer-events:auto}
+  background:rgba(16,22,28,.96);border:1px solid var(--c-line);color:var(--c-ink);
+  pointer-events:auto;box-shadow:0 2px 10px rgba(0,0,0,.5)}
 button.tf.on{background:var(--c-brass);border-color:var(--c-brass);color:#151007}
 /* ---------- PAUSED ---------- */
 #pausemark{position:fixed;inset:0;z-index:30;display:none;pointer-events:none;
@@ -401,7 +477,22 @@ button.bk.sel{color:var(--c-brass);border-color:var(--c-brass-dim);background:va
 .bitem .c{font-family:var(--f-data);font-size:9px;color:var(--c-ink-dim);line-height:1.4}
 .bitem .sw{height:4px;border-radius:2px;margin-bottom:5px}
 .bitem.locked{opacity:.42}
-#bbrow{display:flex;gap:5px;margin-top:5px}
+#bbmats{display:flex;gap:5px;margin-top:5px;overflow-x:auto;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none}
+#bbmats::-webkit-scrollbar{display:none}
+#bbmats button{flex:0 0 auto;font-family:var(--f-display);font-size:9.5px;
+  letter-spacing:.1em;text-transform:uppercase;padding:7px 11px;border-radius:3px;
+  cursor:pointer;background:var(--c-panel-2);border:1px solid var(--c-line);
+  color:var(--c-ink-dim);display:flex;align-items:center;gap:6px}
+#bbmats button.sel{border-color:var(--c-brass);color:var(--c-brass)}
+#bbmats button i{width:9px;height:9px;border-radius:2px;display:block}
+#bbrow{display:flex;gap:5px;margin-top:5px;overflow-x:auto;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none}
+#bbrow::-webkit-scrollbar{display:none}
+#bbrow .bb{flex:0 0 auto}
+/* Build gets its own row so it can never be the one that scrolls off */
+#bbgo{display:flex;margin-top:5px}
+#bbgo .bb{flex:1;padding:13px 0;font-size:12px}
 .bb{flex:1;background:var(--c-panel-2);border:1px solid var(--c-line);color:var(--c-ink);
   border-radius:var(--r);padding:10px 6px;font-family:var(--f-display);font-size:11px;
   letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
@@ -632,7 +723,6 @@ button.bk.sel{color:var(--c-brass);border-color:var(--c-brass-dim);background:va
 <div id="app"></div>
 
 <div id="topbar">
-  <div id="place">Tenn-Tom Waterway<small id="place2">Mile 000 · Day 1 · Spring</small></div>
   <div class="spacer"></div>
   <button class="iconbtn" id="btnView" title="Toggle view (V)">👁</button>
   <button class="iconbtn" id="btnTablet" title="Tablet (Tab)">📋</button>
@@ -656,6 +746,25 @@ button.bk.sel{color:var(--c-brass);border-color:var(--c-brass-dim);background:va
 <div id="reticle"><i></i><i></i><i></i><i></i><b></b></div>
 <div id="prompt"></div>
 
+<div id="over">
+  <button id="ovLeave">✕ Leave</button>
+  <div id="ovLevels"></div>
+  <div id="ovZoom">
+    <button class="ovz" id="ovIn">+</button>
+    <button class="ovz" id="ovOut">−</button>
+    <button class="ovz" id="ovHome">⊙</button>
+  </div>
+  <div id="ovTurn">
+    <span id="ovQuarter">Bow up</span>
+    <div class="row">
+      <button class="ovz" id="ovCCW">⟲</button>
+      <button class="ovz" id="ovCW">⟳</button>
+      <button class="ovz" id="ovTilt">◱</button>
+    </div>
+  </div>
+  <div id="ovStatus"><span id="ovDepth">—</span><span id="ovSpd">—</span><span id="ovWarn"></span></div>
+  <div id="ovSel"></div>
+</div>
 <div id="sandbar">
   <button class="sb" id="sbHull">⛵ Next boat</button>
   <button class="sb" id="sbStrip">▢ Strip her</button>
@@ -675,7 +784,10 @@ button.bk.sel{color:var(--c-brass);border-color:var(--c-brass-dim);background:va
   <div class="gauge" id="gFuel"><svg class="art" data-art="dial"></svg><div class="lab">Fuel</div><div class="val">100</div><div class="bar"><i style="width:100%"></i></div></div>
   <div class="gauge" id="gWater"><svg class="art" data-art="dial"></svg><div class="lab">Water</div><div class="val">100</div><div class="bar"><i style="width:100%"></i></div></div>
   <div class="gauge" id="gWx"><svg class="art" data-art="dial"></svg><div class="lab">Wind</div><div class="val">0</div><div class="sub">kt</div></div>
-  <div class="gauge" id="gTime"><div class="lab">Clock</div><div class="val">06:00</div><div class="sub">Day 1</div></div>
+  <div class="gauge" id="gTime">
+    <div class="pl" id="place">Tenn-Tom</div>
+    <div class="val" id="clockv">06:00</div>
+    <div class="sub" id="place2">Mile 000 · Day 1 · Spring</div></div>
 </div>
 
 <div id="touch">
@@ -695,7 +807,7 @@ button.bk.sel{color:var(--c-brass);border-color:var(--c-brass-dim);background:va
     <button class="iconbtn" id="btnFish" title="Cast / set the hook (F)">🎣</button>
     <button class="iconbtn" id="btnJump" title="Jump / climb aboard (Space)">⤴</button>
     <button class="iconbtn" id="btnBuild" title="Build mode (B)">🔨</button>
-    <button class="iconbtn" id="btnUse" title="Use (E)">✋</button>
+    <button class="iconbtn" id="btnUse" title="Use / open a door (E)">✋</button>
     <button class="iconbtn" id="btnMode" title="Helm / on foot (F)">🚶</button>
     <button class="iconbtn" id="btnNeutral" title="Neutral">N</button>
     <div id="timefan"><div id="timeopts">
@@ -714,14 +826,17 @@ button.bk.sel{color:var(--c-brass);border-color:var(--c-brass-dim);background:va
     <button class="iconbtn" id="bbExit" title="Exit build (B)">✕</button>
   </div>
   <div id="bblist"></div>
+  <div id="bbmats"></div>
   <div id="bbrow">
+    <button class="bb" id="bbOver">🗺 Overhead</button>
     <button class="bb" id="bbPick">✋ Pick up</button>
+    <button class="bb" id="bbKit" style="display:none">🎒 From kit</button>
     <button class="bb" id="bbNext" style="display:none">⇅ Next thing</button>
-    <button class="bb" id="bbEdge">▤ Edges</button>
-    <button class="bb" id="bbSide" style="display:none">⤢ Side: N</button>
-    <button class="bb" id="bbRot">⟳ Rotate</button>
+    <button class="bb" id="bbRot">⟳ Turn</button>
     <button class="bb" id="bbErase">🗑 Remove</button>
     <button class="bb" id="bbCamp" style="display:none">📦 Pack</button>
+  </div>
+  <div id="bbgo">
     <button class="bb primary" id="bbPlace">Build</button>
   </div>
   <div id="bbwhy"></div>
@@ -1031,7 +1146,7 @@ button.bk.sel{color:var(--c-brass);border-color:var(--c-brass-dim);background:va
 
 /* ============================ DATA ============================ */
 const DATA = {
-  meta:{ title:"Crossing Your Wake", build:66, tickHz:20,
+  meta:{ title:"Crossing Your Wake", build:90, tickHz:20,
          /* 1 world metre represents ~11 chart metres. Derived so that at the
             default 1 real min : 1 game hour clock, a hull's true knots and the
             distance it covers on the chart agree. Builder-tunable. */
@@ -1046,17 +1161,154 @@ const DATA = {
        MODULE     snaps to the grid, occupies cells, carries mass/amps/height
        SURFACE    snaps onto a module that exposes a top (counter, deck box)
      install: "field" = anywhere with materials  |  "yard" = boatyard only    */
-  grid:{ cell:0.5, ghostDist:1.7 },
+  grid:{ cell:1.0, ghostDist:2.1,
+    /* You cannot reach a wall top four metres up. That is what ladders are
+       for, and the limit is what makes them load-bearing rather than optional. */
+    reachM:3.6 },
+
+  matTiers:{
+    order:["salvage","lumber","ply","steel","alloy","glass"],
+    defs:{
+      salvage:{ name:"Salvage",      short:"salv",
+        massMul:1.35, costMul:0,   strength:0.45, flammable:true,
+        /* driftwood and pallet: already weathered when you find it */
+        uv:0.9, rot:1.6, salt:0.6, look:{c:0x8a7a63, rough:true},
+        recipe:{steel:1}, blurb:"Free, heavy, and already half rotten. It floats." },
+      lumber:{  name:"Lumber",       short:"wood",
+        massMul:1.0,  costMul:1.0, strength:0.7,  flammable:true,
+        uv:0.7, rot:1.0, salt:0.4, look:{c:0xa88a5e},
+        recipe:{plank:2,fastener:1}, blurb:"Dimensional pine. The honest default." },
+      ply:{     name:"Marine ply",   short:"ply",
+        massMul:0.72, costMul:2.2, strength:0.62, flammable:true,
+        /* voidless, waterproof glue — it's the GLUE that makes it marine */
+        uv:0.8, rot:0.35, salt:0.4, look:{c:0xc2a878},
+        cost:38, blurb:"Voidless, waterproof glue. Light, and it does not delaminate." },
+      steel:{   name:"Steel",        short:"steel",
+        massMul:2.6,  costMul:2.8, strength:1.0,  flammable:false,
+        /* rust starts at welds and edges, and salt eats it */
+        uv:0.0, rot:0.0, salt:2.4, look:{c:0x6d757a},
+        cost:52, needs:"welder", blurb:"Strong, heavy, and it rusts at every weld." },
+      alloy:{   name:"Aluminium",    short:"alloy",
+        massMul:0.95, costMul:4.4, strength:0.88, flammable:false,
+        /* light and strong, but galvanic corrosion against stainless */
+        uv:0.0, rot:0.0, salt:1.1, galvanic:true, look:{c:0xb9bfc4},
+        cost:96, needs:"welder", blurb:"Light and strong. Keep it away from stainless." },
+      glass:{   name:"Composite",    short:"grp",
+        massMul:0.8,  costMul:5.5, strength:0.94, flammable:false,
+        /* stable, but gelcoat chalks in the sun */
+        uv:1.1, rot:0.0, salt:0.15, look:{c:0xe8e5dd},
+        cost:130, needs:"glassbench", warmth:true,
+        blurb:"Light, strong, stable. The gelcoat chalks and it will not cure cold." }
+    },
+    /* How fast a piece ages. Per game DAY at full exposure, before material. */
+    wearPerDay:0.0042,
+    /* Below these, it starts to look and behave like it needs attention. */
+    tiredAt:0.62, poorAt:0.34, failingAt:0.14
+  },
+
+  logbook:{
+    /* How sure you are. You are not handed a name — you work up to it. */
+    status:["unknown","tentative","confirmed"],
+    /* Observation: close enough, still enough, long enough. */
+    seeM:34, seeMScope:90, holdS:1.6,
+    /* Sightings needed to move from tentative to confirmed by eye alone.
+       Skill and a sample both cut it. */
+    sightingsToConfirm:4,
+    /* What a sample is worth: one is usually enough to be sure. */
+    sampleConfirms:true,
+    /* Samples that aren't the animal. A feather off the water is a record of
+       a heron without a dead heron. */
+    samples:{
+      feather:  {name:"Feather",     from:["heron","duck","turkey","egret"], craft:"fly"},
+      scale:    {name:"Scales",      from:["fish"],                          craft:"lure"},
+      spore:    {name:"Spore print", from:["fungus"],                        craft:"culture"},
+      cutting:  {name:"Cutting",     from:["forage","plant"],                craft:"grow"},
+      shed:     {name:"Shed skin",   from:["snake"],                         craft:null},
+      shell:    {name:"Shell",       from:["shellfish","invertebrate"],      craft:"lime"},
+      pitch:    {name:"Pitch",       from:["conifer"],                       craft:"caulk"},
+      moss:     {name:"Moss",        from:["moss"],                          craft:"chink"},
+      track:    {name:"Track cast",  from:["deer","hog","bear"],             craft:null}
+    }
+  },
+
+  skills:{
+    max:10,
+    /* XP needed for each level, 1..10. Early levels come quickly so the first
+       hour feels like learning; later ones are a season's work. */
+    curve:[0, 60, 170, 360, 640, 1050, 1620, 2400, 3450, 4850, 6600],
+    defs:[
+      {id:"seamanship", name:"Seamanship", icon:"⚓",
+       blurb:"Handling, docking, locking, and knowing when not to go."},
+      {id:"carpentry",  name:"Carpentry",  icon:"🪚",
+       blurb:"Wood. Decks, walls, furniture, and whittling."},
+      {id:"fabrication",name:"Fabrication",icon:"🔩",
+       blurb:"Metal and composite. Welding, glassing, brackets, tanks."},
+      {id:"systems",    name:"Systems",    icon:"🔌",
+       blurb:"Engines, electrics, plumbing, refrigeration."},
+      {id:"woodcraft",  name:"Woodcraft",  icon:"🌿",
+       blurb:"Foraging, fishing, hunting, and reading the ground."},
+      {id:"galley",     name:"Galley",     icon:"🍳",
+       blurb:"Cooking, preserving, smoking, putting up."}
+    ],
+    /* What each doing is worth. Small numbers, earned constantly. */
+    award:{
+      mileRun:0.9, lockTransit:14, dockLanding:9, nightHour:3.5, gale:26,
+      pieceBuilt:6, pieceWood:3, whittle:8,
+      pieceMetal:9, weld:14,
+      repair:12, fitSystem:16,
+      forage:4, fishLanded:5, gameTaken:16, newSpecies:22,
+      mealCooked:5, preserved:11, newDish:18,
+      radioHour:1.4
+    },
+    /* Skill makes you faster and wastes less. It never gates. */
+    speedAt:[1.00,1.06,1.13,1.21,1.30,1.40,1.51,1.63,1.76,1.90,2.05],
+    wasteAt:[0.34,0.29,0.25,0.21,0.17,0.14,0.11,0.08,0.06,0.04,0.02],
+    qualityAt:[0.55,0.62,0.68,0.74,0.79,0.84,0.88,0.92,0.95,0.98,1.00]
+  },
 
   /* Pieces that stand on a cell BOUNDARY rather than inside a cell.
      A rail is one of these, which is why it can now be picked up and moved. */
+  /* Edge pieces. Each takes any material it allows — one piece, many looks. */
   edgePieces:[
     {id:"rail_edge",  name:"Guard Rail",  h:0.92, mass:7,  blocks:true,  sight:false,
-     install:"field", recipe:{plank:1,fastener:1}, cost:24,  look:{kind:"rail",  c:0xb9bfc4}},
+     install:"field", recipe:{plank:1,fastener:1}, cost:24,  look:{kind:"rail"},
+     mats:["salvage","lumber","steel","alloy"]},
     {id:"rail_glass", name:"Glass Rail",  h:0.86, mass:11, blocks:true,  sight:false,
-     install:"yard",  cost:110, look:{kind:"glass", c:0x2a3a44}},
+     install:"yard",  cost:110, look:{kind:"glass"}, mats:["alloy"]},
     {id:"bulwark",    name:"Bulwark",     h:0.62, mass:14, blocks:true,  sight:false,
-     install:"field", recipe:{plank:2,fastener:1}, cost:38,  look:{kind:"solid", c:0x8f846e}}
+     install:"field", recipe:{plank:2,fastener:1}, cost:38,  look:{kind:"solid"},
+     mats:["salvage","lumber","ply","steel","alloy"]},
+    /* ---- the enclosure ---- */
+    {id:"wall",       name:"Wall",        h:2.10, mass:26, blocks:true,  sight:true,
+     install:"field", recipe:{plank:3,fastener:2}, cost:44, look:{kind:"solid"},
+     encloses:true, mats:["salvage","lumber","ply","steel","alloy","glass"]},
+    {id:"halfwall",   name:"Half Wall",   h:1.10, mass:15, blocks:true,  sight:false,
+     install:"field", recipe:{plank:2,fastener:1}, cost:30, look:{kind:"solid"},
+     mats:["salvage","lumber","ply","steel","alloy"]},
+    {id:"doorway",    name:"Doorway",     h:2.10, mass:19, blocks:false, sight:true,
+     install:"field", recipe:{plank:2,fastener:2}, cost:36, look:{kind:"frame"},
+     encloses:true, mats:["salvage","lumber","ply","steel","alloy"]},
+    {id:"ladder_e",   name:"Ladder",      h:2.10, mass:12, blocks:false, sight:false,
+     install:"field", recipe:{plank:2,fastener:2}, cost:30, look:{kind:"ladder"},
+     climb:true, mats:["salvage","lumber","steel","alloy"]},
+    {id:"winframe",   name:"Window Frame",h:2.10, mass:20, blocks:true,  sight:true,
+     install:"field", recipe:{plank:2,fastener:2}, cost:40, look:{kind:"winframe"},
+     encloses:true, mats:["salvage","lumber","ply","steel","alloy"]},
+    /* ---- fittings: they go INTO something, they don't stand alone ---- */
+    {id:"door",       name:"Door",        h:2.10, mass:24, blocks:true,  sight:true,
+     install:"field", recipe:{plank:3,fastener:3}, cost:58, look:{kind:"door"},
+     fitting:true, fits:["doorway"], openable:true,
+     mats:["salvage","lumber","ply","steel","alloy"]},
+    {id:"window",     name:"Window",      h:2.10, mass:12, blocks:true,  sight:false,
+     install:"field", recipe:{plank:1,fastener:2,wire:1}, cost:72, look:{kind:"window"},
+     fitting:true, fits:["winframe"], light:true,
+     mats:["lumber","ply","alloy","glass"]},
+    /* A porthole is a hole you cut in a wall, so it goes in any of them —
+       which lets you put them wherever you like. */
+    {id:"porthole",   name:"Porthole",    h:2.10, mass:6,  blocks:true,  sight:false,
+     install:"yard",  cost:140, look:{kind:"port"},
+     fitting:true, fits:["wall","halfwall","winframe"], light:true,
+     mats:["steel","alloy"]}
   ],
   swim:{ speedMs:1.55, eyeY:0.42, boardRangeM:7.5, strandedM:70 },
   move:{ jumpV:3.75, gravity:9.8, deckY:1.0, airControl:0.78, speedMul:1.0 },
@@ -1165,70 +1417,70 @@ const DATA = {
      holds a HABITAT, not a crop; what you find is resolved from season,
      habitat, recent rain and your skill.                                    */
   species:[
-    {id:"ramps",     name:"Ramps",        kind:"forage", habitat:"woods",   seasons:["Spring"],
+    {id:"ramps", group:"plant",     name:"Ramps",        kind:"forage", habitat:"woods",   seasons:["Spring"],
      yield:[2,4], skill:"forage", xp:4,  food:{hp:4, stam:9,  hours:4}, color:0x6f9a4a},
-    {id:"morel",     name:"Morels",       kind:"forage", habitat:"woods",   seasons:["Spring"],
+    {id:"morel", group:"fungus",     name:"Morels",       kind:"forage", habitat:"woods",   seasons:["Spring"],
      yield:[1,3], skill:"forage", xp:14, lvl:2, afterRainDays:5, prize:true,
      food:{hp:11,stam:14, hours:7}, color:0xa8794a},
-    {id:"blackberry",name:"Blackberries", kind:"forage", habitat:"bank",    seasons:["Summer"],
+    {id:"blackberry", group:"plant",name:"Blackberries", kind:"forage", habitat:"bank",    seasons:["Summer"],
      yield:[3,6], skill:"forage", xp:3,  food:{hp:5, stam:12, hours:4}, color:0x5b2d54},
-    {id:"chanterelle",name:"Chanterelles",kind:"forage", habitat:"woods",   seasons:["Summer"],
+    {id:"chanterelle", group:"fungus",name:"Chanterelles",kind:"forage", habitat:"woods",   seasons:["Summer"],
      yield:[1,3], skill:"forage", xp:9,  lvl:2, afterRainDays:6,
      food:{hp:9, stam:11, hours:6}, color:0xd7a13c},
-    {id:"pawpaw",    name:"Pawpaws",      kind:"forage", habitat:"woods",   seasons:["Fall"],
+    {id:"pawpaw", group:"plant",    name:"Pawpaws",      kind:"forage", habitat:"woods",   seasons:["Fall"],
      yield:[2,4], skill:"forage", xp:6,  food:{hp:12,stam:8,  hours:6}, color:0xb9c46a},
-    {id:"pecan",     name:"Pecans",       kind:"forage", habitat:"woods",   seasons:["Fall"],
+    {id:"pecan", group:"plant",     name:"Pecans",       kind:"forage", habitat:"woods",   seasons:["Fall"],
      yield:[3,7], skill:"forage", xp:5,  food:{hp:8, stam:16, hours:8}, color:0x8a6a44},
-    {id:"persimmon", name:"Persimmons",   kind:"forage", habitat:"bank",    seasons:["Fall","Winter"],
+    {id:"persimmon", group:"plant", name:"Persimmons",   kind:"forage", habitat:"bank",    seasons:["Fall","Winter"],
      yield:[2,5], skill:"forage", xp:6,  food:{hp:9, stam:10, hours:5}, color:0xd07b2e},
-    {id:"cattail",   name:"Cattail Root", kind:"forage", habitat:"wetland", seasons:["Spring","Summer","Fall","Winter"],
+    {id:"cattail", group:"plant",   name:"Cattail Root", kind:"forage", habitat:"wetland", seasons:["Spring","Summer","Fall","Winter"],
      yield:[1,3], skill:"forage", xp:2,  food:{hp:3, stam:7,  hours:3}, color:0x8f8a5a},
-    {id:"greens",    name:"Winter Cress", kind:"forage", habitat:"bank",    seasons:["Winter"],
+    {id:"greens", group:"plant",    name:"Winter Cress", kind:"forage", habitat:"bank",    seasons:["Winter"],
      yield:[2,4], skill:"forage", xp:4,  food:{hp:4, stam:8,  hours:4}, color:0x4f7a3f},
 
-    {id:"deer",      name:"Whitetail Deer", kind:"game", habitat:"woods", seasons:["Fall","Winter"],
+    {id:"deer", group:"mammal",      name:"Whitetail Deer", kind:"game", habitat:"woods", seasons:["Fall","Winter"],
      weight:18, skill:"hunting", xp:26, hunt:true, hides:2, tag:"deer",
      food:{hp:30,stam:18, hours:14}, color:0x8a6a4a},
-    {id:"hog",       name:"Wild Hog",     kind:"game", habitat:"wetland", seasons:["Spring","Summer","Fall","Winter"],
+    {id:"hog", group:"mammal",       name:"Wild Hog",     kind:"game", habitat:"wetland", seasons:["Spring","Summer","Fall","Winter"],
      weight:22, skill:"hunting", xp:22, hunt:true, hides:2, nolimit:true,
      food:{hp:26,stam:16, hours:13}, color:0x4a4038},
-    {id:"turkey",    name:"Wild Turkey",  kind:"game", habitat:"woods", seasons:["Spring"],
+    {id:"turkey", group:"bird",    name:"Wild Turkey",  kind:"game", habitat:"woods", seasons:["Spring"],
      weight:16, skill:"hunting", xp:20, hunt:true, tag:"turkey",
      food:{hp:22,stam:19, hours:12}, color:0x5a4a3a},
-    {id:"woodduck",  name:"Wood Duck",    kind:"game", habitat:"wetland", seasons:["Fall","Winter"],
+    {id:"woodduck", group:"bird",  name:"Wood Duck",    kind:"game", habitat:"wetland", seasons:["Fall","Winter"],
      weight:20, skill:"hunting", xp:14, hunt:true, tag:"waterfowl",
      food:{hp:16,stam:14, hours:9}, color:0x2f4f43},
-    {id:"oyster",    name:"Oysters",      kind:"shellfish", underwater:true,
+    {id:"oyster", group:"shellfish",    name:"Oysters",      kind:"shellfish", underwater:true,
      seasons:["Fall","Winter","Spring"], weight:40, skill:"forage", xp:8,
      food:{hp:11,stam:13, hours:7}, color:0x9a9486},
-    {id:"mussel",    name:"River Mussels",kind:"shellfish", underwater:true,
+    {id:"mussel", group:"shellfish",    name:"River Mussels",kind:"shellfish", underwater:true,
      seasons:["Spring","Summer","Fall","Winter"], weight:26, skill:"forage", xp:5,
      food:{hp:7, stam:10, hours:5}, color:0x5c5f52},
-    {id:"bluecrab",  name:"Blue Crab",    kind:"shellfish", minDepthFt:2, seasons:["Summer","Fall"],
+    {id:"bluecrab", group:"shellfish",  name:"Blue Crab",    kind:"shellfish", minDepthFt:2, seasons:["Summer","Fall"],
      weight:30, skill:"trapping", xp:7,  food:{hp:12,stam:11, hours:6}, color:0x7a5a8c},
-    {id:"crawfish",  name:"Crawfish",     kind:"shellfish", minDepthFt:1, seasons:["Spring","Summer"],
+    {id:"crawfish", group:"shellfish",  name:"Crawfish",     kind:"shellfish", minDepthFt:1, seasons:["Spring","Summer"],
      weight:34, skill:"trapping", xp:5,  food:{hp:8, stam:12, hours:5}, color:0x9c4a3a},
-    {id:"snapper",   name:"Snapping Turtle", kind:"shellfish", minDepthFt:3, seasons:["Spring","Summer","Fall"],
+    {id:"snapper", group:"reptile",   name:"Snapping Turtle", kind:"shellfish", minDepthFt:3, seasons:["Spring","Summer","Fall"],
      weight:8,  skill:"trapping", xp:19, lvl:3, prize:true,
      food:{hp:24,stam:14, hours:12}, color:0x4a5a3f},
-    {id:"squirrel",  name:"Squirrel",     kind:"game", habitat:"woods", seasons:["Spring","Summer","Fall","Winter"],
+    {id:"squirrel", group:"mammal",  name:"Squirrel",     kind:"game", habitat:"woods", seasons:["Spring","Summer","Fall","Winter"],
      weight:36, skill:"trapping", xp:6,  food:{hp:10,stam:10, hours:6}, color:0x7d6a52},
-    {id:"rabbit",    name:"Cottontail",   kind:"game", habitat:"bank",  seasons:["Fall","Winter","Spring"],
+    {id:"rabbit", group:"mammal",    name:"Cottontail",   kind:"game", habitat:"bank",  seasons:["Fall","Winter","Spring"],
      weight:28, skill:"trapping", xp:9,  food:{hp:15,stam:13, hours:8}, color:0x9a8a76},
-    {id:"raccoon",   name:"Raccoon",      kind:"game", habitat:"wetland", seasons:["Spring","Summer","Fall","Winter"],
+    {id:"raccoon", group:"mammal",   name:"Raccoon",      kind:"game", habitat:"wetland", seasons:["Spring","Summer","Fall","Winter"],
      weight:20, skill:"trapping", xp:12, food:{hp:17,stam:9,  hours:8}, color:0x5a5550},
-    {id:"bream",     name:"Bluegill",     kind:"fish", minDepthFt:1.5, seasons:["Spring","Summer","Fall"],
+    {id:"bream", group:"fish",     name:"Bluegill",     kind:"fish", minDepthFt:1.5, seasons:["Spring","Summer","Fall"],
      weight:34, skill:"fishing", xp:4,  food:{hp:7, stam:9,  hours:5}, color:0x6f8fa8},
-    {id:"crappie",   name:"Crappie",      kind:"fish", minDepthFt:3,   seasons:["Winter","Spring"],
+    {id:"crappie", group:"fish",   name:"Crappie",      kind:"fish", minDepthFt:3,   seasons:["Winter","Spring"],
      weight:24, skill:"fishing", xp:6,  food:{hp:9, stam:10, hours:6}, color:0x9aa8b2},
-    {id:"bass",      name:"Largemouth Bass", kind:"fish", minDepthFt:3, seasons:["Spring","Summer","Fall"],
+    {id:"bass", group:"fish",      name:"Largemouth Bass", kind:"fish", minDepthFt:3, seasons:["Spring","Summer","Fall"],
      weight:20, skill:"fishing", xp:9,  food:{hp:13,stam:12, hours:7}, color:0x4f7a4a},
-    {id:"catfish",   name:"Channel Catfish", kind:"fish", minDepthFt:5, seasons:["Spring","Summer","Fall","Winter"],
+    {id:"catfish", group:"fish",   name:"Channel Catfish", kind:"fish", minDepthFt:5, seasons:["Spring","Summer","Fall","Winter"],
      weight:22, skill:"fishing", xp:11, food:{hp:16,stam:13, hours:9}, color:0x7d6a52},
-    {id:"gar",       name:"Alligator Gar", kind:"fish", minDepthFt:7,  seasons:["Summer","Fall"],
+    {id:"gar", group:"fish",       name:"Alligator Gar", kind:"fish", minDepthFt:7,  seasons:["Summer","Fall"],
      weight:5,  skill:"fishing", xp:26, lvl:3, prize:true,
      food:{hp:22,stam:15, hours:11}, color:0x5c6b4a},
-    {id:"drum",      name:"Freshwater Drum", kind:"fish", minDepthFt:4, seasons:["Spring","Summer","Fall","Winter"],
+    {id:"drum", group:"fish",      name:"Freshwater Drum", kind:"fish", minDepthFt:4, seasons:["Spring","Summer","Fall","Winter"],
      weight:18, skill:"fishing", xp:7,  food:{hp:11,stam:11, hours:6}, color:0x9a9486}
   ],
 
@@ -1474,7 +1726,9 @@ const DATA = {
      is neither — it is a static platform in world space at a fixed height. Add
      that third case and you get docks, piers, lock walls and the decks of
      stationary boats, all from one function.                                  */
-  levels:{ count:2, names:["Deck","Roof"], plateH:0.14 },
+  /* `count` is now a ceiling, not the truth — a level exists because you
+     built a floor at it. Air draft is what really stops you. */
+  levels:{ count:8, names:["Deck","Roof"], plateH:0.14, storeyM:2.10 },
 
   climb:{
     stepM:0.55,        /* anything this high you just walk up            */
@@ -1652,12 +1906,6 @@ const DATA = {
     maxDepthFt:26, reachM:9, xpMiss:1
   },
 
-  skills:{
-    ids:["forage","fishing","trapping","hunting","cooking","fab"],
-    names:{forage:"Foraging", fishing:"Fishing", trapping:"Trapping",
-           hunting:"Hunting", cooking:"Cooking", fab:"Fabrication"},
-    maxLevel:10, curve:24, exp:1.55
-  },
 
   foods:[
     {id:"p_hardtack", name:"Hardtack",         hp:6,  stam:9,  hours:6,  color:0xcbb287},
@@ -1679,22 +1927,21 @@ const DATA = {
   modules:[
     /* STRUCTURE — this is how the boat physically grows */
     {id:"deck_plate", name:"Deck Plate",   cat:"structure", w:1,d:1, h:0.10, mass:22,  amp:0,   install:"field", recipe:{plank:2,fastener:1}, walkable:true, color:0x9a8763},
-    {id:"rail",       name:"Guard Rail",   cat:"structure", shape:"rail", w:1,d:1, h:0.95, mass:7,   amp:0,   install:"field", recipe:{plank:1,fastener:1}, color:0x8a8f8c},
-    {id:"platform",   name:"Swim Platform",cat:"structure", w:2,d:1, h:0.10, mass:48,  amp:0,   install:"yard",  cost:210, walkable:true, color:0x8f7f63},
+    {id:"platform",   name:"Swim Platform",cat:"structure", w:1,d:1, h:0.10, mass:48,  amp:0,   install:"yard",  cost:210, walkable:true, color:0x8f7f63},
     /* WATER — a tank, a way to fill it, and two ways to make bad water good */
-    {id:"water_tank",  name:"Water Tank",   cat:"water", shape:"tank", w:1,d:2, h:0.75, mass:34, amp:0, install:"field",
+    {id:"water_tank",  name:"Water Tank",   cat:"water", shape:"tank", w:1,d:1, h:0.75, mass:34, amp:0, install:"field",
      recipe:{plank:3,fastener:3}, cost:180, color:0x5a7f8a, water:{galCap:45}},
-    {id:"water_tank_big", name:"Deep Tank", cat:"water", shape:"tank", w:2,d:2, h:0.85, mass:62, amp:0, install:"yard",
+    {id:"water_tank_big", name:"Deep Tank", cat:"water", shape:"tank", w:1,d:1, h:0.85, mass:62, amp:0, install:"yard",
      cost:520, color:0x4a6f7a, water:{galCap:120}},
-    {id:"rain_catcher", name:"Rain Catcher", cat:"water", shape:"catcher", w:2,d:2, h:0.30, mass:16, amp:0, install:"field",
+    {id:"rain_catcher", name:"Rain Catcher", cat:"water", shape:"catcher", w:1,d:1, h:0.30, mass:16, amp:0, install:"field",
      recipe:{cloth:4,plank:2,fastener:2}, cost:95, color:0x8a9a7a, water:{catch:1}},
     {id:"water_filter", name:"Cartridge Filter", cat:"water", shape:"filter", w:1,d:1, h:0.45, mass:11, amp:0, install:"field",
-     recipe:{fastener:3,scrap:2}, cost:140, color:0xb9b0a0, water:{treats:"filtered", cartridge:true}},
-    {id:"watermaker",  name:"Watermaker",   cat:"water", shape:"filter", w:1,d:2, h:0.55, mass:41, amp:22, install:"yard",
+     recipe:{fastener:3,steel:1}, cost:140, color:0xb9b0a0, water:{treats:"filtered", cartridge:true}},
+    {id:"watermaker",  name:"Watermaker",   cat:"water", shape:"filter", w:1,d:1, h:0.55, mass:41, amp:22, install:"yard",
      cost:1450, color:0xc4ccd0, water:{treats:"clean", galPerHr:6.5, needsPower:true}},
 
     /* GALLEY */
-    {id:"counter",    name:"Galley Counter",cat:"galley",   w:1,d:2, h:0.90, mass:42,  amp:0,   install:"field", recipe:{plank:5,fastener:3}, surface:true, color:0x7d6a53},
+    {id:"counter",    name:"Galley Counter",cat:"galley",   w:1,d:1, h:0.90, mass:42,  amp:0,   install:"field", recipe:{plank:5,fastener:3}, surface:true, color:0x7d6a53},
     {id:"stove",      name:"Propane Stove", cat:"galley",   w:1,d:1, h:0.30, mass:28,  amp:0,   install:"field", recipe:{steel:2,fastener:2}, mount:"surface", color:0x2c2f31},
     {id:"icebox",     name:"Icebox",        cat:"galley",   w:1,d:1, h:0.80, mass:34,  amp:0,   install:"field", recipe:{plank:4,fastener:2}, color:0x8fa0a6},
     {id:"decklight",  name:"Deck Light",   cat:"comfort",  shape:"lamp",   w:1,d:1, h:0.30, mass:3,   amp:6,   install:"field", recipe:{steel:1,wire:2}, light:{r:16, c:0xffe6b8, i:0.9}, color:0xd8d2c4},
@@ -1704,39 +1951,39 @@ const DATA = {
     {id:"cooler",     name:"Cooler",       cat:"storage",  shape:"box",    w:1,d:1, h:0.45, mass:11,  amp:0,   install:"field", recipe:{cloth:2,plank:2}, store:"cooler", color:0xd0d6d8},
     {id:"icebox",     name:"12v Icebox",   cat:"storage",  shape:"box",    w:1,d:1, h:0.70, mass:34,  amp:22,  install:"yard",  cost:320, store:"icebox", color:0xd6d9d4},
     {id:"bigfridge",  name:"Large Fridge", cat:"storage",  shape:"box",    w:1,d:1, h:1.30, mass:70,  amp:52,  install:"yard",  cost:760, store:"bigfridge", color:0xe0e3de},
-    {id:"freezer",    name:"Deep Freeze",  cat:"storage",  shape:"box",    w:1,d:2, h:0.95, mass:96,  amp:88,  install:"yard",  cost:1250, store:"freezer", color:0xc8d4d8},
+    {id:"freezer",    name:"Deep Freeze",  cat:"storage",  shape:"box",    w:1,d:1, h:0.95, mass:96,  amp:88,  install:"yard",  cost:1250, store:"freezer", color:0xc8d4d8},
     {id:"drybox",     name:"Dry Box",      cat:"camp",     shape:"box",    w:1,d:1, h:0.5,  mass:9,   place:"land", install:"field", recipe:{plank:4,cloth:1}, store:"drybox", color:0x7a6448},
     {id:"fridge",     name:"12v Fridge",    cat:"galley",   w:1,d:1, h:0.90, mass:56,  amp:42,  install:"yard",  cost:640, color:0xd6d9d4},
     {id:"radio",      name:"Radio Set",     cat:"comfort",  shape:"radio",  w:1,d:1, h:0.55, mass:9,   amp:0,   install:"field", recipe:{steel:2,wire:2,fastener:2}, station:"radio", color:0x8a6a3f},
     {id:"smoker",     name:"Fish Smoker",   cat:"galley",   shape:"smoker", w:1,d:1, h:1.10, mass:44,  amp:0,   install:"field", recipe:{steel:3,fastener:3}, station:"smoker", color:0x4a3f38},
 
     /* TANKAGE — yard work, and the reason draft climbs */
-    {id:"water_tank", name:"Water Tank",    cat:"tankage",  w:1,d:2, h:0.65, mass:310, amp:0,   install:"yard",  cost:380, color:0x5f7f8c},
-    {id:"fuel_tank",  name:"Aux Fuel Tank", cat:"tankage",  w:1,d:2, h:0.65, mass:420, amp:0,   install:"yard",  cost:460, color:0x6b5f4a},
-    {id:"holding",    name:"Holding Tank",  cat:"tankage",  w:1,d:2, h:0.65, mass:260, amp:0,   install:"yard",  cost:410, color:0x5d5a4e},
+    {id:"water_tank", name:"Water Tank",    cat:"tankage",  w:1,d:1, h:0.65, mass:310, amp:0,   install:"yard",  cost:380, color:0x5f7f8c},
+    {id:"fuel_tank",  name:"Aux Fuel Tank", cat:"tankage",  w:1,d:1, h:0.65, mass:420, amp:0,   install:"yard",  cost:460, color:0x6b5f4a},
+    {id:"holding",    name:"Holding Tank",  cat:"tankage",  w:1,d:1, h:0.65, mass:260, amp:0,   install:"yard",  cost:410, color:0x5d5a4e},
 
     /* POWER */
-    {id:"solar",      name:"Solar Panel",   cat:"power",    shape:"panel", w:2,d:2, h:0.08, mass:19,  amp:-38, install:"field", recipe:{steel:2,fastener:4,wire:3}, cost:340, color:0x1c2a3a},
+    {id:"solar",      name:"Solar Panel",   cat:"power",    shape:"panel", w:1,d:1, h:0.08, mass:19,  amp:-38, install:"field", recipe:{steel:2,fastener:4,wire:3}, cost:340, color:0x1c2a3a},
     {id:"battery",    name:"Battery Bank",  cat:"power",    w:1,d:1, h:0.45, mass:118, amp:0,   install:"yard",  cost:520, color:0x2f3436},
-    {id:"genset",     name:"Generator",     cat:"power",    w:1,d:2, h:0.70, mass:164, amp:-95, install:"yard",  cost:1250, color:0x6d757a},
+    {id:"genset",     name:"Generator",     cat:"power",    w:1,d:1, h:0.70, mass:164, amp:-95, install:"yard",  cost:1250, color:0x6d757a},
 
     /* COMFORT & DECK */
-    {id:"garden",     name:"Garden Bed",    cat:"comfort",  shape:"garden", w:1,d:2, h:0.42, mass:88,  amp:0,   install:"field", recipe:{plank:5,fastener:2}, color:0x4d5f38},
+    {id:"garden",     name:"Garden Bed",    cat:"comfort",  shape:"garden", w:1,d:1, h:0.42, mass:88,  amp:0,   install:"field", recipe:{plank:5,fastener:2}, color:0x4d5f38},
     {id:"deckbox",    name:"Deck Box",      cat:"comfort",  w:1,d:1, h:0.55, mass:24,  amp:0,   install:"field", recipe:{plank:4,fastener:2}, surface:true, color:0x6f6350},
     {id:"chair",      name:"Deck Chair",    cat:"comfort",  shape:"chair", w:1,d:1, h:0.75, mass:8,   amp:0,   install:"field", recipe:{plank:2,cloth:1}, color:0x8c5b3f},
-    {id:"bunk2",      name:"Extra Bunk",    cat:"comfort",  shape:"bunk", w:1,d:2, h:0.55, mass:54,  amp:0,   install:"field", recipe:{plank:6,cloth:2,fastener:3}, color:0x6b5f6e},
+    {id:"bunk2",      name:"Extra Bunk",    cat:"comfort",  shape:"bunk", w:1,d:1, h:0.55, mass:54,  amp:0,   install:"field", recipe:{plank:6,cloth:2,fastener:3}, color:0x6b5f6e},
     {id:"lamp",       name:"Deck Lamp",     cat:"comfort",  shape:"lamp", w:1,d:1, h:0.30, mass:4,   amp:6,   install:"field", recipe:{wire:2,steel:1}, mount:"surface", color:0xd9c27a},
 
     /* CAMP — place:"land". Same cells, same ghost, same validity rules. */
-    {id:"firepit",  name:"Firepit",      cat:"camp", place:"land", shape:"firepit", w:2,d:2, h:0.45, mass:0, amp:0, install:"field", recipe:{plank:2},           fire:true,  station:"firepit", color:0x6b5344},
-    {id:"bedroll",  name:"Bedroll",      cat:"camp", place:"land", shape:"bedroll", w:2,d:3, h:0.22, mass:0, amp:0, install:"field", recipe:{cloth:3},           sleep:"rough", color:0x7a6a4e},
-    {id:"tent",     name:"Pup Tent",     cat:"camp", place:"land", shape:"tent",    w:3,d:4, h:1.25,mass:0, amp:0, install:"field", recipe:{cloth:5,plank:3},   sleep:"sheltered", color:0x556b4a},
-    {id:"workbench",name:"Workbench",    cat:"camp", place:"land", shape:"bench",   w:2,d:4, h:0.92,mass:0, amp:0, install:"field", recipe:{plank:6,fastener:4},station:"workbench", color:0x8a7250},
+    {id:"firepit",  name:"Firepit",      cat:"camp", place:"land", shape:"firepit", w:1,d:1, h:0.45, mass:0, amp:0, install:"field", recipe:{plank:2},           fire:true,  station:"firepit", color:0x6b5344},
+    {id:"bedroll",  name:"Bedroll",      cat:"camp", place:"land", shape:"bedroll", w:1,d:2, h:0.22, mass:0, amp:0, install:"field", recipe:{cloth:3},           sleep:"rough", color:0x7a6a4e},
+    {id:"tent",     name:"Pup Tent",     cat:"camp", place:"land", shape:"tent",    w:2,d:2, h:1.25,mass:0, amp:0, install:"field", recipe:{cloth:5,plank:3},   sleep:"sheltered", color:0x556b4a},
+    {id:"workbench",name:"Workbench",    cat:"camp", place:"land", shape:"bench",   w:1,d:2, h:0.92,mass:0, amp:0, install:"field", recipe:{plank:6,fastener:4},station:"workbench", color:0x8a7250},
     {id:"campradio",  name:"Camp Radio",    cat:"camp",     shape:"radio",  w:1,d:1, h:0.5,  mass:7,   place:"land", install:"field", recipe:{steel:2,wire:1}, station:"radio", color:0x8a6a3f},
-    {id:"dryrack",  name:"Drying Rack",  cat:"camp", place:"land", shape:"rack",    w:2,d:3, h:1.55,mass:0, amp:0, install:"field", recipe:{plank:4,cloth:2},   station:"dryrack", needs:"workbench", color:0x6f6350},
+    {id:"dryrack",  name:"Drying Rack",  cat:"camp", place:"land", shape:"rack",    w:1,d:2, h:1.55,mass:0, amp:0, install:"field", recipe:{plank:4,cloth:2},   station:"dryrack", needs:"workbench", color:0x6f6350},
 
     /* NAV — the air-draft lesson: this is what closes the Erie to you */
-    {id:"arch",       name:"Radar Arch",    cat:"nav",      shape:"arch", w:2,d:1, h:2.40, mass:52,  amp:14,  install:"yard",  cost:880, airH:2.4, color:0x9aa3a6}
+    {id:"arch",       name:"Radar Arch",    cat:"nav",      shape:"arch", w:1,d:1, h:2.40, mass:52,  amp:14,  install:"yard",  cost:880, airH:2.4, color:0x9aa3a6}
   ],
 
   /* ---- THE SHORE ----------------------------------------------------
@@ -2060,10 +2307,7 @@ const DATA = {
       lengthM:7152.9, startMile:266.02, milesPerMeter:-0.006732410392565902,
       currentKt:0.7,
       halfWidthM:38.9, thalwegDepthFt:9.0,
-      bodies:[
-        {kind:"channel", id:"main", ref:true, halfWidthM:38.9, depthFt:9.0,
-         widthProfile:[[0,39.56],[0.0909,36.78],[0.1818,37.46],[0.2727,39.69],[0.3636,39.48],[0.4545,37.95],[0.5455,36.78],[0.6364,39.51],[0.7273,39.26],[0.8182,39.94],[0.9091,37.31],[1,39.92]]}
-      ],
+      bodies:[{"kind": "channel", "id": "main", "halfWidthM": 38.9, "depthFt": 9.0, "ref": true}, {"kind": "cove", "id": "rivers-83", "name": "Tombigbee River", "halfWidthM": 57.4, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[3818.2, 2970.1], [3767.7, 2941.3], [3744.9, 2939.5], [3711.9, 2954.0], [3637.3, 2946.1], [3514.0, 2971.4], [3352.6, 2913.7], [3265.9, 2805.4], [3183.3, 2822.6], [3153.1, 2802.0], [3067.7, 2771.0], [2963.9, 2802.3], [2928.1, 2803.1], [2891.8, 2822.2], [2833.6, 2887.5], [2810.8, 2897.8], [2759.4, 2973.6], [2745.4, 3062.6], [2732.0, 3075.3], [2670.2, 3065.8]]}, {"kind": "cove", "id": "rivers-2", "halfWidthM": 12.0, "depthFt": 9.0, "anchorage": true, "centerline": [[365.9, 2208.0], [319.1, 2220.3], [313.5, 2228.1], [281.9, 2237.0], [263.9, 2248.5], [212.4, 2261.2], [204.2, 2273.9], [191.7, 2272.4], [175.2, 2277.7], [168.3, 2289.9], [164.7, 2281.1], [190.9, 2279.3], [193.9, 2275.5], [164.4, 2285.0], [162.1, 2292.3], [154.7, 2288.5], [119.3, 2306.9], [76.0, 2321.4], [67.6, 2330.3], [45.2, 2334.6], [-31.2, 2364.4], [-38.5, 2359.9], [-47.6, 2373.9], [-100.1, 2377.7]]}, {"kind": "cove", "id": "rivers-5", "halfWidthM": 23.6, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[1299.0, 2445.6], [1304.5, 2470.8], [1298.8, 2475.8], [1300.7, 2492.8], [1323.7, 2563.2], [1329.4, 2576.2], [1331.3, 2568.6], [1396.4, 2732.9], [1414.5, 2788.4], [1471.7, 2928.1], [1495.0, 3008.5], [1520.9, 3071.1]]}, {"kind": "cove", "id": "rivers-7", "halfWidthM": 9.1, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[493.8, 1472.3], [431.8, 1304.7], [427.6, 1285.4], [432.2, 1286.7]]}, {"kind": "cove", "id": "rivers-8", "halfWidthM": 7.8, "depthFt": 9.0, "anchorage": true, "centerline": [[2301.0, 2493.4], [2291.0, 2499.6], [2281.4, 2508.2], [2233.7, 2554.8]]}, {"kind": "cove", "id": "rivers-10", "halfWidthM": 11.5, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[1812.5, 2489.5], [1798.8, 2487.4], [1778.4, 2486.6], [1784.5, 2481.8], [1798.8, 2477.5], [1878.3, 2466.5]]}, {"kind": "cove", "id": "martins-creek", "name": "Martins Creek", "halfWidthM": 15.6, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[-214.5, 1680.5], [-196.8, 1912.5], [-126.7, 2079.8], [-119.1, 2012.9], [-91.0, 2028.3], [-37.5, 2020.8], [0.5, 1994.9], [41.2, 2002.9], [56.5, 1997.9], [114.0, 1936.2], [151.4, 1939.5], [181.9, 1905.5], [242.8, 1890.3], [256.2, 1702.0], [287.9, 1691.0], [409.2, 1688.3], [419.6, 1693.2], [461.7, 1686.5], [538.5, 1687.5]]}, {"kind": "cove", "id": "rivers-13", "halfWidthM": 17.7, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[311.8, 663.2], [328.7, 673.1], [347.6, 681.8], [358.0, 678.8], [399.9, 692.6], [355.1, 704.1]]}, {"kind": "cove", "id": "rivers-16", "halfWidthM": 21.1, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[1878.9, 2783.4], [2016.3, 2654.6], [2029.9, 2651.9], [2024.5, 2660.3], [2041.6, 2664.8], [2010.1, 2698.5]]}, {"kind": "channel", "id": "rivers-23", "halfWidthM": 21.4, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[583.3, 2122.6], [620.0, 2172.4], [659.5, 2278.7], [578.6, 2184.4]]}, {"kind": "cove", "id": "rivers-34", "halfWidthM": 16.9, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[361.8, 2127.1], [258.5, 2121.7], [3.6, 2122.4]]}, {"kind": "cove", "id": "factory-creek", "name": "Factory Creek", "halfWidthM": 15.3, "depthFt": 9.0, "anchorage": true, "centerline": [[104.7, 1283.1], [93.9, 1266.1], [114.6, 1174.4], [165.8, 1137.5], [183.0, 1179.3], [185.2, 1164.5], [183.8, 1052.2], [168.5, 884.4], [170.1, 875.9], [175.5, 884.1], [184.0, 876.1], [185.7, 846.2], [168.4, 719.1], [163.4, 613.6], [168.3, 517.6], [171.9, 527.4], [174.7, 524.5], [177.9, 540.9], [178.7, 522.3]]}, {"kind": "cove", "id": "rivers-38", "halfWidthM": 32.3, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[1637.3, 2515.9], [1661.7, 2460.8], [1674.1, 2431.5], [1644.6, 2434.2], [1645.7, 2428.6]]}, {"kind": "cove", "id": "rivers-41", "name": "Tennessee-Tombigbee Waterway", "halfWidthM": 5.6, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[-57.5, 124.5], [-81.1, 138.3], [-90.3, 140.3], [-109.6, 149.9], [-108.0, 146.4], [-127.4, 157.4]]}, {"kind": "cove", "id": "rivers-43", "halfWidthM": 12.0, "depthFt": 9.0, "anchorage": true, "centerline": [[190.9, 1599.6], [114.6, 1778.0], [101.5, 1789.7], [100.5, 1773.7], [89.7, 1788.9], [46.9, 1885.0], [43.8, 1887.7], [44.3, 1869.4], [13.1, 1896.9], [-4.3, 1943.5], [-8.3, 1944.1], [-16.4, 1989.3], [-30.3, 2013.7], [-31.2, 1989.0], [-33.6, 1997.5], [-46.5, 2002.5], [-45.4, 2010.7], [-60.5, 2034.8], [-55.8, 2041.6], [-60.3, 2040.1], [-46.4, 2026.0], [-48.4, 2035.5], [-108.2, 2139.5], [-130.4, 2195.8], [-157.1, 2232.4], [-146.9, 2209.7], [-154.9, 2216.7], [-150.4, 2216.3], [-158.3, 2205.7], [-152.2, 2207.8], [-145.6, 2189.9], [-136.9, 2189.5], [-142.2, 2181.8], [-149.5, 2180.2], [-145.4, 2189.0], [-163.8, 2216.6], [-160.5, 2223.8], [-182.6, 2236.8], [-190.3, 2251.3], [-185.2, 2265.7], [-190.9, 2266.5], [-225.1, 2329.8], [-224.2, 2340.4], [-236.5, 2367.0], [-255.9, 2378.9], [-259.8, 2389.3], [-255.9, 2403.9], [-263.4, 2400.4], [-255.4, 2392.4], [-257.7, 2384.2], [-237.5, 2381.8], [-244.0, 2373.9], [-239.5, 2364.2], [-227.7, 2367.8], [-234.7, 2362.9], [-264.0, 2423.7], [-273.7, 2432.9], [-273.1, 2447.7], [-291.6, 2483.9]]}, {"kind": "cove", "id": "rivers-44", "halfWidthM": 18.1, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[2472.3, 2253.9], [2481.5, 2248.7], [2380.9, 2400.9], [2391.7, 2398.3], [2384.8, 2415.7], [2321.4, 2487.5], [2267.6, 2564.5], [2263.7, 2580.6], [2294.3, 2561.7]]}, {"kind": "cove", "id": "rivers-49", "halfWidthM": 47.0, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[2893.1, 2071.4], [2917.9, 2057.7], [2763.8, 2190.5], [2726.5, 2206.1], [2710.7, 2240.9], [2684.6, 2261.5], [2656.6, 2297.1], [2586.7, 2342.1], [2594.1, 2396.1], [2555.3, 2462.9], [2299.8, 2625.3], [2272.6, 2636.6], [2276.3, 2631.1], [2260.9, 2633.3]]}, {"kind": "cove", "id": "rivers-51", "name": "Demopolis Lake", "halfWidthM": 8.0, "depthFt": 9.0, "anchorage": true, "centerline": [[1.0, 197.7], [-13.8, 201.9], [-25.1, 197.5], [-26.0, 187.4], [-17.7, 179.3], [-55.3, 193.5], [-48.7, 186.7], [-99.7, 199.0], [-153.0, 222.0]]}, {"kind": "cove", "id": "rivers-55", "halfWidthM": 31.5, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[689.5, 622.2], [773.1, 705.4], [738.0, 689.1], [713.1, 665.8], [704.3, 647.7], [664.8, 611.2]]}, {"kind": "cove", "id": "rivers-57", "halfWidthM": 21.2, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[328.9, 480.9], [340.1, 368.1], [372.5, 323.0], [395.8, 322.1], [415.9, 270.5], [442.3, 227.0], [449.0, 224.2], [458.6, 202.2]]}, {"kind": "cove", "id": "rivers-58", "halfWidthM": 20.6, "depthFt": 9.0, "anchorage": true, "centerline": [[82.0, 2203.8], [48.8, 2186.2], [87.8, 2157.8], [116.7, 2094.9], [143.0, 2064.8], [149.3, 2013.0], [233.2, 1829.4], [238.4, 1790.1], [252.2, 1767.8], [245.1, 1777.6], [282.6, 1662.5]]}, {"kind": "channel", "id": "rivers-59", "halfWidthM": 27.2, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[468.3, 1054.2], [621.0, 935.6], [603.5, 941.5], [629.8, 917.5], [598.0, 851.6], [552.5, 893.7], [589.9, 839.8], [593.6, 829.4], [588.2, 829.6], [595.1, 813.0]]}, {"kind": "cove", "id": "boligee-creek", "name": "Boligee Creek", "halfWidthM": 37.5, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[594.2, 1402.1], [576.5, 1399.0], [583.3, 1407.2], [579.9, 1407.5], [552.8, 1390.5], [508.5, 1355.4], [359.2, 1255.4], [283.5, 1194.2], [315.7, 1208.3], [327.2, 1207.7], [353.7, 1222.0], [372.9, 1219.8], [473.2, 1088.8], [487.5, 1108.7], [451.4, 1057.2], [435.4, 1010.9], [438.5, 974.2], [390.8, 964.1], [399.9, 924.7], [779.7, 805.1]]}, {"kind": "cove", "id": "rivers-65", "halfWidthM": 18.4, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[409.6, 927.9], [448.4, 884.6], [553.0, 735.5], [597.1, 659.5], [585.0, 656.7], [625.7, 587.7], [639.4, 553.2], [727.8, 653.3]]}, {"kind": "cove", "id": "rivers-70", "halfWidthM": 19.4, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[310.1, 1171.7], [304.5, 1175.5], [275.6, 1173.4], [264.3, 1185.5]]}, {"kind": "cove", "id": "rivers-73", "halfWidthM": 10.3, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[284.9, 1439.8], [321.8, 1359.0], [319.0, 1360.9], [326.6, 1328.2], [321.2, 1323.8], [329.5, 1305.1], [322.1, 1315.9], [327.4, 1302.3], [324.1, 1306.8], [321.0, 1292.0], [324.5, 1270.5], [315.5, 1279.7]]}, {"kind": "cove", "id": "rivers-80", "halfWidthM": 6.7, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[623.4, 1851.2], [581.5, 1840.6], [526.1, 1829.2], [504.1, 1823.4], [478.8, 1820.1]]}, {"kind": "cove", "id": "rivers-83-2", "halfWidthM": 27.4, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[2101.8, 2235.7], [2189.3, 2209.2], [2265.6, 2182.7], [2376.5, 2151.6], [2406.1, 2145.0]]}, {"kind": "cove", "id": "rivers-84", "halfWidthM": 23.8, "depthFt": 9.0, "anchorage": true, "centerline": [[63.1, 1991.7], [45.8, 1985.5], [62.7, 1985.7], [60.5, 1982.8], [96.2, 1990.4], [152.6, 2005.5], [163.5, 2011.9], [148.9, 2013.6], [180.1, 2023.5], [354.3, 2057.4]]}, {"kind": "cove", "id": "rivers-89", "halfWidthM": 10.7, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[312.1, 848.9], [352.2, 874.7], [360.8, 871.6], [429.8, 865.7], [426.4, 848.5], [405.1, 841.2], [411.4, 834.7]]}, {"kind": "cove", "id": "smith-branch", "name": "Smith Branch", "halfWidthM": 27.2, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[1127.2, 1986.2], [1096.0, 1986.7], [1189.1, 2024.7], [1047.5, 2004.2], [953.2, 1981.1], [877.3, 1972.9], [807.0, 1954.3], [767.8, 1957.9], [762.4, 1963.1]]}, {"kind": "cove", "id": "rivers-92", "halfWidthM": 7.4, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[385.3, 2278.1], [369.6, 2286.1], [369.4, 2281.8], [374.8, 2276.0], [387.0, 2267.5]]}, {"kind": "cove", "id": "rivers-94", "halfWidthM": 11.0, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[1390.5, 2583.9], [1378.3, 2538.6], [1346.9, 2464.1], [1337.5, 2424.2], [1340.7, 2430.8], [1344.0, 2419.0]]}, {"kind": "cove", "id": "rivers-95", "halfWidthM": 12.1, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[720.0, 2578.7], [722.5, 2598.1], [737.2, 2630.5], [748.5, 2663.8], [748.4, 2669.5], [759.9, 2714.6]]}, {"kind": "cove", "id": "trussells-creek", "name": "Trussells Creek", "halfWidthM": 12.8, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[443.9, 250.1], [358.0, 45.5], [323.2, -61.0], [322.5, -67.0], [326.9, -61.1], [314.8, -106.0], [344.8, -30.6]]}, {"kind": "cove", "id": "rivers-102", "halfWidthM": 8.3, "depthFt": 9.0, "anchorage": true, "centerline": [[339.1, 810.8], [611.1, 811.2], [664.1, 803.5]]}, {"kind": "cove", "id": "gum-pond-slough", "name": "Gum Pond Slough", "halfWidthM": 23.6, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[1007.8, 1149.2], [925.5, 1261.5], [906.8, 1282.9], [914.9, 1265.4], [906.3, 1273.4], [815.2, 1391.2]]}, {"kind": "cove", "id": "rivers-108", "name": "Demopolis Lake", "halfWidthM": 14.4, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[2413.6, 2886.2], [2416.0, 2888.4], [2399.7, 2913.5], [2367.2, 2944.8], [2357.6, 2983.1]]}, {"kind": "cove", "id": "rivers-111", "halfWidthM": 32.0, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[538.2, 2423.2], [351.1, 2487.5], [207.9, 2550.1], [178.2, 2555.2], [252.0, 2671.4], [284.6, 2635.3], [255.9, 2655.8]]}, {"kind": "cove", "id": "rivers-112", "halfWidthM": 14.3, "depthFt": 9.0, "anchorage": true, "centerline": [[949.1, 2364.0], [939.2, 2262.9], [937.5, 2234.1], [934.6, 2216.0], [932.1, 2177.1], [923.2, 2196.6], [918.9, 2184.7], [911.6, 2189.2]]}, {"kind": "cove", "id": "rivers-114", "halfWidthM": 14.1, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[448.9, 1482.2], [400.0, 1354.7], [456.5, 1368.7], [455.1, 1355.7]]}, {"kind": "cove", "id": "rivers-115", "halfWidthM": 10.0, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[548.6, 2442.7], [543.5, 2442.8], [504.9, 2455.4], [464.7, 2470.3], [454.6, 2475.1], [438.4, 2486.1], [377.2, 2510.7]]}, {"kind": "cove", "id": "high-run", "name": "High Run", "halfWidthM": 32.3, "depthFt": 9.0, "anchorage": true, "centerline": [[1040.9, 3274.2], [1184.8, 3282.9], [1179.8, 3247.1], [1037.8, 3120.9], [1024.2, 2947.3], [1026.2, 2920.8], [1116.1, 2920.2], [1122.9, 2934.1], [1123.2, 2926.2], [1116.6, 2880.9], [1076.2, 2719.4], [1032.8, 2507.1]]}, {"kind": "cove", "id": "rivers-129", "halfWidthM": 26.4, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[511.2, 1916.3], [502.2, 1852.0], [550.1, 1853.9], [557.4, 1810.8], [495.2, 1781.8], [489.5, 1742.0], [570.2, 1729.8], [596.9, 1593.1], [592.7, 1589.0], [469.5, 1569.2], [454.5, 1494.8], [455.7, 1467.0], [447.8, 1463.3], [451.8, 1483.6], [438.6, 1445.0], [434.0, 1403.5], [438.0, 1382.1], [448.9, 1415.0], [436.9, 1417.3], [449.4, 1451.1], [275.1, 1476.2]]}, {"kind": "cove", "id": "rivers-130", "halfWidthM": 8.2, "depthFt": 9.0, "anchorage": true, "centerline": [[2219.7, 2551.1], [2209.7, 2540.9], [2215.8, 2531.3], [2227.5, 2518.6]]}, {"kind": "cove", "id": "rivers-134", "halfWidthM": 13.1, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[60.0, 466.5], [74.9, 479.4], [142.1, 522.3], [166.1, 541.4], [158.8, 540.0], [179.8, 555.3]]}, {"kind": "cove", "id": "rivers-136", "halfWidthM": 10.8, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[1332.8, 2235.2], [1300.1, 2196.2], [1254.7, 2146.6], [1226.3, 2113.2], [1186.8, 2072.8], [1165.3, 2057.2], [1130.2, 2020.9], [1116.7, 2010.6]]}, {"kind": "cove", "id": "rivers-141", "halfWidthM": 9.1, "depthFt": 9.0, "anchorage": true, "centerline": [[169.2, 419.8], [140.5, 428.7], [126.8, 441.6], [77.4, 455.8], [106.6, 440.0], [91.7, 441.7], [23.6, 474.5]]}, {"kind": "cove", "id": "jones-creek", "name": "Jones Creek", "halfWidthM": 11.5, "depthFt": 9.0, "anchorage": true, "centerline": [[-437.0, 446.1], [-313.8, 638.4], [-290.9, 720.8], [-231.7, 763.0], [-224.5, 782.4], [-213.2, 779.2], [-223.9, 816.0], [-137.5, 922.0], [-32.7, 1067.6], [1.5, 1152.2], [26.7, 1194.8], [80.9, 1270.4], [87.0, 1263.3]]}, {"kind": "cove", "id": "hayes-creek", "name": "Hayes Creek", "halfWidthM": 35.0, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[1447.9, 3126.9], [1431.4, 3103.3], [1406.1, 3035.8], [1407.3, 3074.0], [1400.2, 3062.3], [1364.3, 2960.7], [1328.5, 2883.9], [1300.0, 2793.6], [1301.9, 2781.1], [1338.5, 2854.6], [1341.8, 2852.6], [1238.2, 2573.4], [1200.9, 2490.2], [1195.2, 2467.7], [1202.5, 2470.6]]}, {"kind": "channel", "id": "rivers-152", "halfWidthM": 31.2, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[2566.9, 1748.2], [2539.7, 1779.9], [2508.8, 1849.9], [2456.4, 1920.8], [2247.7, 2309.0], [2245.3, 2306.0], [2266.7, 2249.1], [2324.9, 2151.2], [2341.2, 2117.4], [2337.3, 2107.3], [2359.2, 2080.3], [2424.5, 1951.6]]}, {"kind": "cove", "id": "cobb-creek", "name": "Cobb Creek", "halfWidthM": 43.9, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[847.1, 2365.4], [839.3, 2304.9], [837.5, 2229.0], [820.5, 2129.4], [816.2, 2125.6], [814.9, 2141.6], [802.1, 2080.5], [771.2, 2003.8], [752.1, 1918.3], [737.9, 1884.9], [606.8, 1896.2], [611.5, 1904.7], [586.5, 1867.0], [590.8, 1864.0], [516.3, 1689.9], [465.7, 1514.3], [466.6, 1510.5], [522.0, 1502.3], [709.8, 1509.6], [705.3, 1523.1], [708.0, 1508.5], [713.1, 1515.3], [720.7, 1487.0], [731.0, 1498.3]]}, {"kind": "cove", "id": "rivers-159", "halfWidthM": 19.6, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[1643.8, 3008.9], [1655.0, 2993.9], [1659.7, 2977.6], [1688.5, 2943.8], [1865.0, 2937.9], [2011.3, 2669.7], [2037.9, 2629.9]]}, {"kind": "cove", "id": "valley-branch", "name": "Valley Branch", "halfWidthM": 12.0, "depthFt": 9.0, "anchorage": true, "centerline": [[563.3, 2068.8], [523.7, 2383.2], [506.7, 2469.5], [499.1, 2545.8], [492.9, 2547.3], [499.6, 2556.1], [498.5, 2575.5], [492.2, 2591.2], [481.4, 2677.7], [454.4, 2686.6], [472.9, 2749.3], [492.1, 2769.9], [465.7, 2780.8], [465.7, 2795.7], [446.0, 2808.4], [470.9, 2839.4], [490.1, 2875.4], [453.1, 2875.7], [452.2, 2894.8], [416.7, 2896.1], [479.6, 2940.8], [445.7, 2942.6], [444.2, 2972.3], [391.3, 2967.3], [412.3, 3000.6], [447.1, 3039.3], [490.2, 3073.2], [428.5, 3079.1], [428.3, 3086.0], [367.8, 3085.2], [385.5, 3101.3]]}, {"kind": "cove", "id": "rivers-164", "halfWidthM": 11.7, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[46.7, 1460.4], [55.4, 1458.3], [-3.5, 1475.4], [-7.1, 1482.1], [9.9, 1479.1], [-50.2, 1509.7], [-138.4, 1545.2]]}, {"kind": "cove", "id": "acron-creek", "name": "Acron Creek", "halfWidthM": 43.2, "depthFt": 9.0, "anchorage": true, "centerline": [[1126.2, 1629.5], [1138.8, 1637.4], [1126.4, 1598.9], [1128.0, 1589.8], [1155.4, 1608.5], [1212.8, 1686.3], [1244.5, 1740.7], [1279.9, 1789.3], [1300.5, 1806.3], [1297.9, 1786.6], [1348.4, 1839.2], [1353.2, 1835.8], [1401.3, 1893.5], [1412.2, 1896.9], [1437.1, 1932.4], [1441.4, 1924.7], [1460.5, 1941.8], [1476.0, 1966.1], [1547.4, 1968.2], [1581.3, 2084.8]]}, {"kind": "cove", "id": "rivers-174", "halfWidthM": 11.5, "depthFt": 9.0, "anchorage": true, "centerline": [[238.2, 219.2], [258.3, 196.1], [277.8, 168.8], [317.5, 120.4], [327.8, 103.6], [345.5, 81.5], [380.2, 36.2]]}, {"kind": "cove", "id": "rivers-175", "halfWidthM": 22.4, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[1470.0, 2381.3], [1574.8, 2504.1], [1571.5, 2507.2], [1582.2, 2522.0], [1674.2, 2627.8], [1731.6, 2684.0], [1812.7, 2778.9], [1887.7, 2854.1]]}, {"kind": "cove", "id": "brush-creek", "name": "Brush Creek", "halfWidthM": 9.4, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[684.3, 391.0], [673.6, 393.4], [822.5, 320.5], [821.1, 326.1], [851.0, 317.2], [1079.5, 205.7]]}, {"kind": "cove", "id": "rivers-183", "halfWidthM": 14.4, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[967.3, 2035.3], [991.3, 2103.7], [1000.7, 2113.8], [1025.5, 2171.2], [1087.5, 2333.2]]}, {"kind": "cove", "id": "caney-slough", "name": "Caney Slough", "halfWidthM": 31.6, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[266.0, 2613.8], [308.7, 2584.0], [357.7, 2564.5], [456.0, 2481.5], [462.7, 2478.7], [453.7, 2490.6], [476.4, 2475.4], [467.1, 2474.3], [459.2, 2432.4], [485.0, 2422.9], [522.9, 2436.8], [535.3, 2414.8]]}, {"kind": "cove", "id": "taylor-creek", "name": "Taylor Creek", "halfWidthM": 74.3, "depthFt": 9.0, "anchorage": true, "centerline": [[890.3, 1509.5], [972.4, 1514.9], [1034.2, 1497.1], [1139.5, 1504.2], [1270.5, 1504.3], [1306.4, 1497.2], [1353.8, 1533.1], [1378.5, 1540.7], [1415.3, 1541.7], [1484.8, 1498.2], [1548.3, 1474.5], [1630.3, 1504.8], [1656.5, 1557.6], [1738.5, 1576.9], [1846.5, 1501.3], [1847.9, 1505.8]]}, {"kind": "cove", "id": "rivers-187", "halfWidthM": 16.0, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[241.0, 148.9], [261.5, 166.4], [278.1, 195.5], [287.2, 208.2], [297.5, 206.1], [317.1, 219.3]]}, {"kind": "cove", "id": "rivers-190", "halfWidthM": 18.5, "depthFt": 9.0, "anchorage": true, "centerline": [[582.2, 1599.7], [536.2, 1590.2], [522.4, 1566.9], [442.6, 1545.4], [444.5, 1536.9], [461.2, 1561.2], [447.1, 1556.6]]}, {"kind": "cove", "id": "rivers-198", "halfWidthM": 12.1, "depthFt": 9.0, "anchorage": true, "centerline": [[1046.3, 2336.9], [980.0, 2042.4], [971.2, 2032.1]]}, {"kind": "cove", "id": "rivers-200", "halfWidthM": 24.3, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[2206.5, 2304.5], [2189.9, 2334.3], [2178.9, 2357.0], [2156.4, 2412.3], [2155.0, 2419.4], [2133.2, 2454.5], [2136.7, 2457.5], [2123.5, 2480.2]]}, {"kind": "cove", "id": "hayes-creek-2", "name": "Hayes Creek", "halfWidthM": 19.2, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[1144.0, 2319.3], [1134.9, 2292.0], [1129.9, 2284.2], [1123.8, 2291.4], [1119.2, 2284.8], [1108.6, 2258.3], [1098.4, 2228.3], [1071.2, 2158.9]]}, {"kind": "cove", "id": "rivers-212", "halfWidthM": 12.5, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[1629.5, 1590.2], [1621.3, 1766.0], [1615.3, 1783.0], [1621.3, 1827.2], [1622.8, 2014.5], [1627.0, 2052.4], [1628.9, 2043.6], [1632.1, 2057.1]]}, {"kind": "cove", "id": "shed-branch", "name": "Shed Branch", "halfWidthM": 35.9, "depthFt": 9.0, "anchorage": true, "centerline": [[1287.8, 1077.9], [1132.2, 1212.3], [1014.8, 1301.2], [858.2, 1433.4]]}, {"kind": "cove", "id": "brush-creek-2", "name": "Brush Creek", "halfWidthM": 6.5, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[507.1, 470.0], [480.0, 484.7], [455.8, 496.0], [426.0, 514.9], [400.7, 528.9], [374.7, 542.2], [368.7, 549.7], [382.5, 544.3]]}, {"kind": "cove", "id": "rivers-224", "halfWidthM": 12.0, "depthFt": 9.0, "anchorage": true, "centerline": [[340.5, 304.0], [308.5, 245.8]]}, {"kind": "cove", "id": "rivers-225", "halfWidthM": 8.5, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[2431.8, 2792.5], [2377.0, 2787.0], [2347.1, 2784.9], [2323.2, 2787.4]]}, {"kind": "cove", "id": "rivers-228", "halfWidthM": 17.4, "depthFt": 9.0, "anchorage": true, "centerline": [[1397.3, 2180.0], [1384.7, 2157.8], [1377.8, 2147.5], [1364.6, 2122.8], [1336.2, 2081.7], [1317.0, 2090.1], [1288.9, 2069.8], [1277.9, 2075.9]]}, {"kind": "channel", "id": "boligee-canal", "name": "Boligee Canal", "halfWidthM": 26.1, "depthFt": 9.0, "centerline": [[607.2, 654.6], [713.9, 703.3], [864.4, 790.0], [878.3, 817.3], [846.0, 803.1], [841.8, 807.5], [803.1, 787.5], [806.1, 791.8], [737.0, 852.4], [660.6, 786.5], [670.5, 801.1], [657.0, 790.1], [649.7, 793.3], [659.6, 795.5], [718.6, 855.1], [723.8, 866.3], [770.8, 905.7]]}, {"kind": "cove", "id": "rivers-231", "halfWidthM": 12.2, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[532.3, 1089.2], [552.4, 1074.6], [598.8, 1045.1], [617.9, 1037.4], [647.3, 1104.0]]}, {"kind": "cove", "id": "rivers-235", "halfWidthM": 13.5, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[983.5, 2358.8], [972.4, 2205.2], [969.4, 2180.1], [964.7, 2183.4], [961.6, 2173.5]]}, {"kind": "cove", "id": "tubbs-creek", "name": "Tubbs Creek", "halfWidthM": 20.9, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[496.2, 3.6], [432.9, 36.8], [274.9, 88.4], [231.0, 109.9], [194.3, 138.1]]}, {"kind": "cove", "id": "rivers-247", "halfWidthM": 16.0, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[2296.2, 2641.4], [2298.1, 2644.4], [2311.9, 2640.5], [2292.3, 2652.2], [2304.1, 2664.8], [2295.5, 2676.9], [2302.4, 2675.2], [2297.3, 2687.6], [2379.9, 2652.2]]}, {"kind": "cove", "id": "rivers-258", "halfWidthM": 41.0, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[1551.1, 1891.9], [1637.1, 2020.6], [1624.2, 2031.5], [1617.8, 2026.3], [1618.4, 2033.4], [1574.1, 1998.2], [1478.0, 1864.5]]}, {"kind": "cove", "id": "rivers-264", "halfWidthM": 11.9, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[210.3, 1821.3], [227.2, 1781.5], [233.5, 1762.9], [222.7, 1767.6], [227.2, 1749.9], [260.0, 1682.6], [275.3, 1659.9]]}, {"kind": "cove", "id": "rivers-265", "halfWidthM": 14.7, "depthFt": 9.0, "anchorage": true, "centerline": [[471.4, 2349.9], [456.3, 2366.9], [341.8, 2466.6], [304.2, 2496.6], [303.4, 2492.1]]}, {"kind": "cove", "id": "rivers-277", "halfWidthM": 15.1, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[1619.3, 2244.3], [1613.2, 2285.8], [1649.4, 2321.0], [1649.4, 2362.3], [1641.6, 2370.5], [1684.8, 2340.5], [1685.1, 2348.7], [1665.3, 2320.6]]}, {"kind": "cove", "id": "rivers-279", "halfWidthM": 6.3, "depthFt": 9.0, "anchorage": true, "centerline": [[413.5, 271.6], [408.4, 266.4], [403.3, 253.0], [396.7, 246.9], [360.6, 214.5], [356.6, 213.0]]}, {"kind": "cove", "id": "camp-springs-branch", "name": "Camp Springs Branch", "halfWidthM": 16.4, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[372.2, 1488.6], [372.4, 1164.3], [368.0, 1099.9], [372.3, 999.7], [381.0, 930.8]]}, {"kind": "cove", "id": "rivers-284", "halfWidthM": 12.0, "depthFt": 9.0, "anchorage": true, "centerline": [[1925.9, 2400.3], [1853.0, 2429.6], [1772.8, 2452.4], [1670.3, 2497.3]]}, {"kind": "cove", "id": "rivers-285", "halfWidthM": 8.8, "depthFt": 3.0, "depthSurveyed": false, "centerline": [[74.3, 423.5], [97.8, 415.9], [124.5, 404.1], [153.0, 393.3]]}, {"kind": "basin", "id": "backwater-217-2", "name": "Backwater @ 217.2", "depthFt": 3.0, "depthSurveyed": false, "x": 2432.07, "z": 2749.39, "r": 48.2}, {"kind": "basin", "id": "rivers-19", "depthFt": 3.0, "depthSurveyed": false, "x": 2383.63, "z": 2248.02, "r": 35.6}, {"kind": "basin", "id": "rivers-98", "depthFt": 3.0, "depthSurveyed": false, "x": 2105.02, "z": 2788.08, "r": 77.3}, {"kind": "basin", "id": "rivers-195", "depthFt": 3.0, "depthSurveyed": false, "x": 300.93, "z": 1484.24, "r": 27.9}, {"kind": "basin", "id": "rivers-208", "depthFt": 3.0, "depthSurveyed": false, "x": 2070.1, "z": 2725.7, "r": 23.0}, {"kind": "basin", "id": "rivers-211", "depthFt": 3.0, "depthSurveyed": false, "x": 153.98, "z": 1610.32, "r": 44.2}, {"kind": "basin", "id": "rivers-252", "depthFt": 3.0, "depthSurveyed": false, "x": 2337.2, "z": 2932.38, "r": 57.2}, {"kind": "cove", "id": "pocket-3", "halfWidthM": 23.1, "depthFt": 9.0, "depthSurveyed": false, "centerline": [[618.0, 2293.2], [632.0, 2292.8], [674.3, 2355.6], [667.4, 2381.6], [683.8, 2402.9], [690.4, 2426.8], [707.0, 2441.8], [687.2, 2421.6], [691.5, 2431.2], [664.4, 2419.8], [672.5, 2421.7], [653.0, 2427.7], [670.7, 2416.7], [688.4, 2421.2], [720.8, 2402.2], [768.9, 2383.1], [839.6, 2369.9], [844.9, 2377.2], [855.9, 2367.1], [873.5, 2375.3], [919.6, 2363.3], [959.1, 2369.3], [1001.3, 2366.2], [1018.4, 2358.1], [1034.9, 2361.1], [1050.1, 2346.8], [1050.8, 2356.5], [1169.1, 2310.5], [1171.1, 2298.4], [1237.5, 2293.9], [1283.4, 2254.2], [1301.0, 2250.8], [1303.8, 2263.6], [1319.9, 2258.5], [1342.9, 2226.8], [1353.5, 2202.9], [1422.4, 2163.7], [1451.9, 2170.7], [1527.2, 2129.2], [1592.8, 2084.5], [1615.5, 2096.8], [1639.6, 2065.6], [1665.0, 2075.2], [1633.0, 2097.2], [1641.6, 2096.9], [1654.1, 2092.7], [1677.9, 2055.6], [1703.7, 2047.3], [1715.1, 2052.8]]}, {"kind": "cove", "id": "pocket-4", "halfWidthM": 20.0, "depthFt": 9.0, "depthSurveyed": false, "centerline": [[493.5, 1255.1], [514.1, 1241.7], [497.3, 1219.7], [521.0, 1212.3], [530.2, 1160.8], [500.6, 1111.7], [456.0, 1063.0], [440.6, 1056.9], [438.7, 1030.2], [415.3, 992.7], [385.3, 993.2], [380.4, 979.8], [351.6, 981.1], [335.9, 962.1], [339.7, 965.5], [338.0, 948.1], [331.4, 937.7], [341.3, 932.6], [297.2, 880.2], [297.6, 859.1], [311.3, 851.4], [310.5, 837.4], [324.6, 810.9], [321.3, 786.0], [308.9, 755.7], [278.1, 714.3], [274.6, 681.3], [273.9, 692.0], [297.9, 650.2], [320.4, 640.1], [312.7, 643.8], [320.9, 644.2], [305.9, 648.3], [302.5, 639.9], [316.7, 654.6], [329.5, 645.9], [330.6, 653.6], [344.6, 650.6], [346.1, 645.4], [363.3, 651.3], [381.2, 662.9], [387.5, 690.0], [402.2, 688.5], [455.2, 732.5], [502.6, 730.2], [563.2, 707.8], [562.5, 697.9], [579.6, 653.6], [578.7, 641.6], [587.2, 642.9], [578.8, 632.6], [595.3, 598.6], [612.6, 593.0], [631.5, 602.5], [647.6, 603.4], [653.5, 593.1], [639.3, 535.5], [645.3, 521.9], [678.9, 530.8], [700.1, 474.6], [666.8, 462.9], [670.7, 427.6], [660.6, 412.1], [668.8, 401.9], [610.5, 339.6]]}, {"kind": "cove", "id": "pocket-5", "halfWidthM": 26.3, "depthFt": 9.0, "depthSurveyed": false, "centerline": [[155.2, 684.0], [140.3, 651.3], [157.8, 605.9], [172.6, 591.3], [171.4, 579.1], [197.5, 555.2], [270.4, 510.7], [343.1, 507.0], [416.0, 515.7], [436.2, 525.7], [474.0, 569.0], [494.3, 572.0], [473.2, 567.2], [481.0, 572.3], [458.7, 580.6], [436.8, 578.4], [442.6, 573.6], [441.6, 577.9], [440.9, 564.9], [459.2, 560.9], [454.6, 552.7], [488.0, 498.1], [515.8, 495.6], [536.2, 477.3], [529.9, 470.4], [533.9, 458.3], [525.9, 473.6], [532.3, 486.7], [514.5, 424.4], [498.4, 424.3], [497.6, 418.0], [492.6, 423.6], [500.6, 403.8], [463.1, 380.1], [475.7, 406.6], [461.8, 404.6], [510.7, 413.5], [526.7, 396.7], [514.4, 398.0], [501.0, 386.4], [486.1, 391.2], [482.3, 399.5], [475.4, 392.2], [476.9, 405.4], [469.2, 401.3], [464.5, 421.3], [441.3, 412.4], [443.7, 425.1], [428.3, 427.4], [427.3, 445.0], [368.2, 458.1]]}, {"kind": "cove", "id": "pocket-6", "halfWidthM": 10.3, "depthFt": 9.0, "depthSurveyed": false, "centerline": [[780.5, 2511.5], [782.6, 2523.5], [774.1, 2512.4], [762.5, 2516.9], [714.0, 2574.0], [648.2, 2581.5], [643.4, 2572.0], [598.0, 2542.4], [556.8, 2481.2], [561.6, 2451.8], [558.2, 2431.6], [544.3, 2405.9], [548.8, 2415.0], [531.1, 2388.9], [516.2, 2387.8], [496.2, 2349.0], [473.4, 2335.5], [453.7, 2333.3], [442.0, 2289.2], [395.0, 2250.2], [379.4, 2203.2], [384.7, 2165.7], [368.9, 2147.4], [389.0, 2078.9], [370.2, 2062.3], [373.9, 2046.5], [393.2, 2020.4], [403.1, 1984.0], [433.2, 1952.6], [462.9, 1931.1], [551.2, 1916.2], [588.7, 1943.1], [613.0, 1936.1], [583.1, 1942.8], [600.9, 1935.6], [597.6, 1942.2], [604.1, 1935.7], [598.1, 1952.7], [604.9, 1883.7], [633.5, 1811.2], [628.6, 1812.5], [627.9, 1798.0], [614.5, 1800.1], [625.8, 1796.1], [609.5, 1780.1], [566.7, 1692.8], [552.6, 1686.3], [584.7, 1682.9], [594.8, 1630.2], [592.9, 1605.8], [683.9, 1531.4], [714.8, 1525.3], [738.2, 1497.5], [713.7, 1491.3], [711.9, 1478.4], [691.8, 1519.6], [710.4, 1570.7], [718.2, 1540.4], [730.9, 1531.6], [716.1, 1532.2], [708.2, 1518.0], [683.5, 1497.5], [690.9, 1513.3], [677.7, 1518.0], [724.1, 1508.2], [720.7, 1509.8], [725.7, 1491.1], [716.6, 1506.4], [702.6, 1503.5], [694.8, 1541.5], [640.4, 1566.3], [623.2, 1565.3], [616.0, 1582.6], [596.7, 1603.7], [578.1, 1598.3], [570.9, 1612.0], [519.9, 1604.6], [515.6, 1611.9], [485.9, 1615.5]]}, {"kind": "cove", "id": "pocket-7", "halfWidthM": 10.1, "depthFt": 9.0, "depthSurveyed": false, "centerline": [[1919.2, 2371.2], [1887.2, 2263.1], [1868.6, 2247.5], [1856.8, 2246.4], [1860.0, 2257.4], [1864.3, 2242.6], [1841.5, 2208.2], [1831.5, 2206.5], [1829.9, 2195.3], [1811.4, 2183.2], [1790.6, 2177.2], [1794.5, 2174.3], [1777.9, 2173.9], [1773.3, 2181.3], [1759.3, 2186.6], [1774.8, 2190.0], [1765.5, 2183.5], [1761.3, 2189.2], [1766.2, 2205.8], [1757.4, 2201.1], [1742.5, 2208.9], [1733.1, 2201.4], [1698.1, 2218.5], [1662.5, 2227.8], [1629.7, 2216.6], [1624.6, 2227.4], [1618.5, 2227.8], [1571.3, 2274.1], [1543.7, 2260.8], [1517.9, 2283.5], [1491.0, 2290.4], [1449.7, 2313.3]]}, {"kind": "cove", "id": "pocket-8", "halfWidthM": 14.9, "depthFt": 9.0, "depthSurveyed": false, "centerline": [[792.6, 2505.0], [833.8, 2498.8], [834.4, 2505.0], [841.5, 2495.2], [865.1, 2494.7], [874.3, 2503.9], [884.4, 2493.4], [903.5, 2504.7], [929.7, 2495.0], [970.7, 2488.6], [1028.2, 2492.6], [1035.2, 2503.9], [1095.0, 2474.6], [1104.4, 2462.1], [1144.9, 2457.8], [1219.0, 2422.7]]}, {"kind": "cove", "id": "pocket-9", "halfWidthM": 26.2, "depthFt": 9.0, "depthSurveyed": false, "centerline": [[160.8, 1535.0], [189.5, 1548.1], [185.3, 1565.2], [206.0, 1557.2], [199.9, 1580.2], [216.4, 1569.0], [256.1, 1599.6], [247.5, 1641.4], [266.4, 1614.5], [275.6, 1612.1], [286.6, 1619.2], [290.4, 1640.4], [301.6, 1625.8], [310.8, 1629.6], [318.1, 1625.0], [356.4, 1633.5], [372.2, 1625.7]]}, {"kind": "cove", "id": "pocket-10", "halfWidthM": 12.7, "depthFt": 9.0, "depthSurveyed": false, "centerline": [[404.1, 1376.1], [421.8, 1386.4], [433.6, 1381.6], [474.9, 1358.5], [478.2, 1354.7], [508.2, 1315.5], [483.8, 1289.7], [484.2, 1275.5]]}],
       centerline:[[0,0],[72.3,107],[112.1,202],[139.8,241.2],[202.9,297.7],[230.5,345.7],[248.2,390.2],[265.5,409.2],[285.4,418.3],[303.5,416],[370.4,384.7],[437.6,346.2],[499.2,321.6],[517.5,320.5],[535.3,332.7],[568,386.1],[600,460.6],[600.1,486.1],[585.4,515.8],[539.7,563.6],[506.5,621.1],[485.9,641.8],[472,646.5],[453.9,643.9],[410.4,610.4],[371.1,590],[321.3,576.3],[292,573.4],[274.3,577.9],[257.2,591.9],[216.6,653.4],[209.1,692.8],[231.5,778.2],[232.5,877.7],[266.4,967.2],[277.7,990.4],[296.4,1013.2],[353.2,1054.1],[385.7,1084.1],[437.3,1160.6],[444.9,1188.6],[416.4,1295.3],[400,1314.8],[283.7,1370.4],[169.8,1375.3],[148.2,1389],[141.7,1409.7],[155.8,1443.3],[195.6,1486.6],[273.4,1528.7],[351.1,1562.4],[458,1563.1],[535,1537.5],[631.1,1491.5],[649.8,1473.8],[673.1,1440.6],[692,1429.8],[713.3,1434],[740.9,1452.5],[776,1479.5],[796.9,1505.1],[797,1519.5],[786,1538.5],[679.7,1623.8],[656.3,1647.4],[646.6,1667.2],[646,1699.9],[683.3,1776.1],[690.2,1808.4],[688.7,1837.9],[660.5,1967.4],[641.3,1989.6],[608.4,2005.7],[525.2,1992],[503.3,1994.8],[486.6,2002.5],[469.9,2017],[460.9,2033.1],[442.2,2115.8],[442.3,2174.6],[452,2202.3],[491.1,2255.9],[596.1,2374.8],[637.2,2477.1],[651.7,2488.3],[673.5,2491],[814.9,2438.1],[869.8,2431.2],[1009.9,2425.5],[1067.6,2413.8],[1282.9,2336.6],[1346.5,2318.2],[1392.9,2276.5],[1432.5,2249.4],[1590.7,2162.1],[1612.1,2157.1],[1667.2,2157],[1726.3,2113.3],[1746.4,2104.3],[1779.5,2104.8],[1822.6,2114.9],[1848.4,2128.9],[1887.9,2162.2],[1924.5,2198.7],[1938.9,2220.1],[1976,2343.6],[2014.8,2431.2],[2026.2,2514.5],[2039.5,2527.2],[2099.4,2563.5],[2169.1,2639.5],[2185,2659.8],[2230.2,2744.4],[2235.6,2769.4],[2232.2,2843],[2244,2893.2],[2224.8,2971.6],[2236.2,3010.1],[2324.9,3118.6],[2348.3,3129],[2414.5,3134.7]],
       locks:[{id:"u37tt218-lok-1", name:"Howell Heflin Lock", atFrac:0, liftFt:36, dir:"down", dam:true, spillGates:6, chamberLenM:182.88, chamberWM:33.528}],
       spans:[{id:"u37tt218-brg-4", name:"Unnamed bridge near mile 266", kind:"fixed", atFrac:0, clearFt:50.3}],
@@ -2158,7 +2402,7 @@ const DATA = {
       walk:[
         {id:"deck", x0:-2.20,x1: 2.20,z0:-4.20,z1: 4.20,y:1.0}
       ],
-      roofY:2.45,
+      roofY:2.95,
       roof:[],
       ladders:[],
       stations:[
@@ -2181,9 +2425,9 @@ const DATA = {
       ],
       /* the cabin top: a second floor with its own grid, reached by the
          companionway ladder at the after end of the house */
-      roofY:2.45,
+      roofY:2.95,
       roof:[
-        {id:"housetop", x0:-1.30,x1: 1.30,z0:-2.95,z1: 1.45,y:2.45}
+        {id:"housetop", x0:-1.30,x1: 1.30,z0:-2.95,z1: 1.45,y:2.95}
       ],
       ladders:[ {lx:0, lz:-2.70, r:1.15} ],
       stations:[
@@ -2208,8 +2452,8 @@ const DATA = {
         {id:"cabin",    x0:-1.72,x1: 1.72,z0:-3.40,z1: 2.20,y:1.0},
         {id:"stern",    x0:-2.30,x1: 2.30,z0:-5.90,z1:-3.40,y:1.0}
       ],
-      roofY:2.52,
-      roof:[ {id:"sundeck", x0:-2.05,x1: 2.05,z0:-3.60,z1: 2.40,y:2.52} ],
+      roofY:2.98,
+      roof:[ {id:"sundeck", x0:-2.05,x1: 2.05,z0:-3.60,z1: 2.40,y:2.98} ],
       ladders:[ {lx:1.95, lz:-3.10, r:1.10} ],
       stations:[
         {id:"helm",    name:"the helm",     act:"HELM",   lx:0,    lz:2.85, r:1.20},
@@ -2231,8 +2475,8 @@ const DATA = {
         {id:"saloon",   x0:-1.14,x1: 1.14,z0:-1.60,z1: 2.60,y:0.95},
         {id:"cockpit",  x0:-1.62,x1: 1.62,z0:-4.30,z1:-1.60,y:0.95}
       ],
-      roofY:2.62,
-      roof:[ {id:"hardtop", x0:-1.05,x1: 1.05,z0:-1.40,z1: 2.40,y:2.62} ],
+      roofY:3.16,
+      roof:[ {id:"hardtop", x0:-1.05,x1: 1.05,z0:-1.40,z1: 2.40,y:3.16} ],
       ladders:[ {lx:-1.38, lz:-1.35, r:1.00} ],
       stations:[
         {id:"helm",    name:"the helm",     act:"HELM",   lx:0.62, lz:1.90, r:1.05},
@@ -2254,8 +2498,8 @@ const DATA = {
         {id:"saloon",   x0:-1.34,x1: 1.34,z0:-2.20,z1: 3.00,y:1.05},
         {id:"cockpit",  x0:-1.98,x1: 1.98,z0:-5.40,z1:-2.20,y:1.05}
       ],
-      roofY:3.05,
-      roof:[ {id:"flybridge", x0:-1.60,x1: 1.60,z0:-2.00,z1: 2.90,y:3.05} ],
+      roofY:3.30,
+      roof:[ {id:"flybridge", x0:-1.60,x1: 1.60,z0:-2.00,z1: 2.90,y:3.30} ],
       ladders:[ {lx:1.66, lz:-2.05, r:1.05} ],
       stations:[
         {id:"helm",     name:"the lower helm", act:"HELM",  lx:0.70, lz:2.30, r:1.10},
@@ -2278,8 +2522,8 @@ const DATA = {
         {id:"saloon",   x0:-2.05,x1: 2.05,z0:-2.60,z1: 3.40,y:1.10},
         {id:"cockpit",  x0:-2.85,x1: 2.85,z0:-6.00,z1:-2.60,y:1.10}
       ],
-      roofY:3.00,
-      roof:[ {id:"flybridge", x0:-2.30,x1: 2.30,z0:-2.40,z1: 3.20,y:3.00} ],
+      roofY:3.26,
+      roof:[ {id:"flybridge", x0:-2.30,x1: 2.30,z0:-2.40,z1: 3.20,y:3.26} ],
       ladders:[ {lx:2.42, lz:-2.40, r:1.10} ],
       stations:[
         {id:"helm",     name:"the helm",     act:"HELM",   lx:-0.90,lz:2.70, r:1.15},
@@ -2302,8 +2546,8 @@ const DATA = {
         {id:"saloon",   x0:-1.72,x1: 1.72,z0:-3.40,z1: 4.80,y:1.35},
         {id:"cockpit",  x0:-2.45,x1: 2.45,z0:-7.60,z1:-3.40,y:1.35}
       ],
-      roofY:3.55,
-      roof:[ {id:"flybridge", x0:-2.00,x1: 2.00,z0:-3.10,z1: 4.40,y:3.55} ],
+      roofY:3.66,
+      roof:[ {id:"flybridge", x0:-2.00,x1: 2.00,z0:-3.10,z1: 4.40,y:3.66} ],
       ladders:[ {lx:2.08, lz:-3.20, r:1.10} ],
       stations:[
         {id:"helm",     name:"the pilothouse helm", act:"HELM", lx:0.85,lz:3.90, r:1.15},
@@ -2530,6 +2774,8 @@ const Sim = {
       player:{ lx:0, ly:1.0, lz:2.05, yaw:0, mode:"helm", swim:false, wx:0, wz:0, wy:0, vy:0, air:false, ashore:false, inX:0, inZ:0, inT:0,
         hp:60, stam:70, warmth:100, wet:0, run:false, stamHold:0, foods:[],
         thirst:100, sickHrs:0,
+        xp:{seamanship:0, carpentry:0, fabrication:0, systems:0, woodcraft:0, galley:0},
+        log:{}, samples:{}, seeing:null, seeT:0,
         weapon:"", aim:false, steady:1, pitch:0, stand:"", rideOn:"", rideAt:null, lvl:0,
         carry:{}, worn:["pockets"],
         wearing:{head:"", torso:"tshirt", legs:"shorts", feet:"deckshoes", hands:""},
@@ -2538,7 +2784,7 @@ const Sim = {
         skills:{forage:{lvl:1,xp:0}, fishing:{lvl:1,xp:0}, trapping:{lvl:1,xp:0},
                 hunting:{lvl:1,xp:0}, cooking:{lvl:1,xp:0}, fab:{lvl:1,xp:0}},
         known:{} },
-      build:{ on:false, sel:"deck_plate", rot:0, remove:false, cx:0, cz:0, ok:false, why:"", where:"boat", lvl:0, edge:false, side:"N", picking:false, pick:0 },
+      build:{ on:false, sel:"deck_plate", rot:0, remove:false, cx:0, cz:0, ok:false, why:"", where:"boat", lvl:0, lvlPinned:null, reach:true, edge:false, side:"N", picking:false, pick:0, mat:"lumber" },
       nodes:[], landMods:[], nextLand:1, packedCamp:null,
       fish:{ state:"", tLeft:0, sp:"", spot:0 }, lastRainDay:-99,
       prep:{ on:false, station:"", key:"", items:[] }, cooks:{},
@@ -2551,6 +2797,7 @@ const Sim = {
       spans:{}, spanCalled:null, people:[], nextPerson:1,
       stores:{}, spoil:{}, invUI:null,
       character:null, docked:false, createUI:false, brokerUI:false, sandbox:false, paused:false,
+      overhead:false, over:{zoom:1, panX:0, panZ:0, tile:null, pick:0, quarter:0, tilt:0},
       wx:[], radio:{on:false, station:"", track:0, t:0}, radioUI:false,
       comms:false, forecastSeen:0,
       jobs:[], nextJob:1, jobsDay:-99, rep:0, busk:null, dockedNights:0, lastDockDay:-99,
@@ -2629,6 +2876,13 @@ const Sim = {
         if(B2.on){
           if(!S.player.swim) S.player.mode="foot";
           B2.remove=false;
+          /* A pin set in overhead was surviving into first person and
+             overriding the ray — and surviving a trip off the boat, so you
+             came back aboard unable to build on the deck you were standing
+             on. Opening the builder starts from where you actually are. */
+          B2.lvlPinned=null;
+          B2.lvl=S.player.lvl||0;
+          B2.sideLocked=false;
           B2.where = (S.player.swim && S.player.ashore) ? "land" : "boat";
           if(B2.where==="land"){ const f=DATA.modules.find(q=>q.place==="land"); if(f) B2.sel=f.id; }
           else if(this.placeOf(this.modDef(B2.sel)||{})==="land") B2.sel="deck_plate";
@@ -2641,8 +2895,19 @@ const Sim = {
       case "BUILD_ERASE":  S.build.remove=!S.build.remove;
                            S.notice=S.build.remove?"Remove mode":"Place mode"; break;
       case "BUILD_LEVEL": {
-        S.build.lvl = S.build.lvl>0 ? 0 : 1;
-        S.notice = "Building on the "+(S.build.lvl>0?"roof":"deck");
+        /* Cycle the pin: Auto, then each level that exists, then back. */
+        const top=this.buildableLevels(b);
+        if(S.build.lvlPinned===null || S.build.lvlPinned===undefined){
+          S.build.lvlPinned=0;
+        } else if(S.build.lvlPinned>=top){
+          S.build.lvlPinned=null;
+        } else {
+          S.build.lvlPinned=S.build.lvlPinned+1;
+        }
+        if(S.build.lvlPinned!==null) S.build.lvl=S.build.lvlPinned;
+        const n=S.build.lvlPinned;
+        S.notice = n===null ? "Level follows what you point at"
+                 : "Pinned to "+(n===0?"the deck":n===1?"the roof":"level "+n);
         break; }
       case "BUILD_PLACE": {
         const B2=S.build;
@@ -2685,6 +2950,18 @@ const Sim = {
         const D=this.modDef(B2.sel);
         if(D.recipe) for(const k in D.recipe) b.inv[k]-=D.recipe[k];
         if(D.cost) b.cash-=D.cost;
+        { const MD=this.modDef(B2.sel);
+          const metal = MD && (MD.cat==="power"||MD.cat==="water"||MD.install==="yard");
+          const sk = metal ? "fabrication" : "carpentry";
+          this.award(sk, "pieceBuilt");
+          // low skill wastes material, which is the honest cost of learning
+          if(MD && MD.recipe && this.wasteRoll(sk)){
+            const ks=Object.keys(MD.recipe);
+            const k2=ks[Math.floor(Math.random()*ks.length)];
+            if((b.inv[k2]||0) > 0){ b.inv[k2]--;
+              S.notice="Spoiled a "+DATA.materials[k2].name.toLowerCase()+" getting that right"; }
+          } }
+        this.carryTake(b,"cell",B2.sel);   // spend a carried one before stores
         b.modules.push({id:"m"+(b.nextMod++), defId:B2.sel, cx:B2.cx, cz:B2.cz,
                         rot:B2.rot, lvl:S.build.lvl||0});
         this.recomputeLoad(b);
@@ -3025,6 +3302,8 @@ const Sim = {
           const sp=this.pickWeighted(av);
           const qty=Math.max(1, 1+Math.round(Math.random()*2 + (lvl-1)*0.3));
           this.larderAdd(b,sp.id,qty); this.addXp("forage",sp.xp);
+          // having it in your hand settles what it was
+          { const e=this.logTouch(sp.id,"taken"); e.sampled=true; this.logResolve(sp.id); }
           n.readyDay=S.clock.day+D.respawnDays;
           S.notice="Took "+qty+"× "+sp.name.toLowerCase();
         } else {
@@ -3152,18 +3431,145 @@ const Sim = {
         S.notice="Back to how she left the yard";
         break; }
       case "CREATE_UI": S.createUI = c.payload.on!==undefined ? !!c.payload.on : !S.createUI; break;
+      case "OVERHEAD": {
+        const B=S.build;
+        const on = c.payload.on!==undefined ? !!c.payload.on : !S.overhead;
+        if(on && S.player.mode!=="helm" && S.player.mode!=="foot"){
+          S.notice="Come aboard first"; break; }
+        S.overhead = on;
+        if(on){
+          B.on=true; B.picking=false;
+          if(S.over===undefined) S.over={};
+          S.over.zoom = S.over.zoom || 1;
+          S.over.panX = 0; S.over.panZ = 0;
+          S.over.tile = null;
+          S.over.pick = 0;
+        }
+        break; }
+      case "OVER_ZOOM": {
+        if(!S.overhead) break;
+        const o=S.over;
+        o.zoom = clamp((o.zoom||1) * (c.payload.by || 1), 0.45, 2.6);
+        break; }
+      case "OVER_PAN": {
+        if(!S.overhead) break;
+        const o=S.over, z=o.zoom||1;
+        /* Screen space into world, for the quarter you're looking from. This
+           is the INVERSE rotation — the screen is the rotated frame, the hull
+           is the fixed one, so the mapping runs the other way. */
+        const a=(o.quarter||0)*Math.PI/2, ca=Math.cos(a), sa=Math.sin(a);
+        const dx=c.payload.dx||0, dz=c.payload.dz||0;
+        o.panX = clamp((o.panX||0) + (dx*ca + dz*sa)/z, -26, 26);
+        o.panZ = clamp((o.panZ||0) + (dz*ca - dx*sa)/z, -30, 30);
+        break; }
+      case "OVER_RECENTRE": {
+        if(!S.overhead) break;
+        S.over.panX=0; S.over.panZ=0; S.over.zoom=1;
+        S.over.quarter=0; S.over.tilt=0;
+        break; }
+      case "OVER_TURN": {
+        if(!S.overhead) break;
+        const d = c.payload.by===-1 ? 3 : 1;
+        S.over.quarter = (((S.over.quarter||0) + d) % 4 + 4) % 4;
+        S.over.tile=null;
+        break; }
+      case "OVER_TILT": {
+        if(!S.overhead) break;
+        S.over.tilt = S.over.tilt ? 0 : 1;   // reads as a boat / reads as a grid
+        break; }
+      /* Tap a tile to select it; tap the same tile again to cycle what's on
+         it. One gesture, no mode — the list is the one first-person already
+         uses, now with somewhere to show it. */
+      case "OVER_TAP": {
+        if(!S.overhead) break;
+        const o=S.over, B2=S.build;
+        const cx=Math.round(c.payload.cx), cz=Math.round(c.payload.cz);
+        // the side first, since the level depends on which boundary you mean.
+        // Re-tapping the same tile keeps the side — otherwise stacking is a
+        // lottery decided by exactly where your finger landed.
+        const same = o.tile && o.tile[0]===cx && o.tile[1]===cz;
+        if(B2.edge && !B2.sideLocked && !same) B2.side = this.nearestSide(
+          c.payload.x!==undefined ? c.payload.x : cx*DATA.grid.cell,
+          c.payload.z!==undefined ? c.payload.z : cz*DATA.grid.cell, cx, cz);
+        // no pitch to read up here, so take the lowest level that would fit
+        if(B2.lvlPinned===null || B2.lvlPinned===undefined){
+          const top=this.buildableLevels(b);
+          for(let L=0; L<=top; L++){
+            const free = B2.edge
+              ? (!this.edgeAt(b,cx,cz,B2.side||"N",L) && this.edgeStands(b,cx,cz,B2.side||"N",L))
+              : this.floorSupported(b,cx,cz,L);
+            if(free){ B2.lvl=L; break; }
+          }
+        }
+        B2.reach=true;
+        if(o.tile && o.tile[0]===cx && o.tile[1]===cz){
+          const list=this.thingsOn(b,cx,cz,B2.lvl||0);
+          o.pick = list.length ? ((o.pick||0)+1) % list.length : 0;
+        } else {
+          o.tile=[cx,cz]; o.pick=0;
+        }
+        B2.cx=cx; B2.cz=cz;
+        break; }
+      case "OVER_LEVEL": {
+        if(!S.overhead) break;
+        if(c.payload.auto){ S.build.lvlPinned=null; S.over.tile=null;
+          S.notice="Level follows what you point at"; break; }
+        const lv=c.payload.lvl|0;
+        S.build.lvl=lv; S.build.lvlPinned=lv;
+        // this tab moves you there as well, so that move is not "you walked
+        // off" and must not release the pin it just set
+        S.build._pinAt=lv;
+        // the whole point of the view: edit a level without climbing to it
+        S.player.lvl=lv;
+        S.player.ly=this.levelY(b,lv);
+        S.over.tile=null; S.over.pick=0;
+        break; }
       case "EDGE_MODE": {
         const B=S.build;
+        B.sideLocked=false;
         B.edge = c.payload.on!==undefined ? !!c.payload.on : !B.edge;
+        B.picking=false;
+        // the selection must follow the mode, or the next place has nothing to put
+        if(B.edge){
+          if(!this.edgeDef(B.sel)) B.sel = DATA.edgePieces[0].id;
+        } else {
+          if(!this.modDef(B.sel)){
+            const first=DATA.modules.find(m=>(m.place||"boat")===(B.where||"boat"));
+            B.sel = first ? first.id : "deck_plate";
+          }
+        }
         S.notice = B.edge ? "Edges \u2014 rails and barriers" : "Cells \u2014 floors and fittings";
         break; }
       case "EDGE_SIDE": {
         const B=S.build, i=this.edgeSides.indexOf(B.side||"N");
         B.side = this.edgeSides[(i+1)%4];
+        B.sideLocked = true;          // you've chosen; stop guessing for you
+        B.lockCx = B.cx; B.lockCz = B.cz;
+        S.notice = "Side locked to "+({N:"forward",S:"aft",E:"starboard",W:"port"}[B.side])
+                 + " \u2014 move to a new tile to free it";
+        break; }
+      case "SET_MAT": {
+        const m=c.payload.m;
+        if(!DATA.matTiers.defs[m]){ S.notice="No such material"; break; }
+        S.build.mat=m;
+        S.notice=this.matDef(m).name+" \u2014 "+this.matDef(m).blurb;
+        break; }
+      case "DOOR": {
+        const found=this.doorNear(b, S.player);
+        if(!found){ S.notice="No door within reach"; break; }
+        found.open=!found.open;
+        S.notice = found.open ? "Door open" : "Door shut";
+        break; }
+      case "MAINTAIN": {
+        const B=S.build;
+        const r=this.maintainEdge(b, B.cx, B.cz, B.side||"N");
+        S.notice = r.ok ? "Patched up \u2014 "+this.condWord(r.cond) : r.why;
         break; }
       case "EDGE_PLACE": {
         const B=S.build;
         if(!B.on || !B.edge) break;
+        // B.side is already maintained by the cursor and by OVER_TAP — do NOT
+        // recompute it here, or the piece lands somewhere the ghost never showed
         const r = B.remove
           ? this.removeEdge(b, B.cx, B.cz, B.side||"N")
           : this.placeEdge(b, B.sel, B.cx, B.cz, B.side||"N", B.lvl||0);
@@ -3178,6 +3584,39 @@ const Sim = {
       case "PICK_NEXT": { S.build.pick=(S.build.pick||0)+1; break; }
       case "PICK_UP": {
         if(this.pickUpHere()){ S.build.picking=false; }
+        break; }
+      case "CARRY_NEXT": {
+        const kit=this.carried();
+        if(!kit.length){ S.notice="You're not carrying any pieces"; break; }
+        const B=S.build;
+        let i=kit.findIndex(q=>q.defId===B.sel && (q.kind==="edge")===!!B.edge);
+        i=(i+1) % kit.length;
+        const it=kit[i];
+        B.sel=it.defId; B.edge=(it.kind==="edge"); B.rot=it.rot||0;
+        B.remove=false; B.picking=false;
+        const d = it.kind==="edge" ? this.edgeDef(it.defId) : this.modDef(it.defId);
+        S.notice = (d?d.name:"piece") + (it.n>1 ? "  \u00d7"+it.n : "");
+        break; }
+      case "SAMPLE": {
+        // a piece of the thing, not the thing — a feather off the water is a
+        // record of a heron without a dead heron
+        const P=S.player;
+        let id=c.payload && c.payload.id;
+        if(!id){
+          const w=this.playerWorld();
+          let best=null, bd=DATA.logbook.seeM*DATA.logbook.seeM;
+          (S.fauna||[]).forEach(f=>{
+            const D=this.faunaDef(f.kind); if(!D) return;
+            const dx=f.x-w.x, dz=f.z-w.z, d2=dx*dx+dz*dz;
+            if(d2<bd){ bd=d2; best=D.sp || f.kind; } });
+          if(!best){
+            const av=this.speciesHere(P.ashore ? "woods" : "bank");
+            if(av && av.length) best=av[0].id;
+          }
+          id=best;
+        }
+        if(!id){ S.notice="Nothing near enough to sample"; break; }
+        this.takeSample(id);
         break; }
       case "DRINK": this.drinkWater(); break;
       case "SCOOP": {
@@ -3416,6 +3855,8 @@ const Sim = {
           const n0=sp.yield[0], n1=sp.yield[1];
           const qty=Math.max(1, Math.round(n0 + Math.random()*(n1-n0) + (lvl-1)*0.3));
           this.larderAdd(b,sp.id,qty); this.addXp("forage",sp.xp);
+          // having it in your hand settles what it was
+          { const e=this.logTouch(sp.id,"taken"); e.sampled=true; this.logResolve(sp.id); }
           n.readyDay = S.clock.day + D.respawnDays;
           S.notice=(sp.prize?"A prize — ":"Picked ")+qty+"× "+sp.name.toLowerCase();
           break;
@@ -3466,13 +3907,19 @@ const Sim = {
           S.notice="Left the helm"; }
         else { P.mode="helm"; S.notice="At the helm"; }
         break; }
-      case "INTERACT": {
+      /* Making fast, or letting go. Same job, so it lives on the anchor —
+         which frees the hand to interact with everything else. */
+      case "MAKE_FAST": {
         const P=S.player;
-        if(S.docked && P.mode!=="foot" && !P.swim){
-          this.apply({type:"CAST_OFF",payload:{}}); break; }
-        // tying on beats everything else — it works from the helm or on deck
         if(S.lock && S.lock.phase==="inside" && !S.lock.secured){
           this.apply({type:"TIE_ON",payload:{}}); break; }
+        if(S.docked){ this.apply({type:"CAST_OFF",payload:{}}); break; }
+        this.apply({type:"ANCHOR",payload:{}});
+        break; }
+      case "INTERACT": {
+        const P=S.player;
+        // a door within reach is the commonest thing you want the hand for
+        if(this.doorNear(b, P)){ this.apply({type:"DOOR",payload:{}}); break; }
         if(P.mode==="dinghy"){
           const d=this.dinghyWorld();
           if(this.nearTrap(d[0],d[1])){ this.apply({type:"TRAP_CHECK",payload:{}}); break; }
@@ -3535,6 +3982,158 @@ const Sim = {
   /* ---- derived values (pure) ---- */
   hull(b){ return DATA.hulls.find(h=>h.id===b.hullId) || DATA.hulls[0]; },
   hullDef(id){ return DATA.hulls.find(h=>h.id===id); },
+
+  /* ---- SKILLS --------------------------------------------------------
+     Six of them, rising from what you already do. A skill never unlocks a
+     recipe — it governs how fast you work, how much you waste, and how often
+     you make a mess of it. */
+  /* ---- THE LOGBOOK ---------------------------------------------------
+     You are not handed a name. You get "a big grey wading bird", and work up
+     to "Great Blue Heron" through sightings, skill, a sample, or a photo. */
+  logOf(id){
+    const L=this.state.player.log;
+    return (L && L[id]) || null;
+  },
+  logStatus(id){ const e=this.logOf(id); return e ? e.status : "unknown"; },
+  logKnown(id){ return this.logStatus(id)==="confirmed"; },
+  /* What the logbook calls a thing you haven't pinned down yet. */
+  vagueName(def){
+    if(!def) return "something";
+    const k=def.group||def.kind||"";
+    if(def.vague) return def.vague;
+    if(k==="fish")   return "a fish";
+    if(k==="shellfish") return "a shellfish";
+    if(k==="reptile")   return "a reptile";
+    if(k==="fungus") return "a mushroom";
+    if(k==="forage" || k==="plant") return "a plant";
+    if(k==="bird")   return "a bird";
+    if(k==="mammal") return "an animal";
+    return "something";
+  },
+  /* An entry is created the first time you see it and sharpens from there. */
+  logTouch(id, how){
+    const S=this.state, P=S.player;
+    if(!P.log) P.log={};
+    let e=P.log[id];
+    if(!e){
+      e=P.log[id]={status:"unknown", seen:0, first:S.clock.day,
+                   where:this.seg().region || this.seg().id,
+                   sampled:false, photo:false};
+    }
+    e.seen++;
+    e.last=S.clock.day;
+    return e;
+  },
+  /* Sightings alone take a while; skill, a sample or a photo cut it. */
+  logResolve(id){
+    const e=this.logOf(id); if(!e) return "unknown";
+    const L=DATA.logbook;
+    const lvl=this.skillLevel("woodcraft");
+    let need=L.sightingsToConfirm - Math.floor(lvl/3);
+    if(e.sampled || e.photo) need=1;
+    const was=e.status;
+    e.status = e.seen>=Math.max(1,need) ? "confirmed"
+             : e.seen>=1 ? "tentative" : "unknown";
+    if(e.status!==was && e.status==="confirmed"){
+      const d=this.speciesDef(id);
+      this.state.notice="Logged: "+(d?d.name:id);
+      this.award("woodcraft","newSpecies");
+      this.state.flags.newLog=id;
+    }
+    return e.status;
+  },
+  speciesDef(id){
+    return DATA.species.find(s=>s.id===id)
+        || (DATA.fauna.kinds[id] ? {id, name:id, kind:"mammal"} : null);
+  },
+  /* An observation: close enough, still enough, long enough — and if you
+     can't hold it steady you get nothing, which is how birds work. */
+  observe(id, dtReal){
+    const P=this.state.player;
+    if(P.seeing!==id){ P.seeing=id; P.seeT=0; return false; }
+    P.seeT += dtReal;
+    if(P.seeT < DATA.logbook.holdS) return false;
+    P.seeing=null; P.seeT=0;
+    const e=this.logTouch(id,"seen");
+    this.logResolve(id);
+    if(e.seen===1){
+      const d=this.speciesDef(id);
+      this.state.notice="Noted "+(this.logKnown(id) ? d.name : this.vagueName(d));
+      this.award("woodcraft","forage",0.5);
+    }
+    return true;
+  },
+  /* A sample is a piece of the thing, not the thing. It confirms an entry and
+     it's a crafting input — a feather becomes a fly that catches a fish. */
+  sampleKindFor(def){
+    if(!def) return null;
+    const S=DATA.logbook.samples;
+    for(const k in S){
+      const from=S[k].from;
+      if(from.indexOf(def.id)>=0 || from.indexOf(def.kind)>=0) return k;
+    }
+    return null;
+  },
+  takeSample(id){
+    const St=this.state, P=St.player;
+    const d=this.speciesDef(id);
+    const kind=this.sampleKindFor(d);
+    if(!kind){ St.notice="Nothing to take from that"; return false; }
+    if(!P.samples) P.samples={};
+    P.samples[kind]=(P.samples[kind]||0)+1;
+    const e=this.logTouch(id,"sample");
+    e.sampled=true;
+    this.logResolve(id);
+    St.notice=DATA.logbook.samples[kind].name+" taken \u2014 "+
+      (this.logKnown(id) ? d.name : "and it settles what it was");
+    this.award("woodcraft","forage",1.5);
+    return true;
+  },
+  logCounts(){
+    const P=this.state.player, out={confirmed:0, tentative:0, total:0};
+    for(const k in (P.log||{})){
+      out.total++;
+      if(P.log[k].status==="confirmed") out.confirmed++;
+      else if(P.log[k].status==="tentative") out.tentative++;
+    }
+    return out;
+  },
+  xpOf(id){ const x=this.state.player.xp; return (x && x[id]) || 0; },
+  skillLevel(id){
+    const c=DATA.skills.curve, xp=this.xpOf(id);
+    for(let i=c.length-1;i>=0;i--) if(xp>=c[i]) return i;
+    return 0;
+  },
+  skillProgress(id){
+    const c=DATA.skills.curve, lv=this.skillLevel(id), xp=this.xpOf(id);
+    if(lv>=DATA.skills.max) return 1;
+    const a=c[lv], b=c[lv+1];
+    return clamp((xp-a)/Math.max(1,b-a), 0, 1);
+  },
+  /* Award, and say so when a level turns over — a number rising silently is
+     a number nobody notices. */
+  gainXP(id, n){
+    const P=this.state.player;
+    if(!P.xp) P.xp={};
+    if(!n || n<=0) return;
+    const was=this.skillLevel(id);
+    P.xp[id]=(P.xp[id]||0)+n;
+    const now=this.skillLevel(id);
+    if(now>was){
+      const d=DATA.skills.defs.find(q=>q.id===id);
+      this.state.notice=(d?d.name:id)+" is now "+now;
+      this.state.flags.skillUp=id;
+    }
+  },
+  award(id, key, mul){
+    const n=(DATA.skills.award[key]||0)*(mul===undefined?1:mul);
+    this.gainXP(id, n);
+  },
+  skillSpeed(id){   return DATA.skills.speedAt[this.skillLevel(id)]; },
+  skillWaste(id){   return DATA.skills.wasteAt[this.skillLevel(id)]; },
+  skillQuality(id){ return DATA.skills.qualityAt[this.skillLevel(id)]; },
+  /* Waste happens on placement: sometimes a piece eats an extra unit. */
+  wasteRoll(id){ return Math.random() < this.skillWaste(id); },
 
   /* ---- FRESH WATER ---------------------------------------------------
      A tank level in gallons plus a quality the tank remembers. Everything
@@ -3651,13 +4250,55 @@ const Sim = {
     }
     b.edges=out;
   },
-  placeEdge(b,defId,cx,cz,side,lvl){
-    if(this.edgeAt(b,cx,cz,side)) return {ok:false, why:"Something's already on that edge"};
+  placeEdge(b,defId,cx,cz,side,lvl,mat){
     const d=this.edgeDef(defId); if(!d) return {ok:false, why:"No such piece"};
-    const why=this.canAfford(b,d); if(why) return {ok:false, why};
-    if(d.recipe) for(const k in d.recipe) b.inv[k]-=d.recipe[k];
-    if(d.cost && this.state.money!==undefined) this.state.money-=d.cost;
-    this.edgesOf(b).push({id:"e"+Date.now().toString(36), defId, cx, cz, side, lvl:lvl||0});
+    const host=this.edgeAt(b,cx,cz,side,lvl||0);
+    if(d.fitting){
+      /* Fittings go into frames. A door without a doorway is a door leaning
+         against nothing. */
+      if(!host){
+        const names=this.fittingHosts(defId)
+          .map(h=>{ const q=this.edgeDef(h); return q?q.name.toLowerCase():h; });
+        return {ok:false, why:"Needs a "+names.join(" or ")+" to go in"};
+      }
+      if(host.fitting) return {ok:false, why:"That already has a "+
+        (this.edgeDef(host.fitting)||{name:"fitting"}).name.toLowerCase()+" in it"};
+      if(!this.fitsIn(defId, host.defId))
+        return {ok:false, why:"That won't fit a "+
+          (this.edgeDef(host.defId)||{name:"piece"}).name.toLowerCase()};
+    } else if(host){
+      return {ok:false, why:"Something's already on that edge"};
+    }
+    if(!d.fitting && !d.climb && !this.edgeStands(b,cx,cz,side,lvl||0))
+      return {ok:false, why:(lvl||0)>0 ? "Needs a wall or a floor under it"
+                                       : "Needs deck to stand on"};
+    if(d.climb && !this.ladderHolds(b,cx,cz,side,lvl||0))
+      return {ok:false, why:"Bolt it to a wall, or hang it off a floor edge"};
+    const m = mat || this.state.build.mat || this.defaultMat(defId);
+    if(this.matsFor(defId).indexOf(m)<0)
+      return {ok:false, why:"Not made in "+this.matDef(m).name.toLowerCase()};
+    const M=this.matDef(m);
+    // some materials need a station, and resin will not cure cold
+    if(M.needs && !this.hasStation(b, M.needs) && !this.atYard(b))
+      return {ok:false, why:"Needs a "+M.needs+" — or a yard"};
+    if(M.warmth && this.state.weather.tempF!==undefined && this.state.weather.tempF < 55)
+      return {ok:false, why:"Too cold for resin to cure"};
+    // one you're carrying costs nothing — you already paid for it once
+    const fromKit=this.carryTake(b,"edge",defId);
+    if(!fromKit){
+      const why=this.canAffordMat(b,d,m); if(why) return {ok:false, why};
+      if(d.recipe) for(const k in d.recipe) b.inv[k]-=Math.max(1,Math.round(d.recipe[k]*(M.costMul>2?0.5:1)));
+      if(M.recipe) for(const k in M.recipe) b.inv[k]=Math.max(0,(b.inv[k]||0)-M.recipe[k]);
+      const cash=this.pieceCost(defId,m);
+      if(cash && this.state.money!==undefined) this.state.money-=cash;
+    }
+    if(d.fitting){
+      host.fitting=defId; host.fitMat=m; host.fitCond=1; host.open=false;
+    } else {
+      this.edgesOf(b).push({id:"e"+Date.now().toString(36), defId, cx, cz, side,
+                            lvl:lvl||0, mat:m, cond:1});
+    }
+    if(!fromKit) this.award(M.flammable ? "carpentry" : "fabrication", "pieceWood");
     return {ok:true};
   },
   /* Pick up returns the piece whole. Nothing is lost and nothing is gained —
@@ -3718,6 +4359,15 @@ const Sim = {
     return cx+","+cz+","+side;
   },
   edgeSides:["N","E","S","W"],
+  /* Which boundary of this tile you're closest to. Picking a compass side by
+     hand is a thing no player should have to do — stand near the edge you mean
+     and that's the one you get. */
+  nearestSide(lx,lz,cx,cz){
+    const c=DATA.grid.cell;
+    const dx=lx-cx*c, dz=lz-cz*c;
+    if(Math.abs(dx) > Math.abs(dz)) return dx>0 ? "E" : "W";
+    return dz>0 ? "N" : "S";
+  },
   /* The line an edge occupies, in boat-local metres. */
   edgeLine(cx,cz,side){
     const c=DATA.grid.cell, x=cx*c, z=cz*c, h=c/2;
@@ -3730,11 +4380,112 @@ const Sim = {
     if(!b.edges) b.edges=[];
     return b.edges;
   },
-  edgeAt(b,cx,cz,side){
+  edgeAt(b,cx,cz,side,lvl){
     const k=this.edgeKey(cx,cz,side);
-    return this.edgesOf(b).find(e=>this.edgeKey(e.cx,e.cz,e.side)===k) || null;
+    // default to the deck; callers that mean another level say so
+    const L = lvl===undefined ? 0 : lvl;
+    return this.edgesOf(b).find(e=>
+      this.edgeKey(e.cx,e.cz,e.side)===k && (e.lvl||0)===L) || null;
   },
   edgeDef(id){ return DATA.edgePieces.find(p=>p.id===id); },
+
+  /* ---- MATERIALS AND WEAR -------------------------------------------
+     What actually goes wrong on a boat: UV above deck, fresh water standing
+     in joints, and salt everywhere near the coast. */
+  matDef(m){ return DATA.matTiers.defs[m] || DATA.matTiers.defs.lumber; },
+  matsFor(defId){
+    const d=this.edgeDef(defId) || this.modDef(defId);
+    return (d && d.mats) || ["lumber"];
+  },
+  defaultMat(defId){
+    const m=this.matsFor(defId);
+    return m.indexOf("lumber")>=0 ? "lumber" : m[0];
+  },
+  pieceMat(p){ return (p && p.mat) || "lumber"; },
+  pieceMass(defId, mat){
+    const d=this.edgeDef(defId) || this.modDef(defId);
+    return Math.round((d?d.mass:10) * this.matDef(mat).massMul);
+  },
+  pieceCost(defId, mat){
+    const d=this.edgeDef(defId) || this.modDef(defId);
+    const M=this.matDef(mat);
+    // if it has a recipe you make it; the cash price is the shop alternative
+    const base = (d && d.recipe) ? 0 : ((d&&d.cost)||0);
+    return Math.round(base * M.costMul + (M.cost||0));
+  },
+  /* Condition runs 1 (new) to 0 (failing). A piece is never destroyed by
+     weather — it gets bad enough that you have to deal with it. */
+  condOf(p){ return p && p.cond!==undefined ? p.cond : 1; },
+  condWord(c){
+    const T=DATA.matTiers;
+    return c>=T.tiredAt ? "sound" : c>=T.poorAt ? "tired"
+         : c>=T.failingAt ? "poor" : "failing";
+  },
+  /* Salt is the interesting one, and the game already knows where it is. */
+  saltHere(){
+    const seg=this.seg();
+    if(seg.tide) return 1;                       // tidal is salt or brackish
+    if(seg.form==="ocean" || seg.form==="bay") return 1;
+    if(seg.form==="marsh") return 0.6;
+    return 0;                                    // river and canal
+  },
+  /* Per game hour, and only the exposed ones. A wall inside the house is
+     sheltered by the pieces around it, which is what enclosure is FOR. */
+  wearRate(p, sheltered){
+    const M=this.matDef(this.pieceMat(p)), S=this.state;
+    const day=DATA.matTiers.wearPerDay/24;
+    const season=DATA.time.seasons[Math.floor((S.clock.day-1)/DATA.time.daysPerSeason)%4];
+    const sun = season==="Summer" ? 1.35 : season==="Winter" ? 0.55 : 1;
+    let r = day * (
+        M.uv   * sun * (sheltered?0.25:1)
+      + M.rot  * (S.weather.rain>0.15 ? 1.8 : 0.35) * (sheltered?0.3:1)
+      + M.salt * this.saltHere()
+    );
+    return r;
+  },
+  stepWear(dtHours){
+    const S=this.state, b=S.entities[S.playerBoatId];
+    if(!b.edges) return;
+    b.edges.forEach(e=>{
+      if(e.cond===undefined) e.cond=1;
+      const sheltered = !!this.edgeSheltered(b, e);
+      e.cond = clamp(e.cond - this.wearRate(e, sheltered)*dtHours, 0, 1);
+    });
+  },
+  /* A piece with enclosing pieces around it weathers far more slowly. */
+  edgeSheltered(b, e){
+    let n=0;
+    this.edgeSides.forEach(s=>{
+      const q=this.edgeAt(b, e.cx, e.cz, s);
+      if(!q || q===e) return;
+      const d=this.edgeDef(q.defId);
+      if(d && d.encloses) n++;
+    });
+    return n>=2;
+  },
+  /* Maintenance: the thing a boat needs constantly and a game usually forgets. */
+  canMaintain(b, e){
+    const d=this.edgeDef(e.defId); if(!d) return {ok:false, why:"Nothing there"};
+    if(this.condOf(e) > 0.985) return {ok:false, why:"That's sound"};
+    const M=this.matDef(this.pieceMat(e));
+    const need = M.flammable ? {plank:1} : {steel:1};
+    for(const k in need) if((b.inv[k]||0) < need[k])
+      return {ok:false, why:"Need "+need[k]+" "+DATA.materials[k].name.toLowerCase()};
+    return {ok:true, need};
+  },
+  maintainEdge(b, cx, cz, side){
+    const e=this.edgeAt(b,cx,cz,side);
+    if(!e) return {ok:false, why:"Nothing on that edge"};
+    const chk=this.canMaintain(b,e); if(!chk.ok) return chk;
+    for(const k in chk.need) b.inv[k]-=chk.need[k];
+    // a better hand puts more back
+    const q=this.skillQuality(this.matDef(this.pieceMat(e)).flammable
+      ? "carpentry" : "fabrication");
+    e.cond = clamp(this.condOf(e) + 0.30 + 0.35*q, 0, 1);
+    this.award(this.matDef(this.pieceMat(e)).flammable ? "carpentry":"fabrication",
+               "repair", 0.4);
+    return {ok:true, cond:e.cond};
+  },
 
   /* Everything standing on or around one tile, in one list. A module fills the
      tile; edge pieces stand on its four boundaries. To the player they are all
@@ -3748,12 +4499,17 @@ const Sim = {
         out.push({kind:"cell", id:m.id, defId:m.defId, name:D.name, m});
     });
     this.edgeSides.forEach(side=>{
-      const e=this.edgeAt(b,cx,cz,side);
-      if(!e || (e.lvl||0)!==L) return;
+      const e=this.edgeAt(b,cx,cz,side,L);
+      if(!e) return;
       const d=this.edgeDef(e.defId); if(!d) return;
+      const where=" ("+({N:"forward",S:"aft",E:"starboard",W:"port"}[side])+")";
+      if(e.fitting){
+        const fd=this.edgeDef(e.fitting);
+        out.push({kind:"edge", id:e.id+"-fit", defId:e.fitting,
+                  name:(fd?fd.name:"Fitting")+where, side, e, fit:true});
+      }
       out.push({kind:"edge", id:e.id, defId:e.defId,
-                name:d.name+" ("+({N:"forward",S:"aft",E:"starboard",W:"port"}[side])+")",
-                side, e});
+                name:d.name+where, side, e});
     });
     return out;
   },
@@ -3768,11 +4524,46 @@ const Sim = {
   },
   /* Pick up returns the piece whole — nothing lost, nothing gained — and puts
      it straight back in your hand. */
+  /* What you're carrying that can be put back down. */
+  carried(){
+    const b=this.state.entities[this.state.playerBoatId];
+    if(!b.carry) b.carry=[];
+    return b.carry;
+  },
+  carryAdd(b, kind, defId, rot){
+    if(!b.carry) b.carry=[];
+    const have=b.carry.find(q=>q.kind===kind && q.defId===defId);
+    if(have){ have.n++; return have; }
+    const it={kind, defId, rot:rot||0, n:1};
+    b.carry.push(it); return it;
+  },
+  carryTake(b, kind, defId){
+    if(!b.carry) return false;
+    const i=b.carry.findIndex(q=>q.kind===kind && q.defId===defId);
+    if(i<0) return false;
+    b.carry[i].n--;
+    if(b.carry[i].n<=0) b.carry.splice(i,1);
+    return true;
+  },
+  carryCount(b, kind, defId){
+    const it=(b.carry||[]).find(q=>q.kind===kind && q.defId===defId);
+    return it ? it.n : 0;
+  },
   pickUpHere(){
     const S=this.state, b=S.entities[S.playerBoatId], B=S.build;
     const t=this.pickTarget(b);
     if(!t){ S.notice="Nothing here to pick up"; return false; }
     if(t.kind==="edge"){
+      if(t.fit){
+        // take the fitting out and leave the frame standing
+        B.sel=t.e.fitting; B.edge=true; B.side=t.side; B.remove=false; B.pick=0;
+        this.carryAdd(b, "edge", t.e.fitting, 0);
+        t.e.fitting=null; t.e.fitMat=null; t.e.open=false;
+        S.notice="Took the "+t.name+" out";
+        return true;
+      }
+      if(t.e.fitting) return (S.notice="Take the "+
+        (this.edgeDef(t.e.fitting)||{name:"fitting"}).name.toLowerCase()+" out first", false);
       b.edges = this.edgesOf(b).filter(q=>q!==t.e);
       B.edge=true; B.side=t.side;
     } else {
@@ -3782,17 +4573,91 @@ const Sim = {
       b.modules = b.modules.filter(q=>q!==t.m);
       B.edge=false; B.rot=t.m.rot||0;
     }
+    // into your kit, not into your hand — but selected, so putting it back
+    // somewhere better is still one tap
+    this.carryAdd(b, t.kind, t.defId, t.kind==="cell" ? (t.m.rot||0) : 0);
+    B.edge = (t.kind==="edge");     // put down the sort of thing you picked up
     B.sel=t.defId; B.remove=false; B.pick=0;
-    S.notice="Picked up the "+t.name;
+    S.notice="Picked up the "+t.name+" \u2014 it's in your kit";
     return true;
   },
-  /* Does a piece on this boundary stop you crossing it? */
-  edgeBlocks(b,cx,cz,side){
-    const e=this.edgeAt(b,cx,cz,side); if(!e) return false;
-    const d=this.edgeDef(e.defId);
-    if(!d || !d.blocks) return false;
-    if(d.openable && e.open) return false;
-    return true;
+  /* Does a piece on this boundary stop you crossing it?
+     A doorway passes. A doorway with a door in it blocks until you open it. */
+  edgeBlocks(b,cx,cz,side,lvl){
+    const L = lvl===undefined ? (this.state.player.lvl||0) : lvl;
+    const e=this.edgeAt(b,cx,cz,side,L); if(!e) return false;
+    const d=this.edgeDef(e.defId); if(!d) return false;
+    const f=e.fitting ? this.edgeDef(e.fitting) : null;
+    if(f){
+      if(f.openable && e.open) return false;
+      return !!f.blocks;
+    }
+    return !!d.blocks;
+  },
+  /* An edge piece stands on the deck at level 0, and on the piece below it —
+     or on a floor — above that. Stacking is what makes a second storey. */
+  edgeStands(b, cx, cz, side, lvl){
+    const L=lvl||0;
+    if(L===0) return this.cellIsDeck(b,cx,cz);
+    if(this.edgeAt(b,cx,cz,side,L-1)) return true;      // the piece below
+    const nb={N:[0,1],S:[0,-1],E:[1,0],W:[-1,0]}[side]||[0,0];
+    const onFloor=(qx,qz)=>(b.modules||[]).some(m=>{
+      const MD=this.modDef(m.defId);
+      if(!MD || !MD.walkable || (m.lvl||0)!==L) return false;
+      return this.cells(MD,m.cx,m.cz,m.rot).some(p=>p[0]===qx && p[1]===qz);
+    });
+    if(onFloor(cx,cz) || onFloor(cx+nb[0], cz+nb[1])) return true;
+    if(L===1){
+      const D=this.deck(b), c=DATA.grid.cell, x=cx*c, z=cz*c;
+      if((D.roof||[]).some(r=>x>=r.x0-0.01&&x<=r.x1+0.01&&z>=r.z0-0.01&&z<=r.z1+0.01))
+        return true;
+    }
+    return false;
+  },
+  /* A ladder bolts to anything vertical on its boundary, or hangs off the lip
+     of a floor with nothing below it. */
+  ladderHolds(b, cx, cz, side, lvl){
+    const L=lvl||0;
+    const host=this.edgeAt(b,cx,cz,side,L);
+    if(host){
+      const d=this.edgeDef(host.defId);
+      if(d && (d.encloses || d.blocks)) return true;   // bolted to a wall
+    }
+    // or hung off a floor edge: floor this side, nothing the other
+    const nb={N:[0,1],S:[0,-1],E:[1,0],W:[-1,0]}[side]||[0,0];
+    const floorAt=(qx,qz,lv)=>(b.modules||[]).some(m=>{
+      const MD=this.modDef(m.defId);
+      if(!MD || !MD.walkable || (m.lvl||0)!==lv) return false;
+      return this.cells(MD,m.cx,m.cz,m.rot).some(p=>p[0]===qx && p[1]===qz);
+    }) || (L===0 && this.cellIsDeck(b,qx,qz));
+    return floorAt(cx,cz,L) || floorAt(cx+nb[0],cz+nb[1],L);
+  },
+  /* The nearest door you could actually reach. */
+  doorNear(b, P){
+    if(!P || P.mode==="dinghy" || P.swim) return null;
+    const c=DATA.grid.cell;
+    const cx=Math.round(P.lx/c), cz=Math.round(P.lz/c);
+    let found=null;
+    [[cx,cz],[cx+1,cz],[cx-1,cz],[cx,cz+1],[cx,cz-1]].forEach(q=>{
+      this.edgeSides.forEach(sd=>{
+        if(found) return;
+        const e=this.edgeAt(b,q[0],q[1],sd);
+        if(!e || !e.fitting) return;
+        const fd=this.edgeDef(e.fitting);
+        if(fd && fd.openable) found=e;
+      });
+    });
+    return found;
+  },
+  /* A fitting goes INTO something; it never stands on its own. */
+  isFitting(defId){ const d=this.edgeDef(defId); return !!(d && d.fitting); },
+  fitsIn(fitId, hostId){
+    const d=this.edgeDef(fitId);
+    return !!(d && d.fits && d.fits.indexOf(hostId)>=0);
+  },
+  fittingHosts(fitId){
+    const d=this.edgeDef(fitId);
+    return (d && d.fits) || [];
   },
   /* Which boundary lies between two neighbouring cells. */
   sideBetween(ax,az,bx,bz){
@@ -3906,16 +4771,18 @@ const Sim = {
   season(){ const S=this.state;
     return DATA.time.seasons[Math.floor((S.clock.day-1)/DATA.time.daysPerSeason)%4]; },
   rainedRecently(days){ return (this.state.clock.day - this.state.lastRainDay) <= days; },
-  skill(id){ return this.state.player.skills[id] || {lvl:1,xp:0}; },
-  xpToNext(lvl){ return Math.round(DATA.skills.curve*Math.pow(lvl,DATA.skills.exp)); },
+  /* kept for anything still asking the old way */
+  skill(id){ const k=this.XP_MAP[id]||id;
+    return {lvl:this.skillLevel(k), xp:this.xpOf(k)}; },
+  xpToNext(lvl){ const c=DATA.skills.curve;
+    return (c[Math.min(lvl+1,DATA.skills.max)]||c[c.length-1]) - (c[lvl]||0); },
+  /* The old tags were finer on nature and coarser on building. They map onto
+     the six, so every existing call site keeps working and there is one
+     system rather than two that disagree. */
+  XP_MAP:{ forage:"woodcraft", fishing:"woodcraft", trapping:"woodcraft",
+           hunting:"woodcraft", cooking:"galley", fab:"carpentry" },
   addXp(id,n){
-    const S=this.state, sk=S.player.skills[id]; if(!sk) return;
-    if(sk.lvl>=DATA.skills.maxLevel) return;
-    sk.xp+=n;
-    while(sk.lvl<DATA.skills.maxLevel && sk.xp>=this.xpToNext(sk.lvl)){
-      sk.xp-=this.xpToNext(sk.lvl); sk.lvl++;
-      S.notice=DATA.skills.names[id]+" is now level "+sk.lvl;
-    }
+    this.gainXP(this.XP_MAP[id] || id, n);
   },
   /* ---- what is available here, right now ---- */
   speciesHere(habitat){
@@ -4372,6 +5239,51 @@ const Sim = {
     }
     return {d:Math.sqrt(best), i:bi, t:bt, side:bside};
   },
+  /* A spatial index over a body's segments. A depth lookup only cares about
+     water within reach of the point, so each segment is filed in every cell
+     its reach touches, and a lookup checks only its own cell. Without this a
+     generated segment with ninety coves walked every point of every line. */
+  segGrid(body){
+    if(body._grid) return body._grid;
+    const G=64, pts=body.line.pts;
+    let wMax=body.halfWidthM||60;
+    (body.widthProfile||[]).forEach(q=>{ if(q[1]>wMax) wMax=q[1]; });
+    const pad=wMax*1.25+40;
+    const g=new Map();
+    for(let i=0;i<pts.length-1;i++){
+      const ax=pts[i][0], az=pts[i][1], bx=pts[i+1][0], bz=pts[i+1][1];
+      const c0=Math.floor((Math.min(ax,bx)-pad)/G), c1=Math.floor((Math.max(ax,bx)+pad)/G);
+      const r0=Math.floor((Math.min(az,bz)-pad)/G), r1=Math.floor((Math.max(az,bz)+pad)/G);
+      for(let cx=c0;cx<=c1;cx++) for(let cz=r0;cz<=r1;cz++){
+        const k=cx*100003+cz;
+        let a=g.get(k); if(!a){ a=[]; g.set(k,a); }
+        a.push(i);
+      }
+    }
+    body._grid={G, g, pad};
+    return body._grid;
+  },
+  /* nearOn, but only among segments that could be within reach. Returns null
+     when nothing is — which is the answer a depth lookup wants anyway. */
+  nearOnReach(body,x,z){
+    const bb=body.bbox;
+    if(x<bb[0]||x>bb[2]||z<bb[1]||z>bb[3]) return null;
+    const gr=this.segGrid(body);
+    const idx=gr.g.get(Math.floor(x/gr.G)*100003+Math.floor(z/gr.G));
+    if(!idx) return null;
+    const pts=body.line.pts;
+    let best=1e9, bi=0, bt=0, bside=1;
+    for(let k=0;k<idx.length;k++){
+      const i=idx[k];
+      const ax=pts[i][0],az=pts[i][1],bx=pts[i+1][0],bz=pts[i+1][1];
+      const abx=bx-ax,abz=bz-az, apx=x-ax,apz=z-az;
+      const t=clamp((apx*abx+apz*abz)/Math.max(abx*abx+abz*abz,1e-4),0,1);
+      const dx=apx-abx*t, dz=apz-abz*t;
+      const d=dx*dx+dz*dz;
+      if(d<best){ best=d; bi=i; bt=t; bside=(abx*apz-abz*apx)<0?-1:1; }
+    }
+    return {d:Math.sqrt(best), i:bi, t:bt, side:bside};
+  },
   /* how much water ONE body has at a point. Negative means it isn't there. */
   bodyDepth(body,x,z){
     if(body.kind==="basin"){
@@ -4384,7 +5296,8 @@ const Sim = {
       const wob=1+Math.sin(Math.atan2(z-body.z,x-body.x)*3.1)*0.10;
       return body.depthFt * Math.min(1, f*wob*2.4);
     }
-    const n=this.nearOn(body,x,z);
+    // only segments that could reach this point — see nearOnReach
+    const n=this.nearOnReach(body,x,z);
     if(!n) return -99;
     const w=this.bodyWidthAt(body,n.i,n.t);
     if(n.d>w) return -99;
@@ -4421,11 +5334,32 @@ const Sim = {
     return k(i)*(1-t)+k(Math.min(n-1,i+1))*t;
   },
   /* THE function. The deepest answer any body gives. */
-  fieldDepthFt(x,z){
+  /* Which bodies could possibly have water at this point. With a hundred
+     bodies on a generated segment, asking every one of them for every point
+     of a depth bake was five million calls, nearly all answering "not me". */
+  bodyGrid(){
     const bs=this.bodies();
+    if(this._bgFor===bs && this._bg) return this._bg;
+    const G=96, g=new Map();
+    bs.forEach((b,bi)=>{
+      const q=b.bbox; if(!q) return;
+      for(let cx=Math.floor(q[0]/G); cx<=Math.floor(q[2]/G); cx++)
+        for(let cz=Math.floor(q[1]/G); cz<=Math.floor(q[3]/G); cz++){
+          const k=cx*100003+cz;
+          let a=g.get(k); if(!a){ a=[]; g.set(k,a); }
+          a.push(bi);
+        }
+    });
+    this._bg={G,g}; this._bgFor=bs;
+    return this._bg;
+  },
+  fieldDepthFt(x,z){
+    const bs=this.bodies(), gr=this.bodyGrid();
+    const idx=gr.g.get(Math.floor(x/gr.G)*100003+Math.floor(z/gr.G));
+    if(!idx) return -99;
     let best=-99;
-    for(let i=0;i<bs.length;i++){
-      const d=this.bodyDepth(bs[i],x,z);
+    for(let k=0;k<idx.length;k++){
+      const d=this.bodyDepth(bs[idx[k]],x,z);
       if(d>best) best=d;
     }
     return best;
@@ -5192,24 +6126,68 @@ const Sim = {
   resetLevel(){ const P=this.state.player; P.lvl=0;
     const b=this.state.entities[this.state.playerBoatId];
     P.ly=this.levelY(b,0); P.air=false; P.vy=0; this.state.build.lvl=0; },
+  /* ---- LEVELS ---------------------------------------------------------
+     Level 0 and 1 come from the hull, so every hand-authored deck keeps
+     working. Above that, a level exists because you built a floor at it and
+     sits one wall-height higher than the one below. */
+  storeyH(){ return DATA.levels.storeyM || 2.10; },
   levelY(b,lvl){
     const D=this.deck(b);
-    return lvl>0 ? (D.roofY||2.45) : 1.0;
+    if(lvl<=0) return 1.0;
+    const roof = D.roofY || (1.0 + this.storeyH());
+    if(lvl===1) return roof;
+    return roof + (lvl-1)*this.storeyH();
   },
+  /* The highest level with any floor on it. A level you cannot stand on is
+     not a level — it's a gap. */
+  topLevel(b){
+    const D=this.deck(b);
+    let top = (D.roof && D.roof.length) ? 1 : 0;
+    (b.modules||[]).forEach(m=>{ const MD=this.modDef(m.defId);
+      if(MD && MD.walkable) top=Math.max(top, m.lvl||0); });
+    return top;
+  },
+  /* One more than the top, so you can always build the next one up. */
+  buildableLevels(b){ return this.topLevel(b) + 1; },
   /* what you can walk on, at the level you're on */
   walkRects(b,lvl){
     const D=this.deck(b);
     if(lvl>0){
-      const out=(D.roof||[]).slice();
+      const y=this.levelY(b,lvl);
+      const out = lvl===1 ? (D.roof||[]).slice() : [];
       b.modules.forEach(m=>{ const MD=this.modDef(m.defId);
-        if(!MD || !MD.walkable || (m.lvl||0)!==1) return;
+        if(!MD || !MD.walkable || (m.lvl||0)!==lvl) return;
         const c=DATA.grid.cell, cs=this.cells(MD,m.cx,m.cz,m.rot);
         cs.forEach(q=>out.push({id:"p"+m.id, x0:q[0]*c-c/2, x1:q[0]*c+c/2,
-          z0:q[1]*c-c/2, z1:q[1]*c+c/2, y:(D.roofY||2.45)}));
+          z0:q[1]*c-c/2, z1:q[1]*c+c/2, y}));
       });
       return out;
     }
     return this.deck(b).walk;
+  },
+  /* A floor needs something beneath it, or the boat becomes a cloud. */
+  floorSupported(b, cx, cz, lvl){
+    if(lvl<=0) return true;
+    if(lvl===1){
+      // the hull's own roof counts, and so does a wall below
+      const D=this.deck(b), c=DATA.grid.cell, x=cx*c, z=cz*c;
+      if((D.roof||[]).some(r=>x>=r.x0-0.01&&x<=r.x1+0.01&&z>=r.z0-0.01&&z<=r.z1+0.01))
+        return true;
+    }
+    // a wall on any boundary of this cell, one level down
+    const below=lvl-1;
+    if(this.edgeSides.some(sd=>{
+      const e=this.edgeAt(b,cx,cz,sd,below);
+      if(!e) return false;
+      const d=this.edgeDef(e.defId);
+      return !!(d && d.encloses);
+    })) return true;
+    // or a floor beside it that is itself held up
+    return [[1,0],[-1,0],[0,1],[0,-1]].some(q=>
+      (b.modules||[]).some(m=>{ const MD=this.modDef(m.defId);
+        if(!MD || !MD.walkable || (m.lvl||0)!==lvl) return false;
+        return this.cells(MD,m.cx,m.cz,m.rot)
+          .some(p=>p[0]===cx+q[0] && p[1]===cz+q[1]); }));
   },
   ladderNear(b,lx,lz){
     const D=this.deck(b);
@@ -5222,11 +6200,23 @@ const Sim = {
       if(!MD || !MD.ladder) return;
       const c=DATA.grid.cell, d=Math.hypot(lx-m.cx*c, lz-m.cz*c);
       if(d<1.2 && d<bd){ bd=d; best={lx:m.cx*c, lz:m.cz*c, r:1.2}; } });
+    // a built ladder lives on a boundary, so look for one near this level
+    const lv=this.state.player.lvl||0;
+    (b.edges||[]).forEach(e=>{
+      const d=this.edgeDef(e.defId);
+      if(!d || !d.climb) return;
+      const eLv=e.lvl||0;
+      if(eLv!==lv && eLv!==lv-1) return;      // the one you are on, or below you
+      const ln=this.edgeLine(e.cx,e.cz,e.side);
+      const mx=(ln[0]+ln[2])/2, mz=(ln[1]+ln[3])/2;
+      const dd=Math.hypot(lx-mx, lz-mz);
+      if(dd<1.3 && dd<bd){ bd=dd; best={lx:mx, lz:mz, r:1.3}; }
+    });
     return best;
   },
   canGoLevel(b,lvl){
     const P=this.state.player;
-    if(lvl<0 || lvl>=DATA.levels.count) return false;
+    if(lvl<0 || lvl>this.topLevel(b)) return false;
     if(!this.ladderNear(b,P.lx,P.lz)) return false;
     return this.walkRects(b,lvl).some(r=>
       P.lx>=r.x0-0.15 && P.lx<=r.x1+0.15 && P.lz>=r.z0-0.15 && P.lz<=r.z1+0.15);
@@ -6194,6 +7184,27 @@ const Sim = {
     }
     return false;
   },
+  /* What you're looking at, and whether you've held it long enough. Passive —
+     no menu per sighting, or the logbook becomes filing rather than reading. */
+  stepWatching(dt){
+    const S=this.state, P=S.player;
+    if(S.paused || P.mode==="helm" && false) return;
+    const w=this.playerWorld();
+    const scoped = P.aim || P.scoped;
+    const range = scoped ? DATA.logbook.seeMScope : DATA.logbook.seeM;
+    let best=null, bd=range*range;
+    (S.fauna||[]).forEach(f=>{
+      const D=this.faunaDef(f.kind); if(!D) return;
+      const id=D.sp || f.kind;
+      const dx=f.x-w.x, dz=f.z-w.z, d2=dx*dx+dz*dz;
+      if(d2 < bd){ bd=d2; best=id; }
+    });
+    // a moving boat is a poor hide — you have to slow down to look
+    const b=S.entities[S.playerBoatId];
+    if(best && Math.abs(this.knots(b)) > 6 && P.mode!=="foot"){ best=null; }
+    if(!best){ P.seeing=null; P.seeT=0; return; }
+    this.observe(best, dt);
+  },
   stepFauna(dt){
     const S=this.state, H=DATA.hunting, F=DATA.fauna;
     while(S.fauna.length<F.count){
@@ -6348,6 +7359,23 @@ const Sim = {
   },
 
   /* Thirst, rain, and the watermaker. All per dtHours — standing rule 1. */
+  /* Miles under way, hours at night, hours with the radio on. All per
+     dtHours — standing rule 1. */
+  stepSkills(dtHours){
+    const S=this.state, b=S.entities[S.playerBoatId], P=S.player;
+    if(!P.xp) P.xp={seamanship:0,carpentry:0,fabrication:0,systems:0,woodcraft:0,galley:0};
+    const kn=Math.abs(this.knots(b));
+    if(kn > 0.4 && P.mode!=="foot"){
+      const miles = kn*dtHours;
+      this.gainXP("seamanship", miles*DATA.skills.award.mileRun);
+      const h=S.clock.hour%24;
+      if(h<5.5 || h>19.5) this.gainXP("seamanship", dtHours*DATA.skills.award.nightHour);
+      if(S.weather.windKt > 26) this.gainXP("seamanship", dtHours*DATA.skills.award.gale/8);
+    }
+    // the net, the lock chatter, the weather — learning while you steer
+    if((S.radio && S.radio.on) || (S.vhf && S.vhf.on))
+      this.gainXP("seamanship", dtHours*DATA.skills.award.radioHour);
+  },
   stepWater(dtHours){
     const S=this.state, P=S.player, b=S.entities[S.playerBoatId];
     const V=DATA.vitals;
@@ -6483,36 +7511,66 @@ const Sim = {
     return this._pier;
   },
   atYard(b){ const y=this.yardPos(); return Math.hypot(b.x-y[0], b.z-y[1]) < DATA.yard.radiusM; },
+  /* A material can cost money, materials, or both. */
+  canAffordMat(b,D,m){
+    const M=this.matDef(m);
+    if(D.recipe) for(const k in D.recipe){
+      const n=Math.max(1,Math.round(D.recipe[k]*(M.costMul>2?0.5:1)));
+      if((b.inv[k]||0) < n) return "Need "+n+" "+DATA.materials[k].name.toLowerCase();
+    }
+    if(M.recipe) for(const k in M.recipe)
+      if((b.inv[k]||0) < M.recipe[k]) return "Need "+M.recipe[k]+" "+DATA.materials[k].name.toLowerCase();
+    const cash=this.pieceCost(D.id,m);
+    if(cash && (this.state.money||0) < cash) return "$"+cash+" and you're short";
+    return null;
+  },
+  hasStation(b, id){
+    return (b.modules||[]).some(m=>{ const d=this.modDef(m.defId);
+      return d && (d.station===id || d.id===id); });
+  },
   canAfford(b,D){
     if(D.recipe) for(const k in D.recipe) if((b.inv[k]||0) < D.recipe[k]) return "Need "+D.recipe[k]+"× "+DATA.materials[k].name;
     if(D.cost && b.cash < D.cost) return "Need $"+D.cost;
     return null;
   },
   /* on the roof you have to be standing on something */
-  roofSupported(b,cx,cz,rot,D){
+  /* Anything above the deck needs something under every cell it covers —
+     the hull's own roof, a floor at that level, or a wall holding it up. */
+  roofSupported(b,cx,cz,rot,D,lvl){
+    const L = lvl===undefined ? (this.state.build.lvl||1) : lvl;
     const c=DATA.grid.cell, Dk=this.deck(b);
     const cs=this.cells(D,cx,cz,rot);
+    const walkable=!!D.walkable;
     return cs.every(q=>{
       const x=q[0]*c, z=q[1]*c;
-      if((Dk.roof||[]).some(r=>x>=r.x0-0.05&&x<=r.x1+0.05&&z>=r.z0-0.05&&z<=r.z1+0.05))
-        return true;
-      return b.modules.some(m=>{ const MD=this.modDef(m.defId);
-        if(!MD||!MD.walkable||(m.lvl||0)!==1) return false;
-        return this.cells(MD,m.cx,m.cz,m.rot).some(w=>w[0]===q[0]&&w[1]===q[1]); });
+      if(L===1 && (Dk.roof||[]).some(r=>
+        x>=r.x0-0.05&&x<=r.x1+0.05&&z>=r.z0-0.05&&z<=r.z1+0.05)) return true;
+      // a floor AT this level holds up anything standing on it
+      if(b.modules.some(m=>{ const MD=this.modDef(m.defId);
+        if(!MD||!MD.walkable||(m.lvl||0)!==L) return false;
+        return this.cells(MD,m.cx,m.cz,m.rot).some(w=>w[0]===q[0]&&w[1]===q[1]); }))
+        return !walkable ? true : false;   // a floor can't sit on a floor
+      // a floor itself only needs something beneath it
+      return walkable ? this.floorSupported(b,q[0],q[1],L) : false;
     });
   },
   canPlace(b,defId,cx,cz,rot){
     const D=this.modDef(defId); if(!D) return {ok:false,why:"No such module"};
     if(this.placeOf(D)!=="boat") return {ok:false,why:"That belongs ashore"};
     if(D.install==="yard" && !this.atYard(b)) return {ok:false,why:"Boatyard work only"};
-    const short=this.canAfford(b,D); if(short) return {ok:false,why:short};
+    // a module you're carrying is already paid for
+    if(!this.carryCount(b,"cell",defId)){
+      const short=this.canAfford(b,D); if(short) return {ok:false,why:short}; }
     const cs=this.cells(D,cx,cz,rot);
     const lvl=this.state.build.lvl||0;
     if(lvl>0){
-      if(!this.roofSupported(b,cx,cz,rot,D))
-        return {ok:false,why:"Nothing under it up here"};
+      if(this.state.build.reach===false)
+        return {ok:false,why:"Too far to reach \u2014 build up to it"};
+      if(!this.roofSupported(b,cx,cz,rot,D,lvl))
+        return {ok:false,why:D.walkable ? "Needs a wall or a floor under it"
+                                        : "Nothing under it up here"};
       for(let k=0;k<cs.length;k++){
-        const taken=b.modules.some(m=>(m.lvl||0)===1 && this.cells(this.modDef(m.defId),
+        const taken=b.modules.some(m=>(m.lvl||0)===lvl && this.cells(this.modDef(m.defId),
           m.cx,m.cz,m.rot).some(w=>w[0]===cs[k][0]&&w[1]===cs[k][1]));
         if(taken) return {ok:false,why:"Something's already there"};
       }
@@ -6997,12 +8055,22 @@ const Sim = {
     })(this);
 
     this.moveActor(b, dt);
+    /* Move to a different level and the pin lets go — it means "hold this
+       one while I work here", not "never follow me again". */
+    if(this.state.build.lvlPinned!==null && this.state.build.lvlPinned!==undefined
+       && this.state.player.lvl!==this.state.build._pinAt){
+      if(this.state.build._pinAt!==undefined) this.state.build.lvlPinned=null;
+    }
+    this.state.build._pinAt=this.state.player.lvl||0;
+    this.stepSkills(dtHours);
+    this.stepWear(dtHours);
     this.stepWater(dtHours);
     this.stepVitals(dt, dtHours);
     this.stepFishing(dt);
     this.stepCooking(dtHours);
     this.stepTraps(dtHours);
     this.stepFauna(dt);
+    this.stepWatching(dt);
     this.stepLaw(dtHours);
     this.stepDiving(dt, dtHours);
     this.stepTraffic(dt, dtHours);
@@ -7192,12 +8260,142 @@ const Sim = {
       S.build.where = (P.swim && P.ashore) ? "land" : "boat";
       const ox = S.build.where==="land" ? P.wx : P.lx;
       const oz = S.build.where==="land" ? P.wz : P.lz;
-      const gx=ox-Math.sin(P.yaw)*g.ghostDist, gz=oz+Math.cos(P.yaw)*g.ghostDist;
-      S.build.cx=Math.round(gx/g.cell); S.build.cz=Math.round(gz/g.cell);
+      /* A real ray, not a flat projection. The height it lands at decides the
+         level, so looking up a stack of walls targets the tops in turn. */
+      const pit = clamp(P.pitch||0, -1.1, 1.1);
+      const cosP = Math.cos(pit);
+      const dx = -Math.sin(P.yaw)*cosP, dz = Math.cos(P.yaw)*cosP, dy = Math.sin(pit);
+      const eye = (P.ly!==undefined ? P.ly : this.levelY(b,P.lvl||0)) + (this.deck(b).eyeH||1.62);
+      const reach = DATA.grid.reachM;
+      // walk the ray out until it passes through a level's floor plane
+      let gx=ox+dx*g.ghostDist, gz=oz+dz*g.ghostDist, hitLvl=P.lvl||0, hitDist=g.ghostDist;
+      /* Overhead targets by tap and has no pitch to read. Letting the
+         first-person ray keep running up there overwrote the level every
+         frame, so a tap on the deck placed at level 1. */
+      if(S.build.where!=="land" && !S.overhead){
+        const top=this.buildableLevels(b);
+        let best=null;
+        for(let L=0; L<=top; L++){
+          const y=this.levelY(b,L);
+          // the band this level occupies: its floor up to the next floor
+          const yTop=this.levelY(b,L+1);
+          if(Math.abs(dy)<1e-4){
+            if(eye>=y-0.15 && eye<yTop-0.05){ best={L, t:g.ghostDist}; break; }
+            continue;
+          }
+          const t=(y-eye)/dy;
+          if(t<0.35 || t>reach) continue;
+          /* Take the HIGHEST level the ray crosses, not the nearest plane.
+             Level 1's plane sits just above your head, so nearest-wins meant
+             looking steeply up still targeted it and you could never reach
+             level 2. Look higher, target higher. */
+          if(!best || L>best.L) best={L, t};
+        }
+        if(!best){
+          // nothing crossed: stay on the level you're standing on
+          const t=Math.min(g.ghostDist, reach);
+          best={L:P.lvl||0, t};
+        }
+        hitLvl=best.L; hitDist=best.t;
+        gx=ox+dx*hitDist; gz=oz+dz*hitDist;
+
+        /* A plane crossing gives a height, not a thing. So look for an actual
+           piece the ray passes near and snap to the top of it — which is what
+           "put a wall on that wall" means. */
+        if(S.build.edge || this.modDef(S.build.sel)){
+          const cc=DATA.grid.cell;
+          let snap=null, sd2=0.78*0.78;
+          (b.edges||[]).forEach(e=>{
+            const ed=this.edgeDef(e.defId); if(!ed) return;
+            const L2=(e.lvl||0);
+            const ln=this.edgeLine(e.cx,e.cz,e.side);
+            const mx=(ln[0]+ln[2])/2, mz=(ln[1]+ln[3])/2;
+            const topY=this.levelY(b,L2)+ed.h;
+            // distance from the ray to the top-centre of this piece
+            const t=(mx-ox)*dx + (mz-oz)*dz + (topY-eye)*dy;
+            if(t<0.3 || t>reach) return;
+            const px=ox+dx*t, pz=oz+dz*t, py=eye+dy*t;
+            const d2=(px-mx)*(px-mx)+(pz-mz)*(pz-mz)+(py-topY)*(py-topY);
+            if(d2<sd2){ sd2=d2; snap={e, L:L2+1}; }
+          });
+          if(snap){
+            gx=snap.e.cx*cc; gz=snap.e.cz*cc;
+            let L=snap.L;
+            /* Pointing at a stack means "put it on top", not "one above the
+               piece I happen to be nearest". Climb past what's already there. */
+            if(S.build.edge){
+              const topY=()=>this.levelY(b,L);
+              while(this.edgeAt(b,snap.e.cx,snap.e.cz,snap.e.side,L)
+                    && L < DATA.levels.count){
+                L++;
+              }
+              // but you still have to be able to reach it
+              const need=(topY()-eye);
+              if(dy>0.02 && need/dy > reach) S.build.reach=false;
+            }
+            hitLvl=L;
+            // a wall's top is a boundary for an edge piece and a cell for a floor
+            S.build.snapSide = S.build.edge ? snap.e.side : null;
+          } else S.build.snapSide=null;
+        } else S.build.snapSide=null;
+        S.build.lvl = S.build.lvlPinned!==null && S.build.lvlPinned!==undefined
+          ? S.build.lvlPinned : hitLvl;
+        S.build.reach = hitDist<=reach;
+      }
+      const pcx=S.build.cx, pcz=S.build.cz;
+      /* Overhead targets by tap, not by where you're standing — letting the
+         walking cursor keep writing would undo every tap. */
+      if(!S.overhead){
+        let ncx=Math.round(gx/g.cell), ncz=Math.round(gz/g.cell);
+        /* If the raw cursor lands somewhere nothing can go — off the edge of
+           a small roof, say — slide to the nearest cell that works. That's
+           the ghost snapping in rather than sitting uselessly in mid-air. */
+        const fits=(qx,qz)=>S.build.edge
+          ? this.edgeStands(b,qx,qz,S.build.snapSide||S.build.side||"N",S.build.lvl||0)
+          : (S.build.lvl||0)===0 ? this.cellIsDeck(b,qx,qz)
+                                 : this.floorSupported(b,qx,qz,S.build.lvl||0);
+        if(!fits(ncx,ncz)){
+          let best=null, bd=1e9;
+          for(let ax=-1; ax<=1; ax++) for(let az=-1; az<=1; az++){
+            const qx=ncx+ax, qz=ncz+az;
+            if(!fits(qx,qz)) continue;
+            const d=Math.hypot(qx*g.cell-gx, qz*g.cell-gz);
+            if(d<bd && d<g.cell*1.6){ bd=d; best=[qx,qz]; }
+          }
+          if(best){ ncx=best[0]; ncz=best[1]; }
+        }
+        S.build.cx=ncx; S.build.cz=ncz;
+      }
+      if(S.build.sideLocked &&
+         (S.build.cx!==S.build.lockCx || S.build.cz!==S.build.lockCz))
+        S.build.sideLocked=false;
+      if(S.build.edge && !S.build.sideLocked)
+        S.build.side = S.build.snapSide
+          || this.nearestSide(gx, gz, S.build.cx, S.build.cz);
       if(S.build.where==="land"){
         const chk=this.canPlaceLand(S.build.sel,S.build.cx,S.build.cz,S.build.rot);
         S.build.ok = S.build.remove ? !!this.landModAt(S.build.cx,S.build.cz) : chk.ok;
         S.build.why = S.build.remove ? "" : chk.why;
+      } else if(S.build.edge){
+        /* Edge mode has its own rules. Asking canPlace about a rail gets
+           "No such module" — which hid the ghost and produced the error. */
+        const B3=S.build, taken=!!this.edgeAt(b,B3.cx,B3.cz,B3.side||"N",B3.lvl||0);
+        const d=this.edgeDef(B3.sel);
+        if(B3.remove){ B3.ok=taken; B3.why=taken?"":"Nothing on that edge"; }
+        else if(!d){ B3.ok=false; B3.why="Nothing selected"; }
+        else if(taken){ B3.ok=false; B3.why="Something's already there"; }
+        else if(B3.reach===false){ B3.ok=false; B3.why="Too far to reach \u2014 build up to it"; }
+        else if(!this.edgeStands(b,B3.cx,B3.cz,B3.side||"N",B3.lvl||0)){
+          B3.ok=false;
+          B3.why=(B3.lvl||0)>0
+            ? (this.topLevel(b)>=(B3.lvl||0)
+               ? "Nothing there to build on" : "Needs a wall or a floor under it")
+            : "Out over the water \u2014 needs deck under it"; }
+        else if(d.install==="yard" && !this.atYard(b)){ B3.ok=false; B3.why="Boatyard work only"; }
+        else {
+          const afford = this.carryCount(b,"edge",B3.sel) ? null : this.canAfford(b,d);
+          B3.ok=!afford; B3.why=afford||"";
+        }
       } else {
         const chk=this.canPlace(b,S.build.sel,S.build.cx,S.build.cz,S.build.rot);
         S.build.ok=S.build.remove ? !!(this.cellOccupant(b,S.build.cx,S.build.cz)||this.structureAt(b,S.build.cx,S.build.cz)) : chk.ok;
@@ -8496,8 +9694,14 @@ const Render = {
      the placed piece doesn't. */
   makeGhostArt(kind, defId, rot){
     const T=this.three;
+    if(!this.ghostArt || !this.ghostArt.parent){
+      // the boat was rebuilt and took the group with it
+      this.ghostArt=new T.Group(); this.ghostArt.visible=false;
+      this.boat.add(this.ghostArt); this.ghostSig="";
+    }
     const sig=kind+"|"+defId+"|"+(rot||0);
-    if(sig===this.ghostSig) return;
+    // never trust the signature alone — an empty group means rebuild regardless
+    if(sig===this.ghostSig && this.ghostArt.children.length) return;
     this.ghostSig=sig;
     while(this.ghostArt.children.length) this.ghostArt.remove(this.ghostArt.children[0]);
     let mesh=null;
@@ -8535,6 +9739,30 @@ const Render = {
     }
     if(mesh) this.ghostArt.add(mesh);
   },
+  /* Screen point to a tile on the current level. No raycaster needed — the
+     build plane is flat and boat-local, so unproject to a ray and meet it. */
+  tileAt(px, py){
+    const T=this.three, b=Sim.state.entities[Sim.state.playerBoatId];
+    if(!this.boat || !this.cam) return null;
+    // this runs from an event, not the frame loop — the matrix may be a frame old
+    this.boat.updateMatrixWorld(true);
+    this.cam.updateMatrixWorld(true);
+    const ndc=new T.Vector3((px/innerWidth)*2-1, -(py/innerHeight)*2+1, 0.5);
+    ndc.unproject(this.cam);
+    const origin=this.cam.position.clone();
+    const dir=ndc.sub(origin).normalize();
+    // into boat-local, where the deck is a plane at a known height
+    const inv=new T.Matrix4().copy(this.boat.matrixWorld).invert();
+    const o=origin.clone().applyMatrix4(inv);
+    const d=dir.clone().transformDirection(inv);
+    const y=Sim.levelY(b, Sim.state.build.lvl||0);
+    if(Math.abs(d.y) < 1e-6) return null;
+    const t=(y-o.y)/d.y;
+    if(t < 0) return null;                 // behind the camera
+    const lx=o.x+d.x*t, lz=o.z+d.z*t;
+    const c=DATA.grid.cell;
+    return {x:lx, z:lz, cx:Math.round(lx/c), cz:Math.round(lz/c)};
+  },
   syncTileMark(){
     const T=this.three, B=Sim.state.build;
     if(!this.tileMark){
@@ -8551,7 +9779,9 @@ const Render = {
     const b=Sim.state.entities[Sim.state.playerBoatId], c=DATA.grid.cell;
     this.tileMark.scale.set(c*0.94, 1, c*0.94);
     this.tileMark.position.set(B.cx*c, Sim.levelY(b,B.lvl||0)+0.012, B.cz*c);
-    this.tileMark.material.color.setHex(B.picking ? 0xc9a227 : 0x4fb477);
+    this.tileMark.material.color.setHex(
+      Sim.state.overhead ? (Sim.state.over.tile ? 0xc9a227 : 0x4fb477)
+                         : B.picking ? 0xc9a227 : 0x4fb477);
   },
   buildEdgeLayer(){
     const T=this.three;
@@ -8569,14 +9799,134 @@ const Render = {
       const [ax,az,bx,bz]=Sim.edgeLine(e.cx,e.cz,e.side);
       const len=Math.hypot(bx-ax,bz-az);
       const y0=Sim.levelY(b, e.lvl||0);
-      const col=(d.look&&d.look.c)!==undefined ? d.look.c : 0xb9bfc4;
+      /* Colour comes from the material, darkened by how tired it is —
+         weathering you can see, the way Valheim does it. */
+      const MM=Sim.matDef(Sim.pieceMat(e));
+      const base=(MM.look&&MM.look.c)!==undefined ? MM.look.c
+               : ((d.look&&d.look.c)!==undefined ? d.look.c : 0xb9bfc4);
+      const cond=Sim.condOf(e);
+      const grey=(c0,f)=>{
+        const r=(c0>>16)&255, g2=(c0>>8)&255, b2=c0&255;
+        const m2=(r+g2+b2)/3;
+        const mix=(v)=>Math.round(v*f + m2*(1-f)*0.72);
+        return (mix(r)<<16)|(mix(g2)<<8)|mix(b2);
+      };
+      const col=grey(base, 0.45+0.55*cond);
       const kind=(d.look&&d.look.kind)||"rail";
       const mat=M(col);
-      if(kind==="glass" || kind==="solid"){
+      const glassM=new T.MeshPhongMaterial({shininess:26,color:0x16232b,
+        transparent:true,opacity:0.55,flatShading:true});
+      /* A frame draws itself, then whatever is fitted into it. */
+      const fitD = e.fitting ? Sim.edgeDef(e.fitting) : null;
+      const fitKind = fitD ? ((fitD.look&&fitD.look.kind)||"") : "";
+      const fitCol = fitD
+        ? grey((Sim.matDef(e.fitMat||e.mat).look||{}).c || 0xa88a5e, 0.45+0.55*cond)
+        : col;
+      const fitM = M(fitCol);
+      if(kind==="frame" || kind==="winframe" || kind==="door" || kind==="window" || kind==="port"){
+        const T_=0.09, jamb=0.055;
+        // two jambs and a head — the opening is what makes it a doorway
+        [-1,1].forEach(sg=>{
+          const p=new T.Mesh(new T.BoxGeometry(jamb,d.h,T_),mat);
+          p.position.set((ax+bx)/2 + (bx-ax)/2*sg*(1-jamb/len),
+                         y0+d.h/2,
+                         (az+bz)/2 + (bz-az)/2*sg*(1-jamb/len));
+          p.rotation.y=-Math.atan2(bz-az, bx-ax);
+          grp.add(p);
+        });
+        const head=new T.Mesh(new T.BoxGeometry(len,0.16,T_),mat);
+        head.position.set((ax+bx)/2, y0+d.h-0.08, (az+bz)/2);
+        head.rotation.y=-Math.atan2(bz-az, bx-ax);
+        grp.add(head);
+        if(kind==="winframe"){
+          // sill and apron — the hole starts at chest height
+          const low=new T.Mesh(new T.BoxGeometry(len,0.86,T_),mat);
+          low.position.set((ax+bx)/2, y0+0.43, (az+bz)/2);
+          low.rotation.y=-Math.atan2(bz-az, bx-ax); grp.add(low);
+          const sill=new T.Mesh(new T.BoxGeometry(len,0.12,T_*1.4),mat);
+          sill.position.set((ax+bx)/2, y0+0.92, (az+bz)/2);
+          sill.rotation.y=-Math.atan2(bz-az, bx-ax); grp.add(sill);
+        }
+        /* ---- and now whatever is fitted into it ---- */
+        if(fitKind==="door"){
+          /* Hinged on the jamb, not spinning about its middle. */
+          const lw=len-jamb*2;
+          const hinge=new T.Group();
+          hinge.position.set(ax + (bx-ax)*(jamb/len), y0, az + (bz-az)*(jamb/len));
+          hinge.rotation.y = -Math.atan2(bz-az, bx-ax);
+          if(e.open) hinge.rotation.y += 1.75;
+          const leaf=new T.Mesh(new T.BoxGeometry(lw, d.h-0.16, 0.06),fitM);
+          leaf.position.set(lw/2, (d.h-0.16)/2, 0);
+          hinge.add(leaf);
+          grp.add(hinge);
+        } else if(fitKind==="window"){
+          const pane=new T.Mesh(new T.BoxGeometry(len-jamb*2, d.h-1.12, 0.03),glassM);
+          pane.position.set((ax+bx)/2, y0+0.98+(d.h-1.12)/2, (az+bz)/2);
+          pane.rotation.y=-Math.atan2(bz-az, bx-ax); grp.add(pane);
+        } else if(fitKind==="port"){
+          const ring=new T.Mesh(new T.TorusGeometry(0.19,0.04,6,14),fitM);
+          ring.position.set((ax+bx)/2, y0+1.42, (az+bz)/2);
+          ring.rotation.y=-Math.atan2(bz-az, bx-ax); grp.add(ring);
+          const gl=new T.Mesh(new T.CircleGeometry(0.17,14),glassM);
+          gl.position.copy(ring.position); gl.rotation.copy(ring.rotation);
+          grp.add(gl);
+        }
+        if(false){
+          const leaf=new T.Mesh(new T.BoxGeometry(len-jamb*2, d.h-0.16, 0.06),mat);
+          leaf.position.set((ax+bx)/2, y0+(d.h-0.16)/2, (az+bz)/2);
+          leaf.rotation.y=-Math.atan2(bz-az, bx-ax);
+          if(e.open) leaf.rotation.y += 1.15;
+          grp.add(leaf);
+        } else if(kind==="window"){
+          const sill=new T.Mesh(new T.BoxGeometry(len,0.12,T_),mat);
+          sill.position.set((ax+bx)/2, y0+0.92, (az+bz)/2);
+          sill.rotation.y=-Math.atan2(bz-az, bx-ax); grp.add(sill);
+          const pane=new T.Mesh(new T.BoxGeometry(len-jamb*2, d.h-1.12, 0.03),glassM);
+          pane.position.set((ax+bx)/2, y0+0.98+(d.h-1.12)/2, (az+bz)/2);
+          pane.rotation.y=-Math.atan2(bz-az, bx-ax); grp.add(pane);
+          const low=new T.Mesh(new T.BoxGeometry(len,0.86,T_),mat);
+          low.position.set((ax+bx)/2, y0+0.43, (az+bz)/2);
+          low.rotation.y=-Math.atan2(bz-az, bx-ax); grp.add(low);
+        } else if(kind==="port"){
+          const wall2=new T.Mesh(new T.BoxGeometry(len,d.h-0.16,T_),mat);
+          wall2.position.set((ax+bx)/2, y0+(d.h-0.16)/2, (az+bz)/2);
+          wall2.rotation.y=-Math.atan2(bz-az, bx-ax); grp.add(wall2);
+          const ring=new T.Mesh(new T.TorusGeometry(0.17,0.035,6,12),mat);
+          ring.position.set((ax+bx)/2, y0+1.42, (az+bz)/2);
+          ring.rotation.y=-Math.atan2(bz-az, bx-ax); grp.add(ring);
+          const gl=new T.Mesh(new T.CircleGeometry(0.15,12),glassM);
+          gl.position.copy(ring.position); gl.rotation.copy(ring.rotation);
+          grp.add(gl);
+        }
+      } else if(kind==="ladder"){
+        const stileW=0.055, off=len*0.30;
+        [-1,1].forEach(sg=>{
+          const st=new T.Mesh(new T.BoxGeometry(stileW,d.h,stileW),mat);
+          st.position.set((ax+bx)/2 + (bx-ax)/len*off*sg, y0+d.h/2,
+                          (az+bz)/2 + (bz-az)/len*off*sg);
+          grp.add(st);
+        });
+        const rungs=Math.max(5, Math.round(d.h/0.30));
+        for(let i=1;i<rungs;i++){
+          const r2=new T.Mesh(new T.BoxGeometry(off*2, 0.04, 0.04),mat);
+          r2.position.set((ax+bx)/2, y0 + d.h*(i/rungs), (az+bz)/2);
+          r2.rotation.y=-Math.atan2(bz-az, bx-ax);
+          grp.add(r2);
+        }
+      } else if(kind==="glass" || kind==="solid"){
         const p=new T.Mesh(new T.BoxGeometry(len,d.h,kind==="solid"?0.10:0.05),mat);
         p.position.set((ax+bx)/2, y0+d.h/2, (az+bz)/2);
         p.rotation.y = -Math.atan2(bz-az, bx-ax);
         grp.add(p);
+        // a porthole is a hole cut in a wall, so it can sit in any of them
+        if(fitKind==="port"){
+          const ring=new T.Mesh(new T.TorusGeometry(0.19,0.04,6,14),fitM);
+          ring.position.set((ax+bx)/2, y0+Math.min(1.42,d.h*0.68), (az+bz)/2);
+          ring.rotation.y=-Math.atan2(bz-az, bx-ax); grp.add(ring);
+          const gl=new T.Mesh(new T.CircleGeometry(0.17,14),glassM);
+          gl.position.copy(ring.position); gl.rotation.copy(ring.rotation);
+          grp.add(gl);
+        }
       } else {
         for(let i=0;i<=1;i++){
           const f=i, post=new T.Mesh(new T.CylinderGeometry(0.035,0.035,d.h,5),mat);
@@ -8590,11 +9940,11 @@ const Render = {
       }
     });
     this.boat.add(grp); this.edgeGroup=grp;
-    this.edgeSig = edges.map(e=>e.defId+e.cx+","+e.cz+e.side+(e.lvl||0)).join("|");
+    this.edgeSig = edges.map(e=>e.defId+e.cx+","+e.cz+e.side+(e.lvl||0)+"|"+(e.mat||"")+"|"+(e.fitting||"")+"|"+Math.round(Sim.condOf(e)*12)+(e.open?"o":"")).join("|");
   },
   syncEdgeLayer(){
     const b=Sim.state.entities[Sim.state.playerBoatId];
-    const sig=Sim.edgesOf(b).map(e=>e.defId+e.cx+","+e.cz+e.side+(e.lvl||0)).join("|");
+    const sig=Sim.edgesOf(b).map(e=>e.defId+e.cx+","+e.cz+e.side+(e.lvl||0)+"|"+(e.mat||"")+"|"+(e.fitting||"")+"|"+Math.round(Sim.condOf(e)*12)+(e.open?"o":"")).join("|");
     if(sig!==this.edgeSig) this.buildEdgeLayer();
   },
   syncHullMesh(){
@@ -8603,6 +9953,7 @@ const Render = {
     if(this.boat){ this.scene.remove(this.boat); this.boat=null; }
     this.buildBoat();
     this.modSig=null; this.edgeSig=null; this.edgeGroup=null;
+    this.ghostArt=null; this.ghostSig="";
     this.buildEdgeLayer();
     this.buildModuleLayer && this.buildModuleLayer();
     this.buildLadders && this.buildLadders();
@@ -9740,7 +11091,7 @@ const Render = {
 
   syncModules(b){
     const T=this.three;
-    const sig=b.modules.map(m=>m.id+m.defId+m.cx+","+m.cz+","+m.rot+","+(m.lvl||0)).join("|");
+    const sig=b.modules.map(m=>m.id+m.defId+m.cx+","+m.cz+","+m.rot+","+(m.lvl||0)).join("|")+"|"+Sim.topLevel(b);
     if(sig===this.modSig) return;
     this.modSig=sig;
     while(this.modGroup.children.length) this.modGroup.remove(this.modGroup.children[0]);
@@ -9752,7 +11103,9 @@ const Render = {
       const cs=Sim.cells(D,m.cx,m.cz,m.rot);
       let sx=0,sz=0; cs.forEach(q=>{sx+=q[0]*c;sz+=q[1]*c;});
       // walkable structure is flush with its floor; everything else sits on it
-      const floor = (m.lvl||0)>0 ? Sim.levelY(b,1) : 1.0;
+      // (this was pinned to level 1, so a floor built at level 3 was drawn
+      //  down on the roof and every one after it vanished into the same place)
+      const floor = Sim.levelY(b, m.lvl||0);
       const base = D.mount==="surface" ? floor+0.90 : (D.walkable ? floor-D.h : floor);
       mesh.position.set(sx/cs.length, base, sz/cs.length);
       this.modGroup.add(mesh);
@@ -9765,7 +11118,7 @@ const Render = {
     this.gridMesh.visible = B.on && !land;
     // the roof has its own floor, so it needs its own grid
     { const bb=Sim.state.entities[Sim.state.playerBoatId];
-      const gy=(B.lvl||0)>0 ? Sim.levelY(bb,1)+0.02 : 1.012;
+      const gy=(B.lvl||0)>0 ? Sim.levelY(bb,B.lvl)+0.02 : 1.012;
       if(Math.abs(this.gridMesh.position.y-(gy-1.012))>0.001)
         this.gridMesh.position.y = gy-1.012; }
     if(!this.landGhost){
@@ -9791,14 +11144,20 @@ const Render = {
       return;
     }
     this.landGhost.visible=false;
-    const D=Sim.modDef(B.remove?"deck_plate":B.sel); if(!D){ this.ghost.visible=false; return; }
+    /* A rail has no module definition, so looking one up and giving up was
+       hiding the edge ghost entirely. In edge mode the tile itself is the
+       footprint. */
+    const D = Sim.modDef(B.remove?"deck_plate":B.sel)
+           || ((B.edge||B.picking) ? {w:1,d:1,h:0.9} : null);
+    if(!D){ this.ghost.visible=false;
+            if(this.ghostArt) this.ghostArt.visible=false; return; }
     const w=(B.rot%2?D.d:D.w), d=(B.rot%2?D.w:D.d);
-    const cs=Sim.cells(D,B.cx,B.cz,B.rot);
+    const cs=(B.edge||B.picking) ? [[B.cx,B.cz]] : Sim.cells(D,B.cx,B.cz,B.rot);
     let sx=0,sz=0; cs.forEach(q=>{sx+=q[0]*c;sz+=q[1]*c;});
     this.ghost.visible=true;
     this.ghost.scale.set(B.remove?c*0.9:w*c*0.9, B.remove?0.5:Math.max(D.h,0.2), B.remove?c*0.9:d*c*0.9);
     { const bb=Sim.state.entities[Sim.state.playerBoatId];
-      const gy=(B.lvl||0)>0 ? Sim.levelY(bb,1)+0.2 : 1.20;
+      const gy=(B.lvl||0)>0 ? Sim.levelY(bb,B.lvl)+0.2 : 1.20;
       if(B.picking){
         const t=Sim.pickTarget(bb);
         const y0=Sim.levelY(bb,B.lvl||0);
@@ -10118,6 +11477,7 @@ const Render = {
     }
 
     this.boat.updateMatrixWorld(true);
+    if(!S.overhead && this.overTarget){ this.cam.up.set(0,1,0); this.overTarget=null; }
     this.updateWake(dt,b,V);
     if(this.atmos) this.atmos.position.set(V.x,0,V.z);
 
@@ -10126,7 +11486,40 @@ const Render = {
     const r=V.h*Math.PI/180;
     const aimZoom = S.player.aim ? 0.62 : 1;
     this.cam.fov=this.opts.fov*aimZoom; this.cam.updateProjectionMatrix();
-    if(this.third){
+    if(S.overhead){
+      /* Looks down from behind at about 55 degrees, not straight down —
+         straight down flattens everything and you stop being able to tell a
+         wall from a floor. Bow-up and boat-locked: she's still yawing, and
+         the world moves past underneath. */
+      const o=S.over||{zoom:1,panX:0,panZ:0,quarter:0,tilt:0};
+      const z=o.zoom||1;
+      const q=(o.quarter||0)*Math.PI/2;      // a boat-relative quarter, not a world angle
+      const D=Sim.deck(b);
+      let x0=99,x1=-99,z0=99,z1=-99;
+      D.walk.forEach(q=>{ x0=Math.min(x0,q.x0); x1=Math.max(x1,q.x1);
+                          z0=Math.min(z0,q.z0); z1=Math.max(z1,q.z1); });
+      (b.modules||[]).forEach(m=>{ const MD=Sim.modDef(m.defId); if(!MD) return;
+        Sim.cells(MD,m.cx,m.cz,m.rot).forEach(q=>{
+          const c2=DATA.grid.cell;
+          x0=Math.min(x0,q[0]*c2); x1=Math.max(x1,q[0]*c2);
+          z0=Math.min(z0,q[1]*c2); z1=Math.max(z1,q[1]*c2); }); });
+      const span=Math.max(x1-x0, z1-z0, 6);
+      const mid=[(x0+x1)/2 + (o.panX||0), (z0+z1)/2 + (o.panZ||0)];
+      const dist=(span*1.35)/z;
+      // 55 degrees reads as a boat; 80 reads as a grid
+      const tilt=(o.tilt ? 80 : 55)*Math.PI/180;
+      const lvY=Sim.levelY(b, S.build.lvl||0);
+      const local=new T.Vector3(mid[0], lvY, mid[1]);
+      const eyeL=new T.Vector3(mid[0] + Math.sin(q)*Math.cos(tilt)*dist,
+                               lvY + Math.sin(tilt)*dist,
+                               mid[1] + Math.cos(q)*Math.cos(tilt)*dist);
+      const wTgt=this.boat.localToWorld(local.clone());
+      const wEye=this.boat.localToWorld(eyeL.clone());
+      this.cam.position.copy(wEye);
+      this.cam.up.set(0,1,0);
+      this.cam.lookAt(wTgt);
+      this.overTarget=wTgt;
+    }else if(this.third){
       // orbit whatever you are actually driving — or you, if you're on your feet
       const P3=S.player;
       let tx,tz,ty,base;
@@ -10284,7 +11677,7 @@ const UI = {
   el:{}, promptT:0, lockT:0, tab:"chart", foodSig:"", moodSig:"",
   storesView:"larder", bookStation:"all", bookSort:"ready", bookItem:"",
   init(){
-    ["gDepth","gSpeed","gHead","gFuel","gWater","gWx","gTime","place2","prompt","tabbody",
+    ["gDepth","gSpeed","gHead","gFuel","gWater","gWx","gTime","clockv","place","place2","prompt","tabbody",
      "vitals","vHp","vSt","vWm","vHpN","vStN","vWmN","vFood","vMood","reticle","weapon","breath","place"].forEach(i=>this.el[i]=document.getElementById(i));
   },
   /* ---- the minimap ----------------------------------------------------
@@ -10292,16 +11685,17 @@ const UI = {
      chart draws, so it can never show water the chart doesn't.           */
   miniFrame(){
     const el=document.getElementById("mini"); if(!el) return;
-    const want = !!DATA.ui.miniMap && Sim.state.player.mode!=="foot";
+    const want = !!DATA.ui.miniMap && Sim.state.player.mode!=="foot"
+               && !Sim.state.player.swim;
     if(el.classList.contains("on")!==want) el.classList.toggle("on",want);
     if(!want) return;
     const cv=document.getElementById("mcv"); if(!cv) return;
     // bigger where there's room; a phone gets the small one
-    const W = Math.max(140, Math.min(232, Math.round(innerWidth*0.20)));
+    const W = Math.max(132, Math.min(220, Math.round(innerWidth*0.22)));
     if(el._w!==W){
       el._w=W; el.style.width=W+"px"; el.style.height=W+"px";
-      el.style.left="12px";
-      el.style.top = (document.getElementById("hud")||{offsetHeight:58}).offsetHeight + 52 + "px";
+      el.style.left="10px";
+      el.style.top="calc(8px + env(safe-area-inset-top))";
       const dpr=Math.min(2,devicePixelRatio||1);
       cv.width=W*dpr; cv.height=W*dpr; cv.style.width=W+"px"; cv.style.height=W+"px";
       cv._dpr=dpr;
@@ -10473,8 +11867,8 @@ const UI = {
     this.el.gWater.querySelector(".bar i").style.width=wp+"%";
     this.el.gWx.querySelector(".val").textContent=Math.round(S.weather.windKt);
     const hh=Math.floor(S.clock.hour), mm=Math.floor((S.clock.hour%1)*60);
-    this.el.gTime.querySelector(".val").textContent=String(hh).padStart(2,"0")+":"+String(mm).padStart(2,"0");
-    this.el.gTime.querySelector(".sub").textContent="Day "+S.clock.day+(S.compression>1?"  "+S.compression+"×":"");
+    // the clock shares its cell with the place, so it writes only its own span
+    this.el.clockv.textContent=String(hh).padStart(2,"0")+":"+String(mm).padStart(2,"0");
     /* the dressed faces, from the very same values */
     if(this.dressed){
       const kn = inD ? Math.abs(S.dinghy.speedMs)/(0.5144*Sim.travelMul()) : Sim.knots(b);
@@ -10492,9 +11886,14 @@ const UI = {
     this.miniFrame();
     const mile=(Sim.seg().startMile - (Math.abs(b.z)*Sim.seg().milesPerMeter)).toFixed(1);
     const season=DATA.time.seasons[Math.floor((S.clock.day-1)/DATA.time.daysPerSeason)%4];
-    this.el.place.firstChild.textContent=
-      (S.docked && S.character) ? S.character.boat : Sim.seg().name;
-    this.el.place2.textContent="Mile "+mile+" · Day "+S.clock.day+" · "+season+(S.player.mode==="dinghy"?" · TENDER":S.player.swim?(S.player.ashore?" · ASHORE":" · SWIMMING"):S.player.mode==="foot"?" · ON FOOT":"");
+    // the place lives in the dash now, so the corner belongs to the chart
+    const where = (S.docked && S.character) ? S.character.boat : Sim.seg().name;
+    if(this.el.place.textContent!==where) this.el.place.textContent=where;
+    const mode = S.player.mode==="dinghy" ? " · TENDER"
+               : S.player.swim ? (S.player.ashore?" · ASHORE":" · SWIMMING")
+               : S.player.mode==="foot" ? " · ON FOOT" : "";
+    this.el.place2.textContent="Mile "+mile+" · Day "+S.clock.day+" · "+season+mode
+      + (S.paused ? " · PAUSED" : S.compression>1 ? " · "+S.compression+"×" : "");
 
     // ---- breath ----
     const DP=S.player, br=this.el.breath;
@@ -10755,6 +12154,50 @@ const UI = {
       body.innerHTML='<div id="chartwrap"><canvas id="chart"></canvas><div class="stub">'+
         Sim.seg().name+' · '+Sim.seg().sub+' — Phase 5 authors all ~150–200 nodes from real NOAA/USACE data.</div></div>';
       this.drawChart();
+    } else if(t==="log"){
+      /* Organised by region and approximate on purpose. "34 of about 130 here"
+         invites; "0 / 2400" oppresses. */
+      const P=Sim.state.player, seg=Sim.seg();
+      const region=seg.region || seg.id;
+      const counts=Sim.logCounts();
+      const here=DATA.species.filter(s=>true);   // per-region lists land with the data
+      const mine=Object.keys(P.log||{});
+      const row=id=>{
+        const e=P.log[id], d=Sim.speciesDef(id);
+        const conf=e.status==="confirmed";
+        const nm = conf ? (d?d.name:id) : Sim.vagueName(d);
+        const badge = conf ? "✓" : e.status==="tentative" ? "?" : "·";
+        const col = conf ? "var(--c-good)" : "var(--c-brass-dim)";
+        const bits=[];
+        if(e.sampled) bits.push("sample");
+        if(e.photo) bits.push("photo");
+        bits.push("seen "+e.seen+(e.seen===1?" time":" times"));
+        return "<tr><td style='padding:3px 0;color:"+col+";width:16px'>"+badge+"</td>"+
+          "<td style='padding:3px 0'>"+nm+
+            (conf?"":"<span style='color:var(--c-ink-dim);font-size:10px'> — not pinned down</span>")+
+          "</td><td style='text-align:right;font-size:10px;color:var(--c-ink-dim)'>"+
+          bits.join(" · ")+"</td></tr>";
+      };
+      const sampleRows=Object.keys(P.samples||{}).map(k=>
+        "<span style='display:inline-block;border:1px solid var(--c-line);"+
+        "border-radius:3px;padding:2px 7px;margin:0 4px 4px 0;font-size:11px'>"+
+        DATA.logbook.samples[k].name+" ×"+P.samples[k]+"</span>").join("");
+      body.innerHTML="<div class='stub'>"+
+        "<div style='font-family:var(--f-display);letter-spacing:.16em;"+
+        "color:var(--c-brass);font-size:12px;margin-bottom:2px'>"+region+"</div>"+
+        "<div style='font-size:11px;color:var(--c-ink-dim);margin-bottom:10px'>"+
+          counts.confirmed+" confirmed, "+counts.tentative+" not yet pinned down"+
+          " — about "+here.length+" to find on this stretch</div>"+
+        (mine.length
+          ? "<table style='width:100%;border-collapse:collapse'>"+
+            mine.sort((a,b)=>(P.log[b].seen||0)-(P.log[a].seen||0)).map(row).join("")+
+            "</table>"
+          : "<div style='color:var(--c-ink-dim);font-size:11px'>Nothing logged yet. "+
+            "Slow down near something and hold still — or take a sample with <b>N</b>.</div>")+
+        (sampleRows ? "<div style='margin-top:12px'>"+
+          "<div style='font-family:var(--f-display);font-size:10px;letter-spacing:.14em;"+
+          "color:var(--c-brass-dim);margin-bottom:5px'>SAMPLES</div>"+sampleRows+"</div>" : "")+
+        "</div>";
     } else if(t==="papers"){
       const S=Sim.state, b=S.entities[S.playerBoatId], j=Sim.juris();
       const atYard=Sim.atYard(b);
@@ -10810,11 +12253,11 @@ const UI = {
               "<td style=\'text-align:right\'>"+(n?"<button data-used=\'"+k+"\' title=\'used in "+n+" recipes\' style=\'background:var(--c-panel);border:1px solid var(--c-line);color:var(--c-ink-dim);border-radius:3px;padding:3px 6px;font-size:10px;margin-right:3px\'>"+n+" uses</button>":"")+
               "<button data-eat=\'"+k+"\' style=\'background:var(--c-panel);border:1px solid var(--c-line);color:var(--c-brass);border-radius:3px;padding:3px 8px;font-size:10px\'>Eat</button></td></tr>"; }).join("")
         : "<tr><td colspan=4 style=\'color:var(--c-ink-dim);font-size:11px\'>Empty. Work the bank, or wet a line.</td></tr>";
-      const skHtml = DATA.skills.ids.map(id=>{ const sk=Sim.skill(id);
-        const need=Sim.xpToNext(sk.lvl), pct=Math.min(100,sk.xp/need*100);
-        return "<tr><td style=\'padding:3px 0\'>"+DATA.skills.names[id]+"</td>"+
-          "<td style=\'width:44%\'><div class=\'bar\' style=\'height:5px\'><i style=\'width:"+pct.toFixed(0)+"%\'></i></div></td>"+
-          "<td style=\'text-align:right;color:var(--c-brass)\'>"+sk.lvl+"</td></tr>"; }).join("");
+      const skHtml = DATA.skills.defs.map(d=>{
+        const lv=Sim.skillLevel(d.id), pct=Sim.skillProgress(d.id)*100;
+        return "<tr><td style=\'padding:3px 0\' title=\'"+d.blurb+"\'>"+d.icon+" "+d.name+"</td>"+
+          "<td style=\'width:40%\'><div class=\'bar\' style=\'height:5px\'><i style=\'width:"+pct.toFixed(0)+"%\'></i></div></td>"+
+          "<td style=\'text-align:right;color:var(--c-brass)\'>"+lv+"</td></tr>"; }).join("");
       body.innerHTML="<div class=\'stub\'>"+
         "<div style=\'display:flex;gap:6px;margin-bottom:10px\'>"+
         "<button data-book=\'1\' style=\'flex:1;background:var(--c-panel);border:1px solid var(--c-brass-dim);"+
@@ -11051,20 +12494,29 @@ const UI = {
 /* ============================ BUILD UI ============================ */
 const Build = {
   cat:"structure",
-  cats(){ const o=[]; DATA.modules.forEach(m=>{ if(o.indexOf(m.cat)<0) o.push(m.cat); }); return o; },
+  EDGE_CAT:"rails",
+  cats(){ const o=[]; DATA.modules.forEach(m=>{ if(o.indexOf(m.cat)<0) o.push(m.cat); });
+    o.push(this.EDGE_CAT); return o; },
   init(){
     const $=id=>document.getElementById(id);
     const cw=$("bbcats");
     this.cats().forEach(c=>{ const btn=document.createElement("button");
       btn.textContent=c; btn.dataset.cat=c;
-      btn.onclick=()=>{ this.cat=c; this.renderCats(); this.renderList(); };
+      btn.onclick=()=>{
+        this.cat=c;
+        // the category decides the mode, so there is nothing to toggle
+        Sim.cmd("EDGE_MODE",{on: c===Build.EDGE_CAT});
+        this.renderCats(); this.renderList();
+      };
       cw.appendChild(btn); });
     $("bbExit").onclick=()=>Sim.cmd("BUILD_TOGGLE");
+    $("bbOver").onclick=()=>Sim.cmd("OVERHEAD",{on:true});
     $("bbPick").onclick=()=>Sim.cmd("PICK_MODE");
+    $("bbKit").onclick=()=>Sim.cmd("CARRY_NEXT");
     $("bbNext").onclick=()=>Sim.cmd("PICK_NEXT");
-    $("bbEdge").onclick=()=>Sim.cmd("EDGE_MODE");
-    $("bbSide").onclick=()=>Sim.cmd("EDGE_SIDE");
-    $("bbRot").onclick=()=>Sim.cmd("BUILD_ROT");
+    $("bbRot").onclick=()=>Sim.cmd(
+      Sim.state.build.picking ? "PICK_NEXT"
+      : Sim.state.build.edge  ? "EDGE_SIDE" : "BUILD_ROT");
     $("bbErase").onclick=()=>Sim.cmd("BUILD_ERASE");
     $("bbPlace").onclick=()=>Sim.cmd(
       Sim.state.build.picking ? "PICK_UP"
@@ -11076,26 +12528,55 @@ const Build = {
     const where=Sim.state.build.where;
     let first=null;
     document.querySelectorAll("#bbcats button").forEach(b=>{
-      const has=DATA.modules.some(m=>m.cat===b.dataset.cat && (m.place||"boat")===where);
+      const has = b.dataset.cat===Build.EDGE_CAT
+        ? where==="boat"                       // rails belong on a deck
+        : DATA.modules.some(m=>m.cat===b.dataset.cat && (m.place||"boat")===where);
       b.style.display = has ? "" : "none";
       if(has && !first) first=b.dataset.cat;
       b.className = b.dataset.cat===this.cat ? "sel" : "";
     });
-    if(first && !DATA.modules.some(m=>m.cat===this.cat && (m.place||"boat")===where)){
+    /* The fallback asked whether any MODULE carries this category. Rails
+       carry none, so choosing them bounced you straight back to Structure. */
+    const valid = this.cat===Build.EDGE_CAT
+      ? where==="boat"
+      : DATA.modules.some(m=>m.cat===this.cat && (m.place||"boat")===where);
+    if(first && !valid){
       this.cat=first;
+      Sim.cmd("EDGE_MODE",{on:false});
       document.querySelectorAll("#bbcats button").forEach(b=>
         b.className = b.dataset.cat===this.cat ? "sel" : "");
     }
   },
+  renderMats(){
+    const wrap=document.getElementById("bbmats"); if(!wrap) return;
+    const B=Sim.state.build;
+    const mats=Sim.matsFor(B.sel);
+    if(mats.length<2){ wrap.innerHTML=""; return; }
+    const sig=B.sel+"|"+mats.join(",")+"|"+B.mat;
+    if(wrap._sig===sig) return;
+    wrap._sig=sig;
+    wrap.innerHTML=mats.map(m=>{
+      const M=Sim.matDef(m);
+      const col=((M.look&&M.look.c)||0xa88a5e).toString(16).padStart(6,"0");
+      return '<button data-mat="'+m+'"'+(B.mat===m?' class="sel"':'')+
+        ' title="'+M.blurb+'"><i style="background:#'+col+'"></i>'+M.name+'</button>';
+    }).join("");
+    wrap.querySelectorAll("[data-mat]").forEach(n=>n.onclick=()=>{
+      Sim.cmd("SET_MAT",{m:n.dataset.mat});
+      setTimeout(()=>Build.renderMats(),40);
+    });
+  },
   renderList(){
-    if(Sim.state.build.edge){
+    setTimeout(()=>this.renderMats(),0);
+    if(this.cat===this.EDGE_CAT){
       const wrap=document.getElementById("bblist"); if(!wrap) return;
       const bx=Sim.state.entities[Sim.state.playerBoatId];
       wrap.innerHTML = DATA.edgePieces.map(p=>{
         const sel = Sim.state.build.sel===p.id;
         const locked = p.install==="yard" && !Sim.atYard(bx);
         const cost = p.recipe
-          ? Object.keys(p.recipe).map(k=>p.recipe[k]+"\u00d7 "+DATA.materials[k].name).join("<br>")
+          ? Object.keys(p.recipe).map(k=>p.recipe[k]+"\u00d7 "+
+              ((DATA.materials[k]&&DATA.materials[k].name)||k)).join("<br>")
           : (p.cost ? "$"+p.cost : "free");
         const col=((p.look&&p.look.c)||0xb9bfc4).toString(16).padStart(6,"0");
         return '<div class="bitem'+(sel?' sel':'')+(locked?' locked':'')+
@@ -11106,7 +12587,11 @@ const Build = {
           '</div></div>';
       }).join("");
       wrap.querySelectorAll("[data-edge]").forEach(n=>n.onclick=()=>{
-        Sim.state.build.sel=n.dataset.edge; setTimeout(()=>Build.renderList(),40); });
+        Sim.state.build.sel=n.dataset.edge;
+        // a piece not made in the current material falls back to one it is
+        if(Sim.matsFor(n.dataset.edge).indexOf(Sim.state.build.mat)<0)
+          Sim.state.build.mat=Sim.defaultMat(n.dataset.edge);
+        setTimeout(()=>Build.renderList(),40); });
       return;
     }
     const b=Sim.state.entities[Sim.state.playerBoatId];
@@ -11765,6 +13250,8 @@ const Input = {
       if(e.code==="KeyM"){ Sim.cmd("RADIO_UI"); }
       if(e.code==="KeyK" && window.SaveUI){ SaveUI.open(); return; }
       if(e.code==="KeyJ"){ Sim.cmd("DRINK",{}); return; }
+      if(e.code==="KeyN"){ Sim.cmd("SAMPLE",{}); return; }
+      if(e.code==="KeyH"){ Sim.cmd("DOOR",{}); return; }
       // opening anything you have to read gives the cursor back
       if("KeyI KeyC KeyT KeyR KeyB KeyM KeyV KeyK".indexOf(e.code)>=0
          && this.locked && document.exitPointerLock) document.exitPointerLock();
@@ -11779,6 +13266,13 @@ const Input = {
         ? Sim.cmd(Sim.state.build.picking ? "PICK_UP"
                 : Sim.state.build.edge ? "EDGE_PLACE" : "BUILD_PLACE")
         : Sim.cmd("INTERACT"); }
+      if(e.code==="KeyO" && Sim.state.build.on){ Sim.cmd("OVERHEAD"); return; }
+      if(Sim.state.overhead){
+        if(e.code==="KeyQ"){ Sim.cmd("OVER_TURN",{by:-1}); return; }
+        if(e.code==="KeyR"){ Sim.cmd("OVER_TURN",{by:1});  return; }
+        if(e.code==="KeyT"){ Sim.cmd("OVER_TILT",{});      return; }
+      }
+      if(e.code==="Escape" && Sim.state.overhead){ Sim.cmd("OVERHEAD",{on:false}); return; }
       if(e.code==="KeyF" && Sim.state.build.on){ Sim.cmd("PICK_MODE"); return; }
       if(e.code==="KeyG" && Sim.state.build.on){ Sim.cmd("EDGE_MODE"); return; }
       if(e.code==="KeyR" && Sim.state.build.on){
@@ -11836,6 +13330,7 @@ const Input = {
     if(canLock){
       app.addEventListener("click", ()=>{
         const S2=Sim.state;
+        if(S2.overhead) return;         // you're tapping tiles, not looking around
         if(S2.invUI||S2.comms||S2.shop||S2.createUI||S2.prep||S2.radio) return;
         if(!this.locked && app.requestPointerLock) app.requestPointerLock();
       });
@@ -11852,6 +13347,68 @@ const Input = {
     });
     app.addEventListener("mousedown",e=>{ if(!this.locked) down(e.clientX,e.clientY); });
     addEventListener("mouseup",()=>this.dragging=false);
+    /* ---- overhead gestures ---------------------------------------
+       Drag pans, pinch zooms, and a tap that didn't travel selects a tile.
+       Distinct starting points rather than modes to remember. */
+    {
+      let dragging=false, moved=0, sx=0, sy=0, pinch=0;
+      const tileFromPoint=(px,py)=>{
+        const t=Render.tileAt(px,py);
+        if(!t) return;
+        Sim.cmd("OVER_TAP",{cx:t.cx, cz:t.cz, x:t.x, z:t.z});
+      };
+      const down=(px,py)=>{ dragging=true; moved=0; sx=px; sy=py; };
+      const move=(px,py)=>{
+        if(!dragging) return;
+        const dx=px-sx, dy=py-sy;
+        moved += Math.abs(dx)+Math.abs(dy);
+        Sim.cmd("OVER_PAN",{dx:-dx*0.022, dz:-dy*0.022});
+        sx=px; sy=py;
+      };
+      const up=(px,py)=>{
+        if(!dragging) return;
+        dragging=false;
+        if(moved < 9) tileFromPoint(px,py);   // a tap, not a drag
+      };
+      /* The canvas lives INSIDE #app, so testing e.target===app rejected every
+         touch and killed both drag and tap. Ask whether the touch landed on a
+         control instead — anything else is the deck. */
+      const onDeck = e => !(e.target && e.target.closest &&
+        e.target.closest("#over,#dash,#rail,#touch,#buildbar,#topbar,#sandbar,#timefan,#settings,#tablet"));
+      addEventListener("pointerdown",e=>{
+        if(!Sim.state.overhead || !onDeck(e)) return;
+        if(pinch) return;                    // a pinch is not a drag
+        down(e.clientX,e.clientY);
+      });
+      addEventListener("pointermove",e=>{
+        if(!Sim.state.overhead || !dragging) return;
+        e.preventDefault();
+        move(e.clientX,e.clientY);
+      },{passive:false});
+      addEventListener("pointerup",  e=>{ if(Sim.state.overhead) up(e.clientX,e.clientY); });
+      addEventListener("pointercancel",()=>{ dragging=false; });
+      addEventListener("wheel",e=>{
+        if(!Sim.state.overhead) return;
+        e.preventDefault();
+        Sim.cmd("OVER_ZOOM",{by: e.deltaY<0 ? 1.12 : 0.89});
+      },{passive:false});
+      addEventListener("touchmove",e=>{
+        if(!Sim.state.overhead || e.touches.length!==2) return;
+        e.preventDefault();
+        const d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,
+                           e.touches[0].clientY-e.touches[1].clientY);
+        if(pinch){
+          // ease it, or a shaky finger reads as a fling
+          const raw=d/pinch;
+          Sim.cmd("OVER_ZOOM",{by: 1 + (raw-1)*0.45});
+        }
+        pinch=d;
+      },{passive:false});
+      addEventListener("touchstart",e=>{
+        if(Sim.state.overhead && e.touches.length>1) dragging=false;
+      },{passive:true});
+      addEventListener("touchend",()=>{ pinch=0; });
+    }
     app.addEventListener("touchstart",e=>{
       e.preventDefault();
       if(this.lookId!==null) return;                 // one look finger only
@@ -11914,7 +13471,7 @@ const Input = {
           last=now; fn(); };
         el.addEventListener("touchstart",fire,{passive:false});
         el.addEventListener("click",fire); };
-      tap("btnAnchor",()=>Sim.cmd("ANCHOR"));
+      tap("btnAnchor",()=>Sim.cmd("MAKE_FAST"));
       tap("btnNeutral",()=>{Sim.cmd("THROTTLE",{v:0});this.detent=true;UI.say("<b>NEUTRAL</b>","n");});
       tap("btnUse",()=>Sim.cmd("INTERACT"));
       tap("btnMode",()=>Sim.cmd("MODE"));
@@ -12054,7 +13611,10 @@ const Admin = {
         ["C","chart"],
         ["K","save and load"],
         ["J","take a drink"],
+        ["N","take a sample"],
+        ["H","open or shut a door"],
         ["F","build mode: pick something up"],
+        ["O","build mode: overhead view"],
         ["G","build mode: cells \u21c4 edges"],
         ["T","tablet"],
         ["Q","aim · click to shoot"],
@@ -12102,7 +13662,7 @@ const Admin = {
     $("aRain").onclick=()=>{Sim.state.lastRainDay=Sim.state.clock.day;Sim.state.notice="Warm rain overnight";};
     $("aLarder").onclick=()=>{const b2=Sim.state.entities.boat_1;
       DATA.species.forEach(sp=>b2.larder[sp.id]=(b2.larder[sp.id]||0)+5);Sim.state.notice="Larder stocked";};
-    $("aSkill").onclick=()=>{DATA.skills.ids.forEach(id=>Sim.addXp(id,Sim.xpToNext(Sim.skill(id).lvl)));};
+    $("aSkill").onclick=()=>{DATA.skills.defs.forEach(d=>Sim.gainXP(d.id, Sim.xpToNext(Sim.skillLevel(d.id))));};
     $("aGun").onclick=()=>{const b2=Sim.state.entities.boat_1;
       b2.gear.bow=1; b2.gear.rifle=1; Sim.state.player.weapon="bow";
       Sim.state.notice="Bow and rifle aboard";};
@@ -12398,6 +13958,104 @@ const Admin = {
     if($$("sbStrip")) $$("sbStrip").onclick=()=>Sim.cmd("SANDBOX_STRIP",{});
     if($$("sbStock")) $$("sbStock").onclick=()=>Sim.cmd("SANDBOX_STOCK",{});
     if($$("gWater")) $$("gWater").onclick=()=>Sim.cmd("DRINK",{});
+    /* ---- the overhead view --------------------------------------- */
+    const OV={
+      draw(){
+        const S2=Sim.state, b=S2.entities[S2.playerBoatId];
+        const on=!!S2.overhead;
+        const root=$$("over");
+        if(root && root.classList.contains("on")!==on) root.classList.toggle("on",on);
+        document.body.classList.toggle("overhead", on);
+        if(!on) return;
+        // which quarter you're looking from, named so the bow is never in doubt
+        const qn=["Bow up","Port up","Stern up","Stbd up"];
+        const qe=$$("ovQuarter");
+        if(qe){ const lab=qn[(S2.over.quarter||0)%4];
+          if(qe.textContent!==lab) qe.textContent=lab; }
+        const te=$$("ovTilt");
+        if(te) te.classList.toggle("on", !!S2.over.tilt);
+        // levels — deck, roof, and anything you've built above
+        const lv=$$("ovLevels");
+        if(lv){
+          /* One above the top as well, or you could never start the next
+             storey — which is what "there's no level three to go to" was. */
+          const top=Sim.buildableLevels(b);
+          const cur=S2.build.lvl||0;
+          const pin=S2.build.lvlPinned;
+          const want=[];
+          for(let i=top;i>=0;i--) want.push(i);
+          const sig=want.join(",")+"|"+cur+"|"+pin;
+          if(lv._sig!==sig){
+            lv._sig=sig;
+            const name=i=>i===0?"Deck":i===1?"Roof":"Level "+i;
+            lv.innerHTML =
+              '<button data-auto="1"'+(pin===null||pin===undefined?' class="on"':'')+
+              '>Auto</button>' +
+              want.map(i=>
+                '<button data-lvl="'+i+'"'+(pin===i?' class="on"':
+                  (i===cur?' class="cur"':''))+'>'+
+                name(i)+(i>=Sim.topLevel(b)+1?' +':'')+'</button>').join("");
+            lv.querySelectorAll("[data-lvl]").forEach(n=>n.onclick=()=>
+              Sim.cmd("OVER_LEVEL",{lvl:+n.dataset.lvl}));
+            const ab=lv.querySelector("[data-auto]");
+            if(ab) ab.onclick=()=>Sim.cmd("OVER_LEVEL",{auto:true});
+          }
+        }
+        // she is still under way, and grounding while you look at the deck
+        // would be a rotten surprise
+        const st=$$("ovStatus");
+        if(st){
+          const uk=Sim.underKeelFt(b);
+          const dEl=$$("ovDepth"), sEl=$$("ovSpd"), wEl=$$("ovWarn");
+          dEl.innerHTML="<b>"+(uk>-9?uk.toFixed(1):"—")+"</b> ft";
+          dEl.className = uk<DATA.ui.depthAlarmFt ? "bad"
+                        : uk<DATA.ui.depthCautionFt ? "warn" : "";
+          sEl.innerHTML="<b>"+Sim.knots(b).toFixed(1)+"</b> kn";
+          wEl.textContent = S2.flags && S2.flags.aground ? "AGROUND"
+                          : uk<DATA.ui.depthCautionFt ? "SHOALING" : "";
+          wEl.className = "bad";
+        }
+        // what's on the tile you tapped
+        const sel=$$("ovSel");
+        if(sel){
+          const o=S2.over, t = o.tile ? (()=>{
+            const list=Sim.thingsOn(b,o.tile[0],o.tile[1],S2.build.lvl||0);
+            return list.length ? list[(o.pick||0)%list.length] : null; })() : null;
+          const want2=!!t;
+          if(sel.classList.contains("on")!==want2) sel.classList.toggle("on",want2);
+          if(t && sel._id!==t.id){
+            sel._id=t.id;
+            const cw = t.kind==="edge" && t.e
+              ? " \u00b7 "+Sim.condWord(Sim.condOf(t.e))
+                + " " + Sim.matDef(Sim.pieceMat(t.e)).name.toLowerCase()
+              : "";
+            sel.innerHTML='<span class="nm">'+t.name+cw+'</span>'+
+              (t.kind==="edge" && Sim.condOf(t.e)<0.99
+                ? '<button class="pri" data-a="fix">Patch up</button>' : '')+
+              '<button data-a="lift">Pick up</button>'+
+              '<button data-a="turn">Turn</button>'+
+              '<button data-a="kill">Remove</button>';
+            sel.querySelectorAll("[data-a]").forEach(n=>n.onclick=()=>{
+              const a=n.dataset.a;
+              if(a==="fix"){ Sim.cmd("MAINTAIN",{}); return; }
+              if(a==="lift") Sim.cmd("PICK_UP",{});
+              else if(a==="turn") Sim.cmd(S2.build.edge?"EDGE_SIDE":"BUILD_ROT");
+              else Sim.cmd(S2.build.edge?"EDGE_PLACE":"BUILD_PLACE");
+              Sim.state.over.tile=null; sel._id=null;
+            });
+          }
+          if(!t) sel._id=null;
+        }
+      }
+    };
+    window.OverUI=OV;
+    if($$("ovLeave")) $$("ovLeave").onclick=()=>Sim.cmd("OVERHEAD",{on:false});
+    if($$("ovIn"))    $$("ovIn").onclick   =()=>Sim.cmd("OVER_ZOOM",{by:1.25});
+    if($$("ovOut"))   $$("ovOut").onclick  =()=>Sim.cmd("OVER_ZOOM",{by:0.8});
+    if($$("ovHome"))  $$("ovHome").onclick =()=>Sim.cmd("OVER_RECENTRE",{});
+    if($$("ovCW"))    $$("ovCW").onclick   =()=>Sim.cmd("OVER_TURN",{by:1});
+    if($$("ovCCW"))   $$("ovCCW").onclick  =()=>Sim.cmd("OVER_TURN",{by:-1});
+    if($$("ovTilt"))  $$("ovTilt").onclick =()=>Sim.cmd("OVER_TILT",{});
     if($$("btnBroker")) $$("btnBroker").onclick=()=>Sim.cmd("BROKER_UI",{on:true});
     if($$("bkClose")) $$("bkClose").onclick=BK.close;
     if($$("broker")) $$("broker").onclick=e=>{ if(e.target.id==="broker") BK.close(); };
@@ -12536,6 +14194,7 @@ function loop(t){
     if(hb.style.display!==(show?"":"none")) hb.style.display=show?"":"none";
     const face=S6.comms?"✕":"📻";
     if(hb.textContent!==face) hb.textContent=face; }
+  if(window.OverUI) OverUI.draw();
   { const sb=document.getElementById("sandbar");
     if(sb){ const want=!!Sim.state.sandbox;
       if(sb.classList.contains("on")!==want) sb.classList.toggle("on",want); } }
@@ -12565,6 +14224,18 @@ function loop(t){
     const pb=document.getElementById("bbPick");
     if(pb){ const lab=B.picking?"\u2715 Stop picking":"\u270b Pick up";
       if(pb.textContent!==lab) pb.textContent=lab; }
+    const kb=document.getElementById("bbKit");
+    if(kb){ const kit=B.on ? Sim.carried() : [];
+      const disp = kit.length ? "" : "none";
+      if(kb.style.display!==disp) kb.style.display=disp;
+      const n=kit.reduce((a,q)=>a+q.n,0);
+      const lab="\ud83c\udf92 From kit"+(n>1?" ("+n+")":"");
+      if(kb.textContent!==lab) kb.textContent=lab; }
+    const rb=document.getElementById("bbRot");
+    if(rb){ const lab = B.picking ? "\u21c5 Next thing"
+                      : B.edge   ? "\u27f3 Side: "+({N:"fwd",S:"aft",E:"stbd",W:"port"}[B.side||"N"])
+                                 : "\u27f3 Turn";
+      if(rb.textContent!==lab) rb.textContent=lab; }
     const nb=document.getElementById("bbNext");
     if(nb){ const list = B.on&&B.picking ? Sim.thingsOn(bx,B.cx,B.cz,B.lvl||0) : [];
       const disp = list.length>1 ? "" : "none";
@@ -12575,18 +14246,19 @@ function loop(t){
                             : "Build";
       if(plb.textContent!==lab) plb.textContent=lab;
       plb.classList.toggle("dim", B.picking && !t); }
-    const sb=document.getElementById("bbSide");
-    if(sb){ const want = B.on && B.edge && !B.picking;
-      const disp = want ? "" : "none";
-      if(sb.style.display!==disp) sb.style.display=disp;
-      const lab="\u2922 Side: "+(B.side||"N");
-      if(sb.textContent!==lab) sb.textContent=lab; }
-    const eb=document.getElementById("bbEdge");
-    if(eb){ const lab=B.edge?"\u25a4 Cells":"\u25a4 Edges";
-      if(eb.textContent!==lab) eb.textContent=lab; }
     const lb=document.getElementById("bbLift");
     if(lb){ const disp = (B.on && B.edge) ? "" : "none";
       if(lb.style.display!==disp) lb.style.display=disp; } }
+  { const ab=document.getElementById("btnAnchor");
+    if(ab){ const S2=Sim.state;
+      const canTie = S2.lock && S2.lock.phase==="inside" && !S2.lock.secured;
+      const face = canTie ? "\ud83e\udea2" : S2.docked ? "\u2702" : "\u2693";
+      const title = canTie ? "Tie on" : S2.docked ? "Cast off"
+                  : S2.anchored ? "Weigh anchor" : "Let go the anchor";
+      if(ab.textContent!==face) ab.textContent=face;
+      if(ab.title!==title) ab.title=title;
+      // it flashes when there is something to make fast to
+      ab.classList.toggle("hot", !!canTie || !!S2.docked); } }
   const ib=document.getElementById("btnInv");
   if(ib){ const face=Sim.state.invUI?"✕":"🎒";
     if(ib.textContent!==face) ib.textContent=face; }
