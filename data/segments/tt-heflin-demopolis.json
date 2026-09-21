@@ -10,6 +10,15 @@
   "verified": false,
   "unverified": [
     "biome",
+    "bodies[10].depthFt",
+    "bodies[11].depthFt",
+    "bodies[12].depthFt",
+    "bodies[13].depthFt",
+    "bodies[14].depthFt",
+    "bodies[15].depthFt",
+    "bodies[16].depthFt",
+    "bodies[17].depthFt",
+    "bodies[18].depthFt",
     "bodies[1].depthFt",
     "bodies[2].depthFt",
     "bodies[3].depthFt",
@@ -18,6 +27,7 @@
     "bodies[6].depthFt",
     "bodies[7].depthFt",
     "bodies[8].depthFt",
+    "bodies[9].depthFt",
     "buoyage.returningToward",
     "currentKt",
     "terrain.blendM",
@@ -742,147 +752,93 @@
     },
     {
       "kind": "basin",
-      "id": "pocket-0",
-      "x": -4223.01,
-      "z": -10206.52,
-      "r": 1799.4,
-      "depthFt": 9.0,
-      "anchorage": true
-    },
-    {
-      "kind": "basin",
       "id": "pocket-1",
-      "x": 2659.85,
-      "z": 1651.47,
-      "r": 1204.7,
+      "x": 2705.14,
+      "z": 1666.64,
+      "r": 1189.3,
       "depthFt": 9.0,
-      "anchorage": true
+      "depthSurveyed": false
     },
     {
       "kind": "basin",
       "id": "pocket-2",
-      "x": 4765.65,
-      "z": 1493.89,
-      "r": 870.4,
+      "x": 4833.75,
+      "z": 1483.93,
+      "r": 860.2,
       "depthFt": 9.0,
-      "anchorage": true
+      "depthSurveyed": false
     },
     {
       "kind": "basin",
       "id": "pocket-3",
-      "x": 918.97,
-      "z": 1951.39,
-      "r": 540.3,
+      "x": 856.06,
+      "z": 1956.12,
+      "r": 463.8,
       "depthFt": 9.0,
-      "anchorage": true
+      "depthSurveyed": false
     },
     {
       "kind": "basin",
       "id": "pocket-4",
-      "x": 307.71,
-      "z": 744.98,
-      "r": 474.3,
+      "x": 317.2,
+      "z": 682.66,
+      "r": 428.1,
       "depthFt": 9.0,
-      "anchorage": true
+      "depthSurveyed": false
     },
     {
       "kind": "basin",
       "id": "pocket-5",
-      "x": 1943.7,
-      "z": 803.81,
-      "r": 444.3,
+      "x": 1926.45,
+      "z": 802.28,
+      "r": 411.7,
       "depthFt": 9.0,
-      "anchorage": true
+      "depthSurveyed": false
     },
     {
       "kind": "basin",
       "id": "pocket-6",
-      "x": -21.84,
-      "z": 1739.56,
-      "r": 397.9,
+      "x": -52.3,
+      "z": 1737.28,
+      "r": 358.6,
       "depthFt": 9.0,
-      "anchorage": true
+      "depthSurveyed": false
     },
     {
       "kind": "basin",
       "id": "pocket-7",
-      "x": 2039.06,
-      "z": 2618.7,
-      "r": 274.9,
+      "x": 2055.42,
+      "z": 2630.36,
+      "r": 225.2,
       "depthFt": 9.0,
-      "anchorage": true
+      "depthSurveyed": false
     },
     {
       "kind": "basin",
       "id": "pocket-8",
-      "x": 1141.47,
-      "z": 2338.18,
-      "r": 237.8,
+      "x": 1137.05,
+      "z": 2337.01,
+      "r": 212.4,
       "depthFt": 9.0,
-      "anchorage": true
+      "depthSurveyed": false
     },
     {
       "kind": "basin",
       "id": "pocket-9",
-      "x": 176.53,
-      "z": 1783.38,
-      "r": 200.5,
+      "x": 164.77,
+      "z": 1802.26,
+      "r": 191.0,
       "depthFt": 9.0,
-      "anchorage": true
+      "depthSurveyed": false
     },
     {
       "kind": "basin",
       "id": "pocket-10",
-      "x": 429.88,
-      "z": 1315.52,
-      "r": 102.5,
+      "x": 426.86,
+      "z": 1314.07,
+      "r": 89.5,
       "depthFt": 9.0,
-      "anchorage": true
-    },
-    {
-      "kind": "basin",
-      "id": "pocket-11",
-      "x": 1862.81,
-      "z": 2062.56,
-      "r": 49.7,
-      "depthFt": 9.0,
-      "anchorage": true
-    },
-    {
-      "kind": "basin",
-      "id": "pocket-12",
-      "x": 2254.02,
-      "z": 2654.32,
-      "r": 44.9,
-      "depthFt": 9.0,
-      "anchorage": true
-    },
-    {
-      "kind": "basin",
-      "id": "pocket-13",
-      "x": 1776.19,
-      "z": 2045.11,
-      "r": 29.8,
-      "depthFt": 9.0,
-      "anchorage": true
-    },
-    {
-      "kind": "basin",
-      "id": "pocket-14",
-      "x": 330.49,
-      "z": 469.78,
-      "r": 23.2,
-      "depthFt": 9.0,
-      "anchorage": true
-    },
-    {
-      "kind": "basin",
-      "id": "pocket-15",
-      "x": 99.69,
-      "z": 1458.6,
-      "r": 20.2,
-      "depthFt": 9.0,
-      "anchorage": true
+      "depthSurveyed": false
     }
   ],
   "aids": [
@@ -1190,11 +1146,11 @@
     "sources": [
       {
         "name": "S-57 cell Selden Lock",
-        "retrieved": "2026-09-21T01:31:51Z"
+        "retrieved": "2026-09-21T02:09:12Z"
       },
       {
         "name": "S-57 cell Catfish Bend",
-        "retrieved": "2026-09-21T01:31:51Z"
+        "retrieved": "2026-09-21T02:09:12Z"
       }
     ],
     "projection": "EPSG:32616",
@@ -1202,7 +1158,7 @@
       393800.21313639637,
       3633678.1384213464
     ],
-    "generated": "2026-09-21T01:33:04Z",
+    "generated": "2026-09-21T02:10:19Z",
     "loopforgeVersion": "1.0.0"
   }
 }
