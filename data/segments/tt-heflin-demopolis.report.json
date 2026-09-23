@@ -1,9 +1,9 @@
 {
   "segment": "tt-heflin-demopolis",
-  "generated": "2026-09-23T14:05:23Z",
+  "generated": "2026-09-23T22:00:37Z",
   "ok": true,
   "counts": {
-    "passed": 22,
+    "passed": 23,
     "failed": 0,
     "skipped": 0,
     "estimated": 98
@@ -47,12 +47,12 @@
     {
       "name": "all bodies inside the segment extent",
       "status": "pass",
-      "detail": "107 bodies"
+      "detail": "108 bodies"
     },
     {
       "name": "every body has a size",
       "status": "pass",
-      "detail": "107 bodies"
+      "detail": "108 bodies"
     },
     {
       "name": "no body is at zero depth",
@@ -77,7 +77,7 @@
     {
       "name": "length matches the centreline",
       "status": "pass",
-      "detail": "declared 7152.9 m against a measured 7152.8 m"
+      "detail": "declared 77724.1 m against a measured 77724.1 m"
     },
     {
       "name": "atFrac values in range",
@@ -108,6 +108,11 @@
       "name": "buoyage is stated",
       "status": "pass",
       "detail": "returning toward upstream"
+    },
+    {
+      "name": "the segment is unscaled",
+      "status": "pass",
+      "detail": "1:1, true metres"
     },
     {
       "name": "mile numbering stays on one axis",
@@ -166,23 +171,23 @@
       "reason": "Brush Creek ended at the bank; its line was extended to the water and the mouth section is unsurveyed"
     },
     {
-      "path": "bodies[73].centerline",
+      "path": "bodies[74].centerline",
       "reason": "rivers-200 ended at the bank; its line was extended to the water and the mouth section is unsurveyed"
     },
     {
-      "path": "bodies[75].centerline",
+      "path": "bodies[76].centerline",
       "reason": "rivers-212 ended at the bank; its line was extended to the water and the mouth section is unsurveyed"
     },
     {
-      "path": "bodies[82].centerline",
+      "path": "bodies[83].centerline",
       "reason": "rivers-231 ended at the bank; its line was extended to the water and the mouth section is unsurveyed"
     },
     {
-      "path": "bodies[84].centerline",
+      "path": "bodies[85].centerline",
       "reason": "Tubbs Creek ended at the bank; its line was extended to the water and the mouth section is unsurveyed"
     },
     {
-      "path": "bodies[95].centerline",
+      "path": "bodies[96].centerline",
       "reason": "rivers-285 ended at the bank; its line was extended to the water and the mouth section is unsurveyed"
     },
     {
@@ -402,95 +407,95 @@
       "reason": "no depth area covers link-rivers-187; emitted at 2.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[73].depthFt",
+      "path": "bodies[74].depthFt",
       "reason": "no depth area covers rivers-200; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[74].depthFt",
+      "path": "bodies[75].depthFt",
       "reason": "no depth area covers hayes-creek-2; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[75].depthFt",
+      "path": "bodies[76].depthFt",
       "reason": "no depth area covers rivers-212; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[77].depthFt",
+      "path": "bodies[78].depthFt",
       "reason": "no depth area covers brush-creek-2; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[79].depthFt",
+      "path": "bodies[80].depthFt",
       "reason": "no depth area covers rivers-225; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[82].depthFt",
+      "path": "bodies[83].depthFt",
       "reason": "no depth area covers rivers-231; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[83].depthFt",
+      "path": "bodies[84].depthFt",
       "reason": "no depth area covers rivers-235; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[84].depthFt",
+      "path": "bodies[85].depthFt",
       "reason": "no depth area covers tubbs-creek; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[85].depthFt",
+      "path": "bodies[86].depthFt",
       "reason": "no depth area covers rivers-247; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[86].depthFt",
+      "path": "bodies[87].depthFt",
       "reason": "no depth area covers link-rivers-247; emitted at 2.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[87].depthFt",
+      "path": "bodies[88].depthFt",
       "reason": "no depth area covers rivers-258; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[88].depthFt",
+      "path": "bodies[89].depthFt",
       "reason": "no depth area covers link-rivers-258; emitted at 2.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[89].depthFt",
+      "path": "bodies[90].depthFt",
       "reason": "no depth area covers rivers-264; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[91].depthFt",
+      "path": "bodies[92].depthFt",
       "reason": "no depth area covers rivers-277; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[93].depthFt",
+      "path": "bodies[94].depthFt",
       "reason": "no depth area covers camp-springs-branch; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[95].depthFt",
+      "path": "bodies[96].depthFt",
       "reason": "no depth area covers rivers-285; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[96].depthFt",
+      "path": "bodies[97].depthFt",
       "reason": "no depth area covers backwater-217-2; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[97].depthFt",
+      "path": "bodies[98].depthFt",
       "reason": "no depth area covers rivers-19; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[98].depthFt",
+      "path": "bodies[99].depthFt",
       "reason": "no depth area covers rivers-98; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[99].depthFt",
+      "path": "bodies[100].depthFt",
       "reason": "no depth area covers rivers-195; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[100].depthFt",
+      "path": "bodies[101].depthFt",
       "reason": "no depth area covers rivers-208; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[101].depthFt",
+      "path": "bodies[102].depthFt",
       "reason": "no depth area covers rivers-211; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[102].depthFt",
+      "path": "bodies[103].depthFt",
       "reason": "no depth area covers rivers-252; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
@@ -517,8 +522,7 @@
   "notes": [
     "route stitched from 1 charted track line(s) into 1 chain(s); the longest is 77.9 km",
     "width and depth still come from the depth areas around it",
-    "compressed 10.8:1 along the route \u2014 77.7 km of river becomes 7.2 km of world. Channel width, depth and terrain are untouched; only distance along the route changes.",
-    "centreline thinned from 1945 points to 121 (Douglas-Peucker, 3.0 m tolerance). The game walks this line on every depth lookup, so the spacing was a frame-rate cost, not a file size one.",
+    "centreline thinned from 1948 points to 391 over 77.7 km (Douglas-Peucker, 3.0 m tolerance, budget 932). The game walks this line on every depth lookup, so vertex count is a frame-rate cost.",
     "WATER: 4 area body(ies) covering 17.87 km2 of the 17.87 km2 the chart holds along this reach (100%). 2 sliver(s) under 1200 m2 left out as chart artefacts.",
     "cove from the chart's own RIVERS area feature, 1.4 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Dead end: somewhere to go and come back from.",
     "cove from the chart's own RIVERS feature, 0.8 km; 9.0 ft against the channel's 9.0 ft. Kept: the dinghy goes where the boat does not, and depth gates itself at the helm. Dead end: somewhere to go and come back from.",
@@ -655,7 +659,6 @@
     "dropped rivers-132: it is 0.9 km from this segment's route, beyond the 400 m that makes water reachable from it",
     "dropped rivers-205: it is 0.9 km from this segment's route, beyond the 400 m that makes water reachable from it",
     "dropped rivers-237: it is 0.5 km from this segment's route, beyond the 400 m that makes water reachable from it",
-    "dropped rivers-190: it retraces the reference channel for 6 of 7 sampled points, so it is the main river again rather than side water",
     "INFERRED LINKS (11) \u2014 water the chart does not show, drawn at 2 ft so a dinghy can reach a creek that ends inland. Each is its own body; the charted creek is unchanged.",
     "  link-rivers-83: joins rivers-83, 37 m across ground the chart shows as dry",
     "  link-rivers-16: joins rivers-16, 90 m across ground the chart shows as dry",
@@ -847,12 +850,12 @@
   "sources": [
     {
       "name": "S-57 cell Selden Lock",
-      "retrieved": "2026-09-23T14:04:55Z",
+      "retrieved": "2026-09-23T22:00:08Z",
       "note": null
     },
     {
       "name": "S-57 cell Catfish Bend",
-      "retrieved": "2026-09-23T14:04:55Z",
+      "retrieved": "2026-09-23T22:00:08Z",
       "note": null
     }
   ],
@@ -860,17 +863,16 @@
     "channelSource": "track",
     "widthSource": "charted water edge",
     "widthSamplesUnmeasured": 0,
-    "scaleRatio": 10.835,
-    "trueLengthM": 77744.9,
+    "scale": "1:1 \u2014 unscaled, true metres",
     "centerlinePointsBefore": 1948,
-    "centerlineVertices": 121,
+    "centerlineVertices": 391,
     "depthSamplesInterpolated": 0,
     "depthGapSpans": [],
     "widthProfileStops": 389,
     "waterBodies": 4,
     "waterCoveredKm2": 17.87,
     "waterChartedKm2": 17.87,
-    "sideWaterBodies": 106,
+    "sideWaterBodies": 107,
     "inferredLinks": 11,
     "extendedMouths": 16,
     "junctionCandidates": [],
@@ -889,10 +891,10 @@
     "trueCenterline": 1948,
     "controllingDepthFt": 9.0,
     "extent": [
-      -5999.8,
-      -5999.8,
-      8414.3,
-      9134.5
+      -5991.8,
+      -5991.8,
+      32152.3,
+      39955.7
     ]
   }
 }
