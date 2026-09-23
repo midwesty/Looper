@@ -1,12 +1,12 @@
 {
   "segment": "tt-heflin-demopolis",
-  "generated": "2026-09-23T13:10:05Z",
+  "generated": "2026-09-23T14:05:23Z",
   "ok": true,
   "counts": {
     "passed": 22,
     "failed": 0,
     "skipped": 0,
-    "estimated": 104
+    "estimated": 98
   },
   "checks": [
     {
@@ -47,12 +47,12 @@
     {
       "name": "all bodies inside the segment extent",
       "status": "pass",
-      "detail": "109 bodies"
+      "detail": "107 bodies"
     },
     {
       "name": "every body has a size",
       "status": "pass",
-      "detail": "109 bodies"
+      "detail": "107 bodies"
     },
     {
       "name": "no body is at zero depth",
@@ -87,7 +87,7 @@
     {
       "name": "unverified paths resolve",
       "status": "pass",
-      "detail": "104 paths"
+      "detail": "98 paths"
     },
     {
       "name": "mile axis agrees with lock directions",
@@ -97,7 +97,7 @@
     {
       "name": "verified flag agrees with the unverified list",
       "status": "pass",
-      "detail": "verified=False with 104 unverified fields"
+      "detail": "verified=False with 98 unverified fields"
     },
     {
       "name": "mileSystem.primary names a declared axis",
@@ -494,30 +494,6 @@
       "reason": "no depth area covers rivers-252; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
-      "path": "bodies[103].depthFt",
-      "reason": "no depth area covers backwater-3; emitted at 9.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
-    },
-    {
-      "path": "bodies[104].depthFt",
-      "reason": "no depth area covers backwater-4; emitted at 9.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
-    },
-    {
-      "path": "bodies[105].depthFt",
-      "reason": "no depth area covers backwater-5; emitted at 9.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
-    },
-    {
-      "path": "bodies[106].depthFt",
-      "reason": "no depth area covers backwater-6; emitted at 9.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
-    },
-    {
-      "path": "bodies[107].depthFt",
-      "reason": "no depth area covers backwater-7; emitted at 9.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
-    },
-    {
-      "path": "bodies[108].depthFt",
-      "reason": "no depth area covers backwater-13; emitted at 9.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
-    },
-    {
       "path": "terrain.blendM",
       "reason": "not measurable from elevation; set to falloffM/3 by convention"
     },
@@ -543,7 +519,7 @@
     "width and depth still come from the depth areas around it",
     "compressed 10.8:1 along the route \u2014 77.7 km of river becomes 7.2 km of world. Channel width, depth and terrain are untouched; only distance along the route changes.",
     "centreline thinned from 1945 points to 121 (Douglas-Peucker, 3.0 m tolerance). The game walks this line on every depth lookup, so the spacing was a frame-rate cost, not a file size one.",
-    "BACKWATERS: 9 place(s) where charted water reaches more than 174 m from the route \u2014 well beyond the 139 m channel. 12 strip(s) of water along the banks were set aside as the channel's own edge rather than emitted as pockets. These are the candidates for an `area` body.",
+    "WATER: 4 area body(ies) covering 17.87 km2 of the 17.87 km2 the chart holds along this reach (100%). 2 sliver(s) under 1200 m2 left out as chart artefacts.",
     "cove from the chart's own RIVERS area feature, 1.4 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Dead end: somewhere to go and come back from.",
     "cove from the chart's own RIVERS feature, 0.8 km; 9.0 ft against the channel's 9.0 ft. Kept: the dinghy goes where the boat does not, and depth gates itself at the helm. Dead end: somewhere to go and come back from.",
     "cove from the chart's own RIVERS area feature, 0.9 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Dead end: somewhere to go and come back from.",
@@ -652,15 +628,10 @@
     "basin from the chart's RIVERS feature",
     "basin from the chart's RIVERS feature",
     "basin from the chart's RIVERS feature",
-    "area body for a backwater reaching well beyond the channel, 1004.4 ha, 9.0 ft, with 9 island(s)",
-    "area body for a backwater reaching well beyond the channel, 277.8 ha, 9.0 ft, with 1 island(s)",
-    "area body for a backwater reaching well beyond the channel, 220.0 ha, 9.0 ft, with 1 island(s)",
-    "area body for a backwater reaching well beyond the channel, 96.5 ha, 9.0 ft, with 1 island(s)",
-    "area body for a backwater reaching well beyond the channel, 37.0 ha, 9.0 ft, with 1 island(s)",
-    "area body for a backwater reaching well beyond the channel, 7.5 ha, 9.0 ft",
-    "area body for a backwater reaching well beyond the channel, 5.7 ha, 9.0 ft",
-    "area body for a backwater reaching well beyond the channel, 3.8 ha, 9.0 ft",
-    "area body for a backwater reaching well beyond the channel, 1.6 ha, 9.0 ft",
+    "area body: 1713.9 ha of charted water at 9.0 ft, with 35 island(s)",
+    "area body: 27.7 ha of charted water at 9.0 ft",
+    "area body: 23.9 ha of charted water at 9.0 ft",
+    "area body: 21.5 ha of charted water at 9.0 ft, with 6 island(s)",
     "a charted route 48 mi long runs along this segment's own route and is the reference channel again, not a branch",
     "dropped rivers-18: its nearest point is 1.1 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
     "dropped rivers-25: its nearest point is 1.0 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
@@ -684,11 +655,6 @@
     "dropped rivers-132: it is 0.9 km from this segment's route, beyond the 400 m that makes water reachable from it",
     "dropped rivers-205: it is 0.9 km from this segment's route, beyond the 400 m that makes water reachable from it",
     "dropped rivers-237: it is 0.5 km from this segment's route, beyond the 400 m that makes water reachable from it",
-    "2 depth area(s) lie entirely inside the channel corridor and add no water off the route",
-    "578 depth-area fragment(s) hug the channel without reaching 40 m clear of it \u2014 the channel's own margin rather than a pocket off the route",
-    "dropped Tennessee-Tombigbee Waterway: it sits outside this segment's extent, so it is a neighbouring segment's water rather than this one's",
-    "dropped Black Warrior River: it sits outside this segment's extent, so it is a neighbouring segment's water rather than this one's",
-    "dropped Birdine Creek: it sits outside this segment's extent, so it is a neighbouring segment's water rather than this one's",
     "dropped rivers-190: it retraces the reference channel for 6 of 7 sampled points, so it is the main river again rather than side water",
     "INFERRED LINKS (11) \u2014 water the chart does not show, drawn at 2 ft so a dinghy can reach a creek that ends inland. Each is its own body; the charted creek is unchanged.",
     "  link-rivers-83: joins rivers-83, 37 m across ground the chart shows as dry",
@@ -881,12 +847,12 @@
   "sources": [
     {
       "name": "S-57 cell Selden Lock",
-      "retrieved": "2026-09-23T13:09:34Z",
+      "retrieved": "2026-09-23T14:04:55Z",
       "note": null
     },
     {
       "name": "S-57 cell Catfish Bend",
-      "retrieved": "2026-09-23T13:09:34Z",
+      "retrieved": "2026-09-23T14:04:55Z",
       "note": null
     }
   ],
@@ -900,9 +866,11 @@
     "centerlineVertices": 121,
     "depthSamplesInterpolated": 0,
     "depthGapSpans": [],
-    "backwaters": 9,
-    "bankStripsIgnored": 12,
-    "sideWaterBodies": 108,
+    "widthProfileStops": 389,
+    "waterBodies": 4,
+    "waterCoveredKm2": 17.87,
+    "waterChartedKm2": 17.87,
+    "sideWaterBodies": 106,
     "inferredLinks": 11,
     "extendedMouths": 16,
     "junctionCandidates": [],
@@ -921,10 +889,10 @@
     "trueCenterline": 1948,
     "controllingDepthFt": 9.0,
     "extent": [
-      -3077.3,
-      -3077.3,
-      5491.8,
-      6212.0
+      -5999.8,
+      -5999.8,
+      8414.3,
+      9134.5
     ]
   }
 }
