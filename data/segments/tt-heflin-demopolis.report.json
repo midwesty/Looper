@@ -1,12 +1,12 @@
 {
   "segment": "tt-heflin-demopolis",
-  "generated": "2026-09-24T13:45:04Z",
+  "generated": "2026-09-24T18:01:59Z",
   "ok": true,
   "counts": {
     "passed": 23,
     "failed": 0,
     "skipped": 0,
-    "estimated": 98
+    "estimated": 107
   },
   "checks": [
     {
@@ -87,7 +87,7 @@
     {
       "name": "unverified paths resolve",
       "status": "pass",
-      "detail": "98 paths"
+      "detail": "107 paths"
     },
     {
       "name": "mile axis agrees with lock directions",
@@ -97,7 +97,7 @@
     {
       "name": "verified flag agrees with the unverified list",
       "status": "pass",
-      "detail": "verified=False with 98 unverified fields"
+      "detail": "verified=False with 107 unverified fields"
     },
     {
       "name": "mileSystem.primary names a declared axis",
@@ -499,6 +499,42 @@
       "reason": "no depth area covers rivers-252; emitted at 3.0 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
     },
     {
+      "path": "bodies[104].depthFt",
+      "reason": "no depth area covers water-0; emitted at 0.5 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[105].depthFt",
+      "reason": "no depth area covers water-1; emitted at 0.5 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[106].depthFt",
+      "reason": "no depth area covers water-2; emitted at 0.5 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[107].depthFt",
+      "reason": "no depth area covers water-3; emitted at 0.5 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[108].depthFt",
+      "reason": "no depth area covers water-4; emitted at 0.5 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[109].depthFt",
+      "reason": "no depth area covers water-5; emitted at 0.5 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[110].depthFt",
+      "reason": "no depth area covers water-6; emitted at 0.5 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[111].depthFt",
+      "reason": "no depth area covers water-7; emitted at 0.5 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
+      "path": "bodies[112].depthFt",
+      "reason": "no depth area covers water-8; emitted at 0.5 ft with depthSurveyed:false so the game can show it as unsurveyed rather than as a measurement"
+    },
+    {
       "path": "terrain.blendM",
       "reason": "not measurable from elevation; set to falloffM/3 by convention"
     },
@@ -523,6 +559,7 @@
     "route stitched from 1 charted track line(s) into 1 chain(s); the longest is 77.9 km",
     "width and depth still come from the depth areas around it",
     "centreline thinned from 1948 points to 391 over 77.7 km (Douglas-Peucker, 3.0 m tolerance, budget 932). The game walks this line on every depth lookup, so vertex count is a frame-rate cost.",
+    "NOT CONNECTED: 5 piece(s) of charted water within 1500 m of the route that a boat cannot reach (1 behind dam, 4 behind land). Emitted and marked; no link is invented to any of them. On this waterway most will be cutoff oxbows \u2014 the old river lying beside the new one.",
     "DEPTH CLASSES the chart gives along this reach (DRVAL1 to DRVAL2):\n      0.0 -   9.0 ft    7.307 km2  ( 41%)\n      9.0 -   9.0 ft   10.564 km2  ( 59%)",
     "9 area(s) are charted as DRYING \u2014 no guaranteed depth at all. The schema cannot say 'dries', so they are emitted at 0.5 ft, which is a token and not a measurement.",
     "WATER: 11 area body(ies) covering 17.87 km2 of the 17.87 km2 the chart holds along this reach (100%). 4 sliver(s) under 1200 m2 left out as chart artefacts.",
@@ -635,17 +672,17 @@
     "basin from the chart's RIVERS feature",
     "basin from the chart's RIVERS feature",
     "basin from the chart's RIVERS feature",
-    "area body: 373.5 ha charted 0.0-9.0 ft, emitted at the 0.5 ft it guarantees, which the chart gives as drying, with 12 island(s)",
-    "area body: 249.3 ha charted 0.0-9.0 ft, emitted at the 0.5 ft it guarantees, which the chart gives as drying, with 6 island(s)",
-    "area body: 27.7 ha charted 0.0-9.0 ft, emitted at the 0.5 ft it guarantees, which the chart gives as drying",
-    "area body: 24.3 ha charted 0.0-9.0 ft, emitted at the 0.5 ft it guarantees, which the chart gives as drying, with 4 island(s)",
-    "area body: 23.9 ha charted 0.0-9.0 ft, emitted at the 0.5 ft it guarantees, which the chart gives as drying",
-    "area body: 21.3 ha charted 0.0-9.0 ft, emitted at the 0.5 ft it guarantees, which the chart gives as drying, with 6 island(s)",
-    "area body: 5.8 ha charted 0.0-9.0 ft, emitted at the 0.5 ft it guarantees, which the chart gives as drying, with 1 island(s)",
-    "area body: 2.5 ha charted 0.0-9.0 ft, emitted at the 0.5 ft it guarantees, which the chart gives as drying",
-    "area body: 2.2 ha charted 0.0-9.0 ft, emitted at the 0.5 ft it guarantees, which the chart gives as drying",
+    "area body: 373.5 ha charted 0.0-9.0 ft, emitted at the 0.5 ft it guarantees with 9.0 ft as its upper bound, marked unsurveyed between the two, which the chart gives as DRYING, with 12 island(s)",
+    "area body: 249.3 ha charted 0.0-9.0 ft, emitted at the 0.5 ft it guarantees with 9.0 ft as its upper bound, marked unsurveyed between the two, which the chart gives as DRYING, with 6 island(s)",
+    "area body: 27.7 ha charted 0.0-9.0 ft, emitted at the 0.5 ft it guarantees with 9.0 ft as its upper bound, marked unsurveyed between the two, which the chart gives as DRYING. NOT CONNECTED to navigable water \u2014 731 m away. No link is invented to it.",
+    "area body: 24.3 ha charted 0.0-9.0 ft, emitted at the 0.5 ft it guarantees with 9.0 ft as its upper bound, marked unsurveyed between the two, which the chart gives as DRYING, with 4 island(s)",
+    "area body: 23.9 ha charted 0.0-9.0 ft, emitted at the 0.5 ft it guarantees with 9.0 ft as its upper bound, marked unsurveyed between the two, which the chart gives as DRYING. NOT CONNECTED to navigable water \u2014 4 m away, behind a dam. No link is invented to it.",
+    "area body: 21.3 ha charted 0.0-9.0 ft, emitted at the 0.5 ft it guarantees with 9.0 ft as its upper bound, marked unsurveyed between the two, which the chart gives as DRYING, with 6 island(s)",
+    "area body: 5.8 ha charted 0.0-9.0 ft, emitted at the 0.5 ft it guarantees with 9.0 ft as its upper bound, marked unsurveyed between the two, which the chart gives as DRYING, with 1 island(s)",
+    "area body: 2.5 ha charted 0.0-9.0 ft, emitted at the 0.5 ft it guarantees with 9.0 ft as its upper bound, marked unsurveyed between the two, which the chart gives as DRYING. NOT CONNECTED to navigable water \u2014 1075 m away. No link is invented to it.",
+    "area body: 2.2 ha charted 0.0-9.0 ft, emitted at the 0.5 ft it guarantees with 9.0 ft as its upper bound, marked unsurveyed between the two, which the chart gives as DRYING. NOT CONNECTED to navigable water \u2014 1196 m away. No link is invented to it.",
     "area body: 1039.6 ha charted 9.0-9.0 ft, emitted at the 9.0 ft it guarantees, with 8 island(s)",
-    "area body: 16.8 ha charted 9.0-9.0 ft, emitted at the 9.0 ft it guarantees, with 6 island(s)",
+    "area body: 16.8 ha charted 9.0-9.0 ft, emitted at the 9.0 ft it guarantees. NOT CONNECTED to navigable water \u2014 1091 m away. No link is invented to it., with 6 island(s)",
     "a charted route 48 mi long runs along this segment's own route and is the reference channel again, not a branch",
     "dropped rivers-18: its nearest point is 1.1 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
     "dropped rivers-25: its nearest point is 1.0 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
@@ -689,6 +726,7 @@
     "lock U37TB176-lok-0 has neither a lift nor pool elevations and was dropped",
     "lock U37TB176-lok-3 has neither a lift nor pool elevations and was dropped",
     "terrain fitted from 1300 transects: mean rise at falloff 6.66 m, 90th percentile 10.48 m, 111 of 1300 samples below a third of the mean. A low flatFrac on a bottomland river means the transects rarely found level ground \u2014 worth checking the sampling window against the floodplain's real width.",
+    "FEATURES from the chart: 13 BRIDGE, 52 BUISGL, 7 CBLOHD, 1 DAMCON, 22 DEPCNT, 1 HRBFAC, 2 LNDMRK, 41 LNDRGN, 38 MORFAC, 3 PILPNT, 5 RAILWY, 3 SILTNK, 96 SLCONS",
     "U37TB176: DEPARE[0]: no DRVAL2; deep limit taken as DRVAL1",
     "U37TB176: DEPARE[2]: no DRVAL2; deep limit taken as DRVAL1",
     "U37TB176: DEPARE[11]: no DRVAL2; deep limit taken as DRVAL1",
@@ -860,12 +898,12 @@
   "sources": [
     {
       "name": "S-57 cell Selden Lock",
-      "retrieved": "2026-09-24T13:44:34Z",
+      "retrieved": "2026-09-24T18:01:17Z",
       "note": null
     },
     {
       "name": "S-57 cell Catfish Bend",
-      "retrieved": "2026-09-24T13:44:34Z",
+      "retrieved": "2026-09-24T18:01:17Z",
       "note": null
     }
   ],
@@ -880,6 +918,7 @@
     "depthGapSpans": [],
     "widthProfileStops": 389,
     "waterBodies": 11,
+    "unconnectedWater": 5,
     "waterCoveredKm2": 17.869,
     "waterChartedKm2": 17.87,
     "depthClasses": 2,
@@ -901,6 +940,7 @@
       "rateRatio": 1.017
     },
     "mileAxisBreak": null,
+    "features": 284,
     "trueCenterline": 1948,
     "controllingDepthFt": 9.0,
     "extent": [
