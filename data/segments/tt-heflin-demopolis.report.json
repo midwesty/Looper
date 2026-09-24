@@ -1,6 +1,6 @@
 {
   "segment": "tt-heflin-demopolis",
-  "generated": "2026-09-23T22:00:37Z",
+  "generated": "2026-09-24T13:45:04Z",
   "ok": true,
   "counts": {
     "passed": 23,
@@ -47,12 +47,12 @@
     {
       "name": "all bodies inside the segment extent",
       "status": "pass",
-      "detail": "108 bodies"
+      "detail": "115 bodies"
     },
     {
       "name": "every body has a size",
       "status": "pass",
-      "detail": "108 bodies"
+      "detail": "115 bodies"
     },
     {
       "name": "no body is at zero depth",
@@ -523,7 +523,10 @@
     "route stitched from 1 charted track line(s) into 1 chain(s); the longest is 77.9 km",
     "width and depth still come from the depth areas around it",
     "centreline thinned from 1948 points to 391 over 77.7 km (Douglas-Peucker, 3.0 m tolerance, budget 932). The game walks this line on every depth lookup, so vertex count is a frame-rate cost.",
-    "WATER: 4 area body(ies) covering 17.87 km2 of the 17.87 km2 the chart holds along this reach (100%). 2 sliver(s) under 1200 m2 left out as chart artefacts.",
+    "DEPTH CLASSES the chart gives along this reach (DRVAL1 to DRVAL2):\n      0.0 -   9.0 ft    7.307 km2  ( 41%)\n      9.0 -   9.0 ft   10.564 km2  ( 59%)",
+    "9 area(s) are charted as DRYING \u2014 no guaranteed depth at all. The schema cannot say 'dries', so they are emitted at 0.5 ft, which is a token and not a measurement.",
+    "WATER: 11 area body(ies) covering 17.87 km2 of the 17.87 km2 the chart holds along this reach (100%). 4 sliver(s) under 1200 m2 left out as chart artefacts.",
+    "CREEK SHAPE: 117 turn(s) sharper than 60 degrees in the charted creek lines, 140 after thinning, across 56 body(ies). Thinning ADDED 23; the tolerance is cutting corners a boat would follow.",
     "cove from the chart's own RIVERS area feature, 1.4 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Dead end: somewhere to go and come back from.",
     "cove from the chart's own RIVERS feature, 0.8 km; 9.0 ft against the channel's 9.0 ft. Kept: the dinghy goes where the boat does not, and depth gates itself at the helm. Dead end: somewhere to go and come back from.",
     "cove from the chart's own RIVERS area feature, 0.9 km; NO charted depth \u2014 emitted at 3 ft with depthSurveyed:false. Not a guess dressed as a measurement: the game can draw it as unsurveyed and let the sounder be the only thing that knows. Dead end: somewhere to go and come back from.",
@@ -632,10 +635,17 @@
     "basin from the chart's RIVERS feature",
     "basin from the chart's RIVERS feature",
     "basin from the chart's RIVERS feature",
-    "area body: 1713.9 ha of charted water at 9.0 ft, with 35 island(s)",
-    "area body: 27.7 ha of charted water at 9.0 ft",
-    "area body: 23.9 ha of charted water at 9.0 ft",
-    "area body: 21.5 ha of charted water at 9.0 ft, with 6 island(s)",
+    "area body: 373.5 ha charted 0.0-9.0 ft, emitted at the 0.5 ft it guarantees, which the chart gives as drying, with 12 island(s)",
+    "area body: 249.3 ha charted 0.0-9.0 ft, emitted at the 0.5 ft it guarantees, which the chart gives as drying, with 6 island(s)",
+    "area body: 27.7 ha charted 0.0-9.0 ft, emitted at the 0.5 ft it guarantees, which the chart gives as drying",
+    "area body: 24.3 ha charted 0.0-9.0 ft, emitted at the 0.5 ft it guarantees, which the chart gives as drying, with 4 island(s)",
+    "area body: 23.9 ha charted 0.0-9.0 ft, emitted at the 0.5 ft it guarantees, which the chart gives as drying",
+    "area body: 21.3 ha charted 0.0-9.0 ft, emitted at the 0.5 ft it guarantees, which the chart gives as drying, with 6 island(s)",
+    "area body: 5.8 ha charted 0.0-9.0 ft, emitted at the 0.5 ft it guarantees, which the chart gives as drying, with 1 island(s)",
+    "area body: 2.5 ha charted 0.0-9.0 ft, emitted at the 0.5 ft it guarantees, which the chart gives as drying",
+    "area body: 2.2 ha charted 0.0-9.0 ft, emitted at the 0.5 ft it guarantees, which the chart gives as drying",
+    "area body: 1039.6 ha charted 9.0-9.0 ft, emitted at the 9.0 ft it guarantees, with 8 island(s)",
+    "area body: 16.8 ha charted 9.0-9.0 ft, emitted at the 9.0 ft it guarantees, with 6 island(s)",
     "a charted route 48 mi long runs along this segment's own route and is the reference channel again, not a branch",
     "dropped rivers-18: its nearest point is 1.1 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
     "dropped rivers-25: its nearest point is 1.0 km from this segment's route, beyond the 400 m that makes water reachable from it \u2014 it may belong to a neighbouring segment",
@@ -850,12 +860,12 @@
   "sources": [
     {
       "name": "S-57 cell Selden Lock",
-      "retrieved": "2026-09-23T22:00:08Z",
+      "retrieved": "2026-09-24T13:44:34Z",
       "note": null
     },
     {
       "name": "S-57 cell Catfish Bend",
-      "retrieved": "2026-09-23T22:00:08Z",
+      "retrieved": "2026-09-24T13:44:34Z",
       "note": null
     }
   ],
@@ -869,10 +879,13 @@
     "depthSamplesInterpolated": 0,
     "depthGapSpans": [],
     "widthProfileStops": 389,
-    "waterBodies": 4,
-    "waterCoveredKm2": 17.87,
+    "waterBodies": 11,
+    "waterCoveredKm2": 17.869,
     "waterChartedKm2": 17.87,
-    "sideWaterBodies": 107,
+    "depthClasses": 2,
+    "sharpTurnsCharted": 117,
+    "sharpTurnsAfterThinning": 140,
+    "sideWaterBodies": 114,
     "inferredLinks": 11,
     "extendedMouths": 16,
     "junctionCandidates": [],
