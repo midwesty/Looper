@@ -1,9 +1,9 @@
 {
   "segment": "tt-heflin-demopolis",
-  "generated": "2026-09-24T18:01:59Z",
+  "generated": "2026-09-24T19:21:59Z",
   "ok": true,
   "counts": {
-    "passed": 23,
+    "passed": 24,
     "failed": 0,
     "skipped": 0,
     "estimated": 107
@@ -113,6 +113,11 @@
       "name": "the segment is unscaled",
       "status": "pass",
       "detail": "1:1, true metres"
+    },
+    {
+      "name": "features counted in the report are in the segment",
+      "status": "pass",
+      "detail": "the report counts 284 but the segment carries 284"
     },
     {
       "name": "mile numbering stays on one axis",
@@ -898,12 +903,12 @@
   "sources": [
     {
       "name": "S-57 cell Selden Lock",
-      "retrieved": "2026-09-24T18:01:17Z",
+      "retrieved": "2026-09-24T19:21:17Z",
       "note": null
     },
     {
       "name": "S-57 cell Catfish Bend",
-      "retrieved": "2026-09-24T18:01:17Z",
+      "retrieved": "2026-09-24T19:21:17Z",
       "note": null
     }
   ],
